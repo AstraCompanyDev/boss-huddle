@@ -4,10 +4,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import upfounderLogo from "@/assets/upfounder-logo.jpg";
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -140,8 +141,12 @@ export default function Auth() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/20 via-background to-accent/20 p-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold">Boss Huddle</CardTitle>
+        <CardHeader className="text-center space-y-4">
+          <img
+            src={upfounderLogo}
+            alt="Upfounder"
+            className="h-10 mx-auto object-contain"
+          />
           <CardDescription>Join your accountability group</CardDescription>
         </CardHeader>
         <CardContent>

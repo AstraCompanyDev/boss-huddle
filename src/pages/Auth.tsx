@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -12,18 +12,30 @@ import { Loader2 } from "lucide-react";
 export default function Auth() {
   const navigate = useNavigate();
   const { toast } = useToast();
+
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
 
+  const demoCreds = useMemo(
+    () => ({ email: "demo@bosshuddle.com", password: "test123456" }),
+    []
+  );
+
   useEffect(() => {
-    // Check if user is already logged in
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        navigate("/");
-      }
+    // Listen first (prevents missing events), then check existing session.
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) navigate("/");
     });
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) navigate("/");
+    });
+
+    return () => subscription.unsubscribe();
   }, [navigate]);
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -52,7 +64,6 @@ export default function Auth() {
         title: "Account Created!",
         description: "Let's set up your profile",
       });
-      // Redirect to onboarding
       navigate("/onboarding");
     }
 
@@ -70,8 +81,11 @@ export default function Auth() {
 
     if (error) {
       toast({
-        title: "Error",
-        description: error.message,
+        title: "Sign in failed",
+        description:
+          error.message === "Invalid login credentials"
+            ? "No account found with that email/password. Try Sign Up first, or use the demo account."
+            : error.message,
         variant: "destructive",
       });
     } else {
@@ -79,6 +93,48 @@ export default function Auth() {
     }
 
     setLoading(false);
+  };
+
+  const handleUseDemo = async () => {
+    setLoading(true);
+    try {
+      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-demo-user`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body?.error || "Unable to create demo account");
+      }
+
+      // Fill the form for transparency.
+      setEmail(demoCreds.email);
+      setPassword(demoCreds.password);
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email: demoCreds.email,
+        password: demoCreds.password,
+      });
+
+      if (error) throw error;
+
+      navigate("/");
+    } catch (err: any) {
+      toast({
+        title: "Demo sign-in failed",
+        description: err?.message ?? "Please try again",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -94,7 +150,7 @@ export default function Auth() {
               <TabsTrigger value="signin">Sign In</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
@@ -119,6 +175,7 @@ export default function Auth() {
                     required
                   />
                 </div>
+
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? (
                     <>
@@ -129,6 +186,27 @@ export default function Auth() {
                     "Sign In"
                   )}
                 </Button>
+
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="w-full"
+                  onClick={handleUseDemo}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Preparing demo...
+                    </>
+                  ) : (
+                    "Use demo account"
+                  )}
+                </Button>
+
+                <p className="text-xs text-muted-foreground text-center">
+                  Tip: if you’ve never created an account here, use <span className="font-medium">Sign Up</span> first.
+                </p>
               </form>
             </TabsContent>
 
@@ -167,9 +245,7 @@ export default function Auth() {
                     required
                     minLength={6}
                   />
-                  <p className="text-xs text-muted-foreground">
-                    Password must be at least 6 characters
-                  </p>
+                  <p className="text-xs text-muted-foreground">Password must be at least 6 characters</p>
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? (

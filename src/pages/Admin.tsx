@@ -353,17 +353,6 @@ export default function Admin() {
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Online Now</p>
-                <p className="text-2xl font-bold">{onlineMembers.length}</p>
-              </div>
-              <Users className="h-8 w-8 text-primary opacity-80" />
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Main Tabs */}

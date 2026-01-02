@@ -8,8 +8,10 @@ import {
   FileText,
   Search,
   ChevronRight,
+  Shield,
 } from "lucide-react";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
+import { useAdminCheck } from "@/hooks/useAdminCheck";
 
 import {
   Sidebar,
@@ -46,6 +48,7 @@ export function AppSidebar() {
   const location = useLocation();
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
+  const { isAdmin } = useAdminCheck();
 
   const isActive = (path: string) => currentPath === path;
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
@@ -100,6 +103,17 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              {/* Admin link - only visible to admins */}
+              {isAdmin && (
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <NavLink to="/admin" className={getNavCls}>
+                      <Shield className="h-5 w-5" />
+                      {!collapsed && <span>Admin</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

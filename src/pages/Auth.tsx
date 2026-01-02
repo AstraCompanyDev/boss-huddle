@@ -80,6 +80,13 @@ export default function Auth() {
       password,
     });
 
+    // If they try the demo creds and it doesn't exist yet, create it and retry once.
+    if (error?.message === "Invalid login credentials" && email.trim().toLowerCase() === demoCreds.email) {
+      setLoading(false);
+      await handleUseDemo();
+      return;
+    }
+
     if (error) {
       toast({
         title: "Sign in failed",
@@ -99,20 +106,12 @@ export default function Auth() {
   const handleUseDemo = async () => {
     setLoading(true);
     try {
-      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-demo-user`;
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        },
-        body: JSON.stringify({}),
+      const { error: invokeError } = await supabase.functions.invoke("create-demo-user", {
+        body: {},
       });
 
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body?.error || "Unable to create demo account");
+      if (invokeError) {
+        throw new Error(invokeError.message || "Unable to create demo account");
       }
 
       // Fill the form for transparency.

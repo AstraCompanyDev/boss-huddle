@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Messages from "./pages/Messages";
 import Goals from "./pages/Goals";
 import Members from "./pages/Members";
+import Profile from "./pages/Profile";
 import Files from "./pages/Files";
 import Settings from "./pages/Settings";
 import Contact from "./pages/Contact";
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/messages/channel/:channelName" element={<ProtectedRoute><Layout><Messages /></Layout></ProtectedRoute>} />
           <Route path="/goals" element={<ProtectedRoute><Layout><Goals /></Layout></ProtectedRoute>} />
           <Route path="/members" element={<ProtectedRoute><Layout><Members /></Layout></ProtectedRoute>} />
+          <Route path="/profile/:userId" element={<ProtectedRoute><Layout><Profile /></Layout></ProtectedRoute>} />
           <Route path="/files" element={<ProtectedRoute><Layout><Files /></Layout></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />
           <Route path="/contact" element={<ProtectedRoute><Layout><Contact /></Layout></ProtectedRoute>} />

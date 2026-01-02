@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Home,
@@ -7,10 +6,10 @@ import {
   Settings,
   Target,
   FileText,
-  Bell,
   Search,
   ChevronRight,
 } from "lucide-react";
+import upfounderLogo from "@/assets/upfounder-logo.jpg";
 
 import {
   Sidebar,
@@ -59,10 +58,11 @@ export function AppSidebar() {
         <div className="p-4 border-b">
           {!collapsed && (
             <div className="flex items-center justify-between">
-              <div>
-                <h2 className="font-bold text-lg">AccountableHQ</h2>
-                <p className="text-sm text-muted-foreground">Entrepreneur Group</p>
-              </div>
+              <img
+                src={upfounderLogo}
+                alt="Upfounder"
+                className="h-8 object-contain"
+              />
               <SidebarTrigger className="h-6 w-6" />
             </div>
           )}

@@ -17,8 +17,8 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 224 15% 12%;
 
-    /* Upfounder orange #F05A28 → HSL 14 89% 55% */
-    --primary: 14 89% 55%;
+    /* Blue primary */
+    --primary: 208 52% 58%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 220 13% 95%;
@@ -27,8 +27,7 @@ All colors MUST be HSL.
     --muted: 220 13% 95%;
     --muted-foreground: 220 9% 46%;
 
-    /* Slightly lighter orange for accent */
-    --accent: 14 89% 60%;
+    --accent: 38 92% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -36,25 +35,25 @@ All colors MUST be HSL.
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 14 89% 55%;
+    --ring: 208 52% 58%;
 
     /* Custom design tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(14 89% 55%) 0%, hsl(14 89% 45%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(14 89% 55%) 0%, hsl(25 95% 53%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(14 89% 55%) 0%, hsl(25 95% 53%) 100%);
-    --shadow-elevated: 0 8px 30px hsl(14 89% 55% / 0.15);
+    --gradient-primary: linear-gradient(135deg, hsl(208 52% 58%) 0%, hsl(208 52% 48%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(25 95% 53%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(208 52% 58%) 0%, hsl(38 92% 50%) 100%);
+    --shadow-elevated: 0 8px 30px hsl(208 52% 58% / 0.12);
     --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.04);
 
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 14 89% 55%;
+    --sidebar-primary: 208 52% 58%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 14 89% 55%;
+    --sidebar-ring: 208 52% 58%;
   }
 
   .dark {
@@ -67,9 +66,8 @@ All colors MUST be HSL.
     --popover: 222.2 84% 6%;
     --popover-foreground: 210 40% 98%;
 
-    /* Upfounder orange stays vibrant in dark mode */
-    --primary: 14 89% 55%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -77,23 +75,23 @@ All colors MUST be HSL.
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 14 89% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 14 89% 55%;
+    --ring: 212.7 26.8% 83.9%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 14 89% 55%;
+    --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 14 89% 55%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 

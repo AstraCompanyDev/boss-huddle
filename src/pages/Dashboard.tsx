@@ -29,6 +29,7 @@ import {
   AlertCircle,
   Plus,
   ArrowUp,
+  Send,
 } from "lucide-react";
 import heroImage from "@/assets/hero-dashboard.jpg";
 import { format, isToday, isTomorrow, parseISO } from "date-fns";
@@ -40,6 +41,10 @@ export default function Dashboard() {
   const [userGoals, setUserGoals] = useState<any[]>([]);
   const [events, setEvents] = useState<any[]>([]);
   const [recentActivity, setRecentActivity] = useState<any[]>([]);
+  const [channels, setChannels] = useState<any[]>([]);
+  const [feedPost, setFeedPost] = useState("");
+  const [selectedChannel, setSelectedChannel] = useState("");
+  const [posting, setPosting] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -105,14 +110,24 @@ export default function Dashboard() {
       .limit(3);
     setEvents(eventsData || []);
 
+    // Fetch channels
+    const { data: channelsData } = await supabase
+      .from("channels")
+      .select("*")
+      .order("name");
+    setChannels(channelsData || []);
+    if (channelsData && channelsData.length > 0 && !selectedChannel) {
+      setSelectedChannel(channelsData[0].id);
+    }
+
     // Build recent activity from messages
     const { data: recentMessages } = await supabase
       .from("messages")
       .select("*, channels(name)")
       .order("created_at", { ascending: false })
-      .limit(5);
+      .limit(10);
 
-    if (recentMessages) {
+    if (recentMessages && recentMessages.length > 0) {
       const userIds = [...new Set(recentMessages.map(m => m.user_id))];
       const { data: profiles } = await supabase
         .from("profiles")
@@ -124,6 +139,7 @@ export default function Dashboard() {
         user: profileMap[m.user_id] || "Unknown",
         action: "posted in",
         target: `#${(m as any).channels?.name || "channel"}`,
+        content: m.content,
         time: formatRelativeTime(m.created_at),
       })));
     }
@@ -177,6 +193,28 @@ export default function Dashboard() {
   const handleTrackGoal = () => navigate("/goals");
   const handleInviteMember = () => navigate("/members");
   const handleGetHelp = () => navigate("/contact");
+
+  const handlePostToFeed = async () => {
+    if (!feedPost.trim() || !selectedChannel) return;
+    setPosting(true);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { setPosting(false); return; }
+
+    const { error } = await supabase.from("messages").insert({
+      content: feedPost.trim(),
+      channel_id: selectedChannel,
+      user_id: user.id,
+    });
+
+    setPosting(false);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+      return;
+    }
+    setFeedPost("");
+    toast({ title: "Posted! 🎉", description: "Your update is now in the feed." });
+    fetchAllData();
+  };
 
   return (
     <div className="space-y-8">
@@ -297,9 +335,36 @@ export default function Dashboard() {
               <CardDescription>What's happening across the community</CardDescription>
             </CardHeader>
             <CardContent>
+              {/* Compose Box */}
+              <div className="mb-6 p-4 rounded-lg border bg-muted/20 space-y-3">
+                <Textarea
+                  placeholder="Share an update with the community..."
+                  value={feedPost}
+                  onChange={(e) => setFeedPost(e.target.value)}
+                  rows={2}
+                  className="resize-none"
+                />
+                <div className="flex items-center justify-between">
+                  <Select value={selectedChannel} onValueChange={setSelectedChannel}>
+                    <SelectTrigger className="w-[180px] h-8 text-xs">
+                      <SelectValue placeholder="Select channel" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {channels.map((ch) => (
+                        <SelectItem key={ch.id} value={ch.id}>#{ch.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Button size="sm" onClick={handlePostToFeed} disabled={!feedPost.trim() || posting}>
+                    <Send className="h-4 w-4 mr-2" />
+                    {posting ? "Posting..." : "Post"}
+                  </Button>
+                </div>
+              </div>
+
               <div className="space-y-4">
                 {recentActivity.length === 0 && (
-                  <p className="text-sm text-muted-foreground text-center py-8">No activity yet. Start a conversation in Channels to see updates here!</p>
+                  <p className="text-sm text-muted-foreground text-center py-8">No activity yet. Post your first update above!</p>
                 )}
                 {recentActivity.map((activity, index) => (
                   <div key={index} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-muted/30 transition-colors">
@@ -312,6 +377,9 @@ export default function Dashboard() {
                         <span className="text-muted-foreground">{activity.action}</span>{" "}
                         <span className="font-medium">{activity.target}</span>
                       </p>
+                      {activity.content && (
+                        <p className="text-sm mt-1">{activity.content}</p>
+                      )}
                       <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
                     </div>
                   </div>

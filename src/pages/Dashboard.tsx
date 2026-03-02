@@ -105,7 +105,7 @@ export default function Dashboard() {
               <p className="text-lg opacity-90">Let's crush those goals together 🚀</p>
               <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button className="mt-4 bg-white text-primary hover:bg-white/90">
+                  <Button className="mt-4 bg-card text-primary hover:bg-card/90 dark:bg-white dark:text-primary dark:hover:bg-white/90">
                     <Plus className="h-4 w-4 mr-2" />
                     Set New Goal
                   </Button>

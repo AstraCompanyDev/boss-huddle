@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -52,8 +53,26 @@ const upcomingEvents = [
 
 export default function Dashboard() {
   const [goalDialogOpen, setGoalDialogOpen] = useState(false);
+  const [firstName, setFirstName] = useState("");
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("full_name")
+          .eq("id", user.id)
+          .single();
+        if (profile?.full_name) {
+          setFirstName(profile.full_name.split(" ")[0]);
+        }
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const handleCreateGoal = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -101,7 +120,7 @@ export default function Dashboard() {
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
           <div className="relative h-full flex items-center px-8">
             <div className="text-white">
-              <h1 className="text-3xl font-bold mb-2">HI Druvo, Welcome Back!</h1>
+              <h1 className="text-3xl font-bold mb-2">Hi {firstName || "there"}, Welcome Back!</h1>
               <p className="text-lg opacity-90">Let's crush those goals together 🚀</p>
               <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
                 <DialogTrigger asChild>

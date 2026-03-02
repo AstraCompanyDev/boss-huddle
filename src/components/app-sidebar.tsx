@@ -1,13 +1,12 @@
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Home,
-  MessageSquare,
+  Hash,
   Users,
   Settings,
   Target,
   FileText,
   Search,
-  ChevronRight,
   Shield,
 } from "lucide-react";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
@@ -30,17 +29,10 @@ import { Input } from "@/components/ui/input";
 
 const mainItems = [
   { title: "Dashboard", url: "/", icon: Home },
-  { title: "Messages", url: "/messages", icon: MessageSquare },
+  { title: "Channels", url: "/messages", icon: Hash },
   { title: "Goals", url: "/goals", icon: Target },
   { title: "Members", url: "/members", icon: Users },
   { title: "Files", url: "/files", icon: FileText },
-];
-
-const channels = [
-  { name: "general", unread: 3 },
-  { name: "accountability-check", unread: 0 },
-  { name: "wins-celebrations", unread: 7 },
-  { name: "resources-sharing", unread: 1 },
 ];
 
 export function AppSidebar() {
@@ -118,36 +110,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Channels */}
-        {!collapsed && (
-          <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center justify-between">
-              <span>Channels</span>
-              <ChevronRight className="h-4 w-4" />
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {channels.map((channel) => (
-                  <SidebarMenuItem key={channel.name}>
-                    <SidebarMenuButton asChild>
-                      <NavLink 
-                        to={`/messages/channel/${channel.name}`} 
-                        className="flex items-center justify-between hover:bg-muted/50"
-                      >
-                        <span># {channel.name}</span>
-                        {channel.unread > 0 && (
-                          <span className="bg-accent text-accent-foreground text-xs px-2 py-0.5 rounded-full">
-                            {channel.unread}
-                          </span>
-                        )}
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
 
         {/* User Profile */}
         <div className="mt-auto p-4 border-t">

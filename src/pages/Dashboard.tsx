@@ -31,86 +31,152 @@ import {
   ArrowUp,
 } from "lucide-react";
 import heroImage from "@/assets/hero-dashboard.jpg";
-
-const goals = [
-  { id: 1, title: "Launch MVP", progress: 75, deadline: "Dec 15", status: "on-track" },
-  { id: 2, title: "Reach $10k MRR", progress: 45, deadline: "Jan 30", status: "behind" },
-  { id: 3, title: "Hire 2 developers", progress: 25, deadline: "Feb 15", status: "on-track" },
-];
-
-const recentActivity = [
-  { user: "Sarah Chen", action: "completed goal", target: "Product roadmap v2", time: "2 hours ago" },
-  { user: "Mike Rodriguez", action: "shared update", target: "Weekly metrics", time: "4 hours ago" },
-  { user: "Alex Johnson", action: "joined channel", target: "#wins-celebrations", time: "6 hours ago" },
-  { user: "Emma Davis", action: "uploaded file", target: "Market research.pdf", time: "1 day ago" },
-];
-
-const upcomingEvents = [
-  { title: "Weekly Check-in", date: "Today, 3:00 PM", type: "meeting" },
-  { title: "Goal Review", date: "Tomorrow, 10:00 AM", type: "review" },
-  { title: "Guest Speaker: YC Partner", date: "Friday, 2:00 PM", type: "event" },
-];
+import { format, isToday, isTomorrow, parseISO } from "date-fns";
 
 export default function Dashboard() {
   const [goalDialogOpen, setGoalDialogOpen] = useState(false);
   const [firstName, setFirstName] = useState("");
+  const [stats, setStats] = useState({ activeGoals: 0, completionRate: 0, teamMembers: 0, messagesToday: 0 });
+  const [userGoals, setUserGoals] = useState<any[]>([]);
+  const [events, setEvents] = useState<any[]>([]);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("full_name")
-          .eq("id", user.id)
-          .single();
-        if (profile?.full_name) {
-          setFirstName(profile.full_name.split(" ")[0]);
-        }
-      }
-    };
-    fetchProfile();
+    fetchAllData();
   }, []);
 
-  const handleCreateGoal = (e: React.FormEvent<HTMLFormElement>) => {
+  const fetchAllData = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    // Fetch profile
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("full_name")
+      .eq("id", user.id)
+      .maybeSingle();
+    if (profile?.full_name) {
+      setFirstName(profile.full_name.split(" ")[0]);
+    }
+
+    // Fetch user's goals
+    const { data: goals } = await supabase
+      .from("goals")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+
+    const activeGoals = goals || [];
+    const completedGoals = activeGoals.filter(g => g.progress === 100);
+    const completionRate = activeGoals.length > 0
+      ? Math.round((completedGoals.length / activeGoals.length) * 100)
+      : 0;
+
+    setUserGoals(activeGoals.filter(g => g.progress < 100).slice(0, 3));
+
+    // Fetch team members count
+    const { count: memberCount } = await supabase
+      .from("profiles")
+      .select("*", { count: "exact", head: true });
+
+    // Fetch today's messages count
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    const { count: msgCount } = await supabase
+      .from("messages")
+      .select("*", { count: "exact", head: true })
+      .gte("created_at", todayStart.toISOString());
+
+    setStats({
+      activeGoals: activeGoals.filter(g => g.progress < 100).length,
+      completionRate,
+      teamMembers: memberCount || 0,
+      messagesToday: msgCount || 0,
+    });
+
+    // Fetch upcoming events
+    const { data: eventsData } = await supabase
+      .from("events")
+      .select("*")
+      .gte("event_date", new Date().toISOString())
+      .order("event_date", { ascending: true })
+      .limit(3);
+    setEvents(eventsData || []);
+
+    // Build recent activity from messages
+    const { data: recentMessages } = await supabase
+      .from("messages")
+      .select("*, channels(name)")
+      .order("created_at", { ascending: false })
+      .limit(5);
+
+    if (recentMessages) {
+      const userIds = [...new Set(recentMessages.map(m => m.user_id))];
+      const { data: profiles } = await supabase
+        .from("profiles")
+        .select("id, full_name")
+        .in("id", userIds);
+      const profileMap = Object.fromEntries((profiles || []).map(p => [p.id, p.full_name || "Unknown"]));
+
+      setRecentActivity(recentMessages.map(m => ({
+        user: profileMap[m.user_id] || "Unknown",
+        action: "posted in",
+        target: `#${(m as any).channels?.name || "channel"}`,
+        time: formatRelativeTime(m.created_at),
+      })));
+    }
+  };
+
+  const formatRelativeTime = (dateStr: string | null) => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    if (diffMins < 60) return `${diffMins}m ago`;
+    const diffHours = Math.floor(diffMins / 60);
+    if (diffHours < 24) return `${diffHours}h ago`;
+    const diffDays = Math.floor(diffHours / 24);
+    return `${diffDays}d ago`;
+  };
+
+  const formatEventDate = (dateStr: string) => {
+    const date = parseISO(dateStr);
+    if (isToday(date)) return `Today, ${format(date, "h:mm a")}`;
+    if (isTomorrow(date)) return `Tomorrow, ${format(date, "h:mm a")}`;
+    return format(date, "EEE, MMM d, h:mm a");
+  };
+
+  const handleCreateGoal = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
     const formData = new FormData(e.currentTarget);
-    const goalData = {
-      title: formData.get("title"),
-      description: formData.get("description"),
-      deadline: formData.get("deadline"),
-      category: formData.get("category"),
-    };
+    const { error } = await supabase.from("goals").insert({
+      title: formData.get("title") as string,
+      description: formData.get("description") as string || null,
+      deadline: formData.get("deadline") as string || null,
+      category: formData.get("category") as string || null,
+      user_id: user.id,
+    });
 
-    console.log("Creating goal:", goalData);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+      return;
+    }
+
     setGoalDialogOpen(false);
-    toast({
-      title: "Goal Created! 🎯",
-      description: `"${goalData.title}" has been added to your goals.`,
-    });
+    toast({ title: "Goal Created! 🎯", description: `Goal has been added.` });
+    fetchAllData();
   };
 
-  const handleSendUpdate = () => {
-    navigate("/messages");
-    toast({
-      title: "Opening Messages",
-      description: "Share your progress with the team!",
-    });
-  };
-
-  const handleTrackGoal = () => {
-    navigate("/goals");
-  };
-
-  const handleInviteMember = () => {
-    navigate("/members");
-  };
-
-  const handleGetHelp = () => {
-    navigate("/contact");
-  };
+  const handleSendUpdate = () => navigate("/messages");
+  const handleTrackGoal = () => navigate("/goals");
+  const handleInviteMember = () => navigate("/members");
+  const handleGetHelp = () => navigate("/contact");
 
   return (
     <div className="space-y-8">
@@ -143,12 +209,7 @@ export default function Dashboard() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="description">Description</Label>
-                      <Textarea
-                        id="description"
-                        name="description"
-                        placeholder="Describe what you want to achieve..."
-                        rows={3}
-                      />
+                      <Textarea id="description" name="description" placeholder="Describe what you want to achieve..." rows={3} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="deadline">Deadline*</Label>
@@ -157,9 +218,7 @@ export default function Dashboard() {
                     <div className="space-y-2">
                       <Label htmlFor="category">Category</Label>
                       <Select name="category" defaultValue="product">
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="product">Product Development</SelectItem>
                           <SelectItem value="revenue">Revenue</SelectItem>
@@ -170,13 +229,8 @@ export default function Dashboard() {
                       </Select>
                     </div>
                     <div className="flex justify-end space-x-3 pt-4">
-                      <Button type="button" variant="outline" onClick={() => setGoalDialogOpen(false)}>
-                        Cancel
-                      </Button>
-                      <Button type="submit">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Create Goal
-                      </Button>
+                      <Button type="button" variant="outline" onClick={() => setGoalDialogOpen(false)}>Cancel</Button>
+                      <Button type="submit"><Plus className="h-4 w-4 mr-2" />Create Goal</Button>
                     </div>
                   </form>
                 </DialogContent>
@@ -194,10 +248,8 @@ export default function Dashboard() {
             <Target className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">12</div>
-            <p className="text-xs text-muted-foreground">
-              <span className="text-accent font-medium">+2</span> from last month
-            </p>
+            <div className="text-2xl font-bold">{stats.activeGoals}</div>
+            <p className="text-xs text-muted-foreground">Goals in progress</p>
           </CardContent>
         </Card>
 
@@ -207,11 +259,8 @@ export default function Dashboard() {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">73%</div>
-            <p className="text-xs text-muted-foreground">
-              <ArrowUp className="inline h-3 w-3 text-accent" />
-              <span className="text-accent font-medium">+5%</span> from last week
-            </p>
+            <div className="text-2xl font-bold">{stats.completionRate}%</div>
+            <p className="text-xs text-muted-foreground">Of all goals completed</p>
           </CardContent>
         </Card>
 
@@ -221,8 +270,8 @@ export default function Dashboard() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">8</div>
-            <p className="text-xs text-muted-foreground">2 online now</p>
+            <div className="text-2xl font-bold">{stats.teamMembers}</div>
+            <p className="text-xs text-muted-foreground">On the platform</p>
           </CardContent>
         </Card>
 
@@ -232,10 +281,8 @@ export default function Dashboard() {
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">47</div>
-            <p className="text-xs text-muted-foreground">
-              <span className="text-accent font-medium">+12</span> from yesterday
-            </p>
+            <div className="text-2xl font-bold">{stats.messagesToday}</div>
+            <p className="text-xs text-muted-foreground">Across all channels</p>
           </CardContent>
         </Card>
       </div>
@@ -244,44 +291,41 @@ export default function Dashboard() {
         {/* Current Goals */}
         <Card>
           <CardHeader>
-            <CardTitle>Current Goals</CardTitle>
-            <CardDescription>Your active accountability targets</CardDescription>
+            <CardTitle>Your Goals</CardTitle>
+            <CardDescription>Active accountability targets</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {goals.map((goal) => (
+            {userGoals.length === 0 && (
+              <p className="text-sm text-muted-foreground text-center py-4">No active goals yet. Create one to get started!</p>
+            )}
+            {userGoals.map((goal) => (
               <div key={goal.id} className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div
-                      className={`w-3 h-3 rounded-full ${
-                        goal.status === "on-track"
-                          ? "bg-green-500"
-                          : goal.status === "behind"
-                            ? "bg-red-500"
-                            : "bg-yellow-500"
-                      }`}
-                    />
+                    <div className={`w-3 h-3 rounded-full ${
+                      goal.status === "on-track" ? "bg-green-500" : goal.status === "behind" ? "bg-red-500" : "bg-yellow-500"
+                    }`} />
                     <h4 className="font-medium">{goal.title}</h4>
                   </div>
-                  <Badge variant={goal.status === "on-track" ? "default" : "secondary"}>Due {goal.deadline}</Badge>
+                  {goal.deadline && (
+                    <Badge variant={goal.status === "on-track" ? "default" : "secondary"}>
+                      Due {format(parseISO(goal.deadline), "MMM d")}
+                    </Badge>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Progress</span>
-                    <span className="font-medium">{goal.progress}%</span>
+                    <span className="font-medium">{goal.progress || 0}%</span>
                   </div>
-                  <Progress value={goal.progress} className="h-2" />
+                  <Progress value={goal.progress || 0} className="h-2" />
                 </div>
               </div>
             ))}
-            <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" className="w-full">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add New Goal
-                </Button>
-              </DialogTrigger>
-            </Dialog>
+            <Button variant="outline" className="w-full" onClick={handleTrackGoal}>
+              <Target className="h-4 w-4 mr-2" />
+              View All Goals
+            </Button>
           </CardContent>
         </Card>
 
@@ -293,13 +337,13 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
+              {recentActivity.length === 0 && (
+                <p className="text-sm text-muted-foreground text-center py-4">No recent activity yet.</p>
+              )}
               {recentActivity.map((activity, index) => (
                 <div key={index} className="flex items-start space-x-3">
                   <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white text-sm font-medium">
-                    {activity.user
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
+                    {activity.user.split(" ").map((n: string) => n[0]).join("")}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm">
@@ -323,33 +367,23 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {upcomingEvents.map((event, index) => (
-                <div key={index} className="flex items-center space-x-3 p-3 rounded-lg bg-muted/30">
+              {events.length === 0 && (
+                <p className="text-sm text-muted-foreground text-center py-4">No upcoming events.</p>
+              )}
+              {events.map((event) => (
+                <div key={event.id} className="flex items-center space-x-3 p-3 rounded-lg bg-muted/30">
                   <div className="flex-shrink-0">
-                    {event.type === "meeting" && <Calendar className="h-4 w-4 text-primary" />}
-                    {event.type === "review" && <CheckCircle className="h-4 w-4 text-accent" />}
-                    {event.type === "event" && <Clock className="h-4 w-4 text-muted-foreground" />}
+                    {event.event_type === "meeting" && <Calendar className="h-4 w-4 text-primary" />}
+                    {event.event_type === "review" && <CheckCircle className="h-4 w-4 text-accent" />}
+                    {(!event.event_type || !["meeting", "review"].includes(event.event_type)) && <Clock className="h-4 w-4 text-muted-foreground" />}
                   </div>
                   <div className="flex-1">
                     <p className="font-medium text-sm">{event.title}</p>
-                    <p className="text-xs text-muted-foreground">{event.date}</p>
+                    <p className="text-xs text-muted-foreground">{formatEventDate(event.event_date)}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <Button
-              variant="outline"
-              className="w-full mt-4"
-              onClick={() => {
-                toast({
-                  title: "Calendar Coming Soon",
-                  description: "Full calendar integration will be available soon!",
-                });
-              }}
-            >
-              <Calendar className="h-4 w-4 mr-2" />
-              View Full Calendar
-            </Button>
           </CardContent>
         </Card>
 
@@ -365,27 +399,15 @@ export default function Dashboard() {
                 <MessageSquare className="h-5 w-5" />
                 <span className="text-sm">Send Update</span>
               </Button>
-              <Button
-                variant="outline"
-                className="h-auto p-4 flex flex-col items-center space-y-2"
-                onClick={handleTrackGoal}
-              >
+              <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleTrackGoal}>
                 <Target className="h-5 w-5" />
                 <span className="text-sm">Track Goal</span>
               </Button>
-              <Button
-                variant="outline"
-                className="h-auto p-4 flex flex-col items-center space-y-2"
-                onClick={handleInviteMember}
-              >
+              <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleInviteMember}>
                 <Users className="h-5 w-5" />
                 <span className="text-sm">Invite Member</span>
               </Button>
-              <Button
-                variant="outline"
-                className="h-auto p-4 flex flex-col items-center space-y-2"
-                onClick={handleGetHelp}
-              >
+              <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleGetHelp}>
                 <AlertCircle className="h-5 w-5" />
                 <span className="text-sm">Get Help</span>
               </Button>

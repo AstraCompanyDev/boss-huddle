@@ -287,133 +287,139 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Current Goals */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Your Goals</CardTitle>
-            <CardDescription>Active accountability targets</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {userGoals.length === 0 && (
-              <p className="text-sm text-muted-foreground text-center py-4">No active goals yet. Create one to get started!</p>
-            )}
-            {userGoals.map((goal) => (
-              <div key={goal.id} className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className={`w-3 h-3 rounded-full ${
-                      goal.status === "on-track" ? "bg-green-500" : goal.status === "behind" ? "bg-red-500" : "bg-yellow-500"
-                    }`} />
-                    <h4 className="font-medium">{goal.title}</h4>
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        {/* Left Column - Discovery Feed */}
+        <div className="lg:col-span-3 space-y-8">
+          {/* Recent Activity / Discovery Feed */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Discovery Feed</CardTitle>
+              <CardDescription>What's happening across the community</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {recentActivity.length === 0 && (
+                  <p className="text-sm text-muted-foreground text-center py-8">No activity yet. Start a conversation in Channels to see updates here!</p>
+                )}
+                {recentActivity.map((activity, index) => (
+                  <div key={index} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-muted/30 transition-colors">
+                    <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center text-white text-sm font-medium shrink-0">
+                      {activity.user.split(" ").map((n: string) => n[0]).join("")}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm">
+                        <span className="font-medium">{activity.user}</span>{" "}
+                        <span className="text-muted-foreground">{activity.action}</span>{" "}
+                        <span className="font-medium">{activity.target}</span>
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
+                    </div>
                   </div>
-                  {goal.deadline && (
-                    <Badge variant={goal.status === "on-track" ? "default" : "secondary"}>
-                      Due {format(parseISO(goal.deadline), "MMM d")}
-                    </Badge>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Progress</span>
-                    <span className="font-medium">{goal.progress || 0}%</span>
-                  </div>
-                  <Progress value={goal.progress || 0} className="h-2" />
-                </div>
+                ))}
               </div>
-            ))}
-            <Button variant="outline" className="w-full" onClick={handleTrackGoal}>
-              <Target className="h-4 w-4 mr-2" />
-              View All Goals
-            </Button>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        {/* Recent Activity */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>What's happening in your group</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {recentActivity.length === 0 && (
-                <p className="text-sm text-muted-foreground text-center py-4">No recent activity yet.</p>
+          {/* Quick Actions */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
+              <CardDescription>Common tasks and shortcuts</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <Button className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleSendUpdate}>
+                  <MessageSquare className="h-5 w-5" />
+                  <span className="text-sm">Send Update</span>
+                </Button>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleTrackGoal}>
+                  <Target className="h-5 w-5" />
+                  <span className="text-sm">Track Goal</span>
+                </Button>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleInviteMember}>
+                  <Users className="h-5 w-5" />
+                  <span className="text-sm">Invite Member</span>
+                </Button>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleGetHelp}>
+                  <AlertCircle className="h-5 w-5" />
+                  <span className="text-sm">Get Help</span>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Right Column - Goals & Events */}
+        <div className="lg:col-span-2 space-y-8">
+          {/* Your Goals */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Your Goals</CardTitle>
+              <CardDescription>Active accountability targets</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {userGoals.length === 0 && (
+                <p className="text-sm text-muted-foreground text-center py-4">No active goals yet. Create one to get started!</p>
               )}
-              {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white text-sm font-medium">
-                    {activity.user.split(" ").map((n: string) => n[0]).join("")}
+              {userGoals.map((goal) => (
+                <div key={goal.id} className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-3 h-3 rounded-full ${
+                        goal.status === "on-track" ? "bg-green-500" : goal.status === "behind" ? "bg-red-500" : "bg-yellow-500"
+                      }`} />
+                      <h4 className="font-medium text-sm">{goal.title}</h4>
+                    </div>
+                    {goal.deadline && (
+                      <Badge variant={goal.status === "on-track" ? "default" : "secondary"} className="text-xs">
+                        {format(parseISO(goal.deadline), "MMM d")}
+                      </Badge>
+                    )}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm">
-                      <span className="font-medium">{activity.user}</span>{" "}
-                      <span className="text-muted-foreground">{activity.action}</span>{" "}
-                      <span className="font-medium">{activity.target}</span>
-                    </p>
-                    <p className="text-xs text-muted-foreground">{activity.time}</p>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Progress</span>
+                      <span className="font-medium">{goal.progress || 0}%</span>
+                    </div>
+                    <Progress value={goal.progress || 0} className="h-2" />
                   </div>
                 </div>
               ))}
-            </div>
-          </CardContent>
-        </Card>
+              <Button variant="outline" className="w-full" onClick={handleTrackGoal}>
+                <Target className="h-4 w-4 mr-2" />
+                View All Goals
+              </Button>
+            </CardContent>
+          </Card>
 
-        {/* Upcoming Events */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Upcoming Events</CardTitle>
-            <CardDescription>Don't miss these important dates</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {events.length === 0 && (
-                <p className="text-sm text-muted-foreground text-center py-4">No upcoming events.</p>
-              )}
-              {events.map((event) => (
-                <div key={event.id} className="flex items-center space-x-3 p-3 rounded-lg bg-muted/30">
-                  <div className="flex-shrink-0">
-                    {event.event_type === "meeting" && <Calendar className="h-4 w-4 text-primary" />}
-                    {event.event_type === "review" && <CheckCircle className="h-4 w-4 text-accent" />}
-                    {(!event.event_type || !["meeting", "review"].includes(event.event_type)) && <Clock className="h-4 w-4 text-muted-foreground" />}
+          {/* Upcoming Events */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Upcoming Events</CardTitle>
+              <CardDescription>Don't miss these important dates</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {events.length === 0 && (
+                  <p className="text-sm text-muted-foreground text-center py-4">No upcoming events.</p>
+                )}
+                {events.map((event) => (
+                  <div key={event.id} className="flex items-center space-x-3 p-3 rounded-lg bg-muted/30">
+                    <div className="flex-shrink-0">
+                      {event.event_type === "meeting" && <Calendar className="h-4 w-4 text-primary" />}
+                      {event.event_type === "review" && <CheckCircle className="h-4 w-4 text-accent" />}
+                      {(!event.event_type || !["meeting", "review"].includes(event.event_type)) && <Clock className="h-4 w-4 text-muted-foreground" />}
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-sm">{event.title}</p>
+                      <p className="text-xs text-muted-foreground">{formatEventDate(event.event_date)}</p>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <p className="font-medium text-sm">{event.title}</p>
-                    <p className="text-xs text-muted-foreground">{formatEventDate(event.event_date)}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Quick Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Common tasks and shortcuts</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-3">
-              <Button className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleSendUpdate}>
-                <MessageSquare className="h-5 w-5" />
-                <span className="text-sm">Send Update</span>
-              </Button>
-              <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleTrackGoal}>
-                <Target className="h-5 w-5" />
-                <span className="text-sm">Track Goal</span>
-              </Button>
-              <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleInviteMember}>
-                <Users className="h-5 w-5" />
-                <span className="text-sm">Invite Member</span>
-              </Button>
-              <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleGetHelp}>
-                <AlertCircle className="h-5 w-5" />
-                <span className="text-sm">Get Help</span>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
 import { useAdminCheck } from "@/hooks/useAdminCheck";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 import {
   Sidebar,
@@ -41,6 +43,29 @@ export function AppSidebar() {
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
   const { isAdmin } = useAdminCheck();
+  const [profile, setProfile] = useState<{ full_name: string | null } | null>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data } = await supabase
+          .from("profiles")
+          .select("full_name")
+          .eq("id", user.id)
+          .single();
+        if (data) setProfile(data);
+      }
+    };
+    fetchProfile();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => fetchProfile());
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const getInitials = (name: string | null) => {
+    if (!name) return "?";
+    return name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
+  };
 
   const isActive = (path: string) => currentPath === path;
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
@@ -95,7 +120,6 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-              {/* Admin link - only visible to admins */}
               {isAdmin && (
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
@@ -110,16 +134,15 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-
         {/* User Profile */}
         <div className="mt-auto p-4 border-t">
           {!collapsed ? (
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold">
-                JS
+                {getInitials(profile?.full_name)}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">John Smith</p>
+                <p className="text-sm font-medium truncate">{profile?.full_name || "User"}</p>
                 <p className="text-xs text-muted-foreground">Online</p>
               </div>
               <Button variant="ghost" size="sm" asChild>
@@ -131,7 +154,7 @@ export function AppSidebar() {
           ) : (
             <div className="flex justify-center">
               <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold">
-                JS
+                {getInitials(profile?.full_name)}
               </div>
             </div>
           )}

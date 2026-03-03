@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,6 +13,32 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const navigate = useNavigate();
+  const [profile, setProfile] = useState<{ full_name: string | null; role: string | null; avatar_url: string | null } | null>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data } = await supabase
+          .from("profiles")
+          .select("full_name, role, avatar_url")
+          .eq("id", user.id)
+          .single();
+        if (data) setProfile(data);
+      }
+    };
+    fetchProfile();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      fetchProfile();
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const getInitials = (name: string | null) => {
+    if (!name) return "?";
+    return name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
+  };
 
   return (
     <SidebarProvider>
@@ -25,19 +53,8 @@ export default function Layout({ children }: LayoutProps) {
             </div>
 
             <div className="flex items-center space-x-3">
-              {/* Theme Toggle */}
               <ThemeToggle />
 
-              {/* Settings */}
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => navigate('/settings')}
-              >
-                <Settings className="h-5 w-5" />
-              </Button>
-
-              {/* Settings */}
               <Button 
                 variant="ghost" 
                 size="sm"
@@ -49,11 +66,11 @@ export default function Layout({ children }: LayoutProps) {
               {/* User Profile */}
               <div className="flex items-center space-x-3 pl-3 border-l">
                 <div className="text-right hidden sm:block">
-                  <p className="text-sm font-medium">John Smith</p>
-                  <p className="text-xs text-muted-foreground">Founder</p>
+                  <p className="text-sm font-medium">{profile?.full_name || "User"}</p>
+                  <p className="text-xs text-muted-foreground">{profile?.role || "Member"}</p>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold cursor-pointer hover:scale-105 transition-transform">
-                  JS
+                  {getInitials(profile?.full_name)}
                 </div>
               </div>
             </div>

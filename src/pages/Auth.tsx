@@ -29,7 +29,7 @@ export default function Auth() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) navigate("/");
+      if (session) navigate("/dashboard");
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {

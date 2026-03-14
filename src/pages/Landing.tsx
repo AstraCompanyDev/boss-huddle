@@ -146,7 +146,7 @@ export default function Landing() {
     <div className="min-h-screen bg-[hsl(0,0%,100%)] text-[hsl(0,0%,10%)] font-['Inter',sans-serif]">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[hsl(0,0%,90%)] bg-[hsl(0,0%,100%)]/80 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-5 h-16 flex items-center justify-between">
           <div className="flex items-center">
             <img
               src={upfounderLogo}
@@ -178,11 +178,11 @@ export default function Landing() {
       </nav>
 
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 relative overflow-hidden">
+      <section className="pt-32 pb-20 px-5 relative overflow-hidden">
         {/* Subtle radial gradient texture */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(210,100%,95%),transparent)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsl(38,90%,95%),transparent)]" />
-        <div className="max-w-4xl mx-auto text-center relative">
+        <div className="max-w-5xl mx-auto text-center relative">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-[hsl(0,0%,90%)] bg-[hsl(0,0%,96%)] text-sm font-medium text-[hsl(0,0%,42%)]">
             <Zap className="h-3.5 w-3.5 text-[hsl(0,0%,0%)]" />
             Built for founders who ship
@@ -255,8 +255,8 @@ export default function Landing() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6 border-t border-[hsl(0,0%,92%)]">
-        <div className="max-w-6xl mx-auto">
+      <section id="features" className="py-24 px-5 border-t border-[hsl(0,0%,92%)]">
+        <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
               Everything you need to stay on track
@@ -342,8 +342,8 @@ export default function Landing() {
       </section>
 
       {/* Built by Founders */}
-      <section className="py-24 px-6 border-t border-[hsl(0,0%,92%)]">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-24 px-5 border-t border-[hsl(0,0%,92%)]">
+        <div className="max-w-[1400px] mx-auto">
           <div className="bg-[hsl(0,0%,96%)] rounded-2xl border border-[hsl(0,0%,90%)] overflow-hidden grid md:grid-cols-5">
             <div className="md:col-span-2 overflow-hidden h-[400px]">
               <video
@@ -388,8 +388,8 @@ export default function Landing() {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-24 px-6 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,96%)]">
-        <div className="max-w-6xl mx-auto">
+      <section id="testimonials" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,96%)]">
+        <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
               Founders who ship, together
@@ -432,8 +432,8 @@ export default function Landing() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-24 px-6 border-t border-[hsl(0,0%,92%)]">
-        <div className="max-w-5xl mx-auto">
+      <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)]">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
               Simple, transparent pricing
@@ -443,7 +443,7 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {pricingPlans.map((plan) => (
               <Card
                 key={plan.name}
@@ -499,8 +499,8 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,0%)]">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="py-24 px-5 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,0%)]">
+        <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,100%)]">
             Ready to build with accountability?
           </h2>
@@ -519,8 +519,8 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="py-10 px-6 border-t border-[hsl(0,0%,90%)]">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <footer className="py-10 px-5 border-t border-[hsl(0,0%,90%)]">
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center">
             <img
               src={upfounderLogo}

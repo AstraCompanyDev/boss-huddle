@@ -345,14 +345,14 @@ export default function Landing() {
       <section className="py-24 px-6 border-t border-[hsl(0,0%,92%)]">
         <div className="max-w-7xl mx-auto">
           <div className="bg-[hsl(0,0%,96%)] rounded-2xl border border-[hsl(0,0%,90%)] overflow-hidden grid md:grid-cols-5">
-            <div className="md:col-span-2 overflow-hidden max-h-[280px]">
+            <div className="md:col-span-2 overflow-hidden h-[340px]">
               <video
                 src="/videos/founder-video.mp4"
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="w-full h-full object-cover min-h-[200px] max-h-[280px]"
+                className="w-full object-cover scale-[1.3] translate-y-[0%]"
                 ref={(el) => {
                   if (!el) return;
                   const startTime = 2;

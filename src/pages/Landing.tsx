@@ -7,7 +7,7 @@ import featureLiveSessions from "@/assets/feature-live-sessions.jpg";
 import featureExpertAdvice from "@/assets/feature-expert-advice.jpg";
 import featureInvestorSessions from "@/assets/feature-investor-sessions.jpg";
 import bannerAccountability from "@/assets/banner-accountability.jpg";
-import bannerResources from "@/assets/banner-resources.jpg";
+import bannerResources from "@/assets/banner-resources-new.jpg";
 import avatar1 from "@/assets/avatar-1.jpg";
 import avatar2 from "@/assets/avatar-2.jpg";
 import avatar3 from "@/assets/avatar-3.jpg";

@@ -81,6 +81,7 @@ const testimonials = [
     quote:
       "Upfounder completely changed how I approach my business. The accountability factor alone 10x'd my output.",
     rating: 5,
+    avatar: avatar1,
   },
   {
     name: "Marcus Johnson",
@@ -88,6 +89,7 @@ const testimonials = [
     quote:
       "I went from scattered ideas to a focused roadmap in my first week. The community here is unmatched.",
     rating: 5,
+    avatar: avatar2,
   },
   {
     name: "Elena Rodriguez",
@@ -95,6 +97,7 @@ const testimonials = [
     quote:
       "Finally a platform built by founders, for founders. No fluff—just results and real connections.",
     rating: 5,
+    avatar: avatar3,
   },
 ];
 
@@ -368,9 +371,12 @@ export default function Landing() {
                   <p className="text-[hsl(0,0%,42%)] text-sm leading-relaxed mb-5 italic">
                     "{t.quote}"
                   </p>
-                  <div>
-                    <p className="text-sm font-semibold text-[hsl(0,0%,0%)]">{t.name}</p>
-                    <p className="text-xs text-[hsl(0,0%,42%)]">{t.role}</p>
+                  <div className="flex items-center gap-3">
+                    <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                    <div>
+                      <p className="text-sm font-semibold text-[hsl(0,0%,0%)]">{t.name}</p>
+                      <p className="text-xs text-[hsl(0,0%,42%)]">{t.role}</p>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

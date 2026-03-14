@@ -59,6 +59,7 @@ export default function Layout({ children }: LayoutProps) {
                 variant="ghost" 
                 size="sm"
                 onClick={() => navigate('/settings')}
+                className="text-muted-foreground hover:text-foreground"
               >
                 <Settings className="h-5 w-5" />
               </Button>
@@ -66,10 +67,13 @@ export default function Layout({ children }: LayoutProps) {
               {/* User Profile */}
               <div className="flex items-center space-x-3 pl-3 border-l">
                 <div className="text-right hidden sm:block">
-                  <p className="text-sm font-medium">{profile?.full_name || "User"}</p>
+                  <p className="text-sm font-semibold">{profile?.full_name || "User"}</p>
                   <p className="text-xs text-muted-foreground">{profile?.role || "Member"}</p>
                 </div>
-                <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold cursor-pointer hover:scale-105 transition-transform">
+                <div 
+                  className="w-9 h-9 rounded-full bg-foreground flex items-center justify-center text-background text-sm font-semibold cursor-pointer hover:opacity-80 transition-opacity"
+                  onClick={() => navigate('/settings')}
+                >
                   {getInitials(profile?.full_name)}
                 </div>
               </div>
@@ -77,7 +81,7 @@ export default function Layout({ children }: LayoutProps) {
           </header>
 
           {/* Main Content */}
-          <main className="flex-1 p-6 overflow-auto">
+          <main className="flex-1 p-6 overflow-auto bg-secondary/30">
             {children}
           </main>
         </div>

@@ -276,7 +276,7 @@ export default function Landing() {
 
           {/* Top row — 2 large banner cards */}
           <div className="grid md:grid-cols-2 gap-5 mb-5">
-            <div className="relative rounded-xl overflow-hidden h-56 group cursor-pointer">
+            <div className="relative rounded-2xl overflow-hidden h-56 group cursor-pointer">
               <img
                 src={bannerAccountability}
                 alt="Ultimate Accountability"

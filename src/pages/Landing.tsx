@@ -345,7 +345,7 @@ export default function Landing() {
       <section className="py-24 px-6 border-t border-[hsl(0,0%,92%)]">
         <div className="max-w-7xl mx-auto">
           <div className="bg-[hsl(0,0%,96%)] rounded-2xl border border-[hsl(0,0%,90%)] overflow-hidden grid md:grid-cols-5">
-            <div className="md:col-span-2 overflow-hidden">
+            <div className="md:col-span-2 overflow-hidden max-h-[280px]">
               <video
                 src="/videos/founder-video.mp4"
                 autoPlay

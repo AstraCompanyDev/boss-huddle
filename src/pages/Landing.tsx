@@ -2,6 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
+import featureGoalTracking from "@/assets/feature-goal-tracking.jpg";
+import featureAccountability from "@/assets/feature-accountability.jpg";
+import featureMessaging from "@/assets/feature-messaging.jpg";
+import featureAnalytics from "@/assets/feature-analytics.jpg";
+import featureSprints from "@/assets/feature-sprints.jpg";
+import featureSecurity from "@/assets/feature-security.jpg";
 import {
   Target,
   Users,
@@ -36,36 +42,42 @@ const features = [
     title: "Goal Tracking",
     description:
       "Set, track, and crush your business goals with milestone-based progress tracking.",
+    image: featureGoalTracking,
   },
   {
     icon: Users,
     title: "Accountability Groups",
     description:
       "Get paired with driven founders who keep you on track and push you forward.",
+    image: featureAccountability,
   },
   {
     icon: MessageSquare,
     title: "Real-Time Messaging",
     description:
       "Channel-based messaging to share wins, ask questions, and stay connected.",
+    image: featureMessaging,
   },
   {
     icon: BarChart3,
     title: "Progress Analytics",
     description:
       "Visual dashboards showing your streaks, milestones, and growth over time.",
+    image: featureAnalytics,
   },
   {
     icon: Zap,
     title: "Weekly Sprints",
     description:
       "Structured weekly check-ins to maintain momentum and celebrate progress.",
+    image: featureSprints,
   },
   {
     icon: Shield,
     title: "Private & Secure",
     description:
       "Your data stays yours. Enterprise-grade security for all your business intel.",
+    image: featureSecurity,
   },
 ];
 
@@ -253,8 +265,15 @@ export default function Landing() {
             {features.map((feature) => (
               <Card
                 key={feature.title}
-                className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group"
+                className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group overflow-hidden"
               >
+                <div className="w-full h-40 overflow-hidden">
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
                 <CardContent className="p-6">
                   <div className="w-10 h-10 rounded-xl bg-[hsl(0,0%,100%)] border border-[hsl(0,0%,90%)] flex items-center justify-center mb-4 group-hover:bg-[hsl(0,0%,0%)] group-hover:border-[hsl(0,0%,0%)] transition-colors">
                     <feature.icon className="h-5 w-5 text-[hsl(0,0%,10%)] group-hover:text-[hsl(0,0%,100%)] transition-colors" />

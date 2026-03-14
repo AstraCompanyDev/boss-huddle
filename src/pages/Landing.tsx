@@ -205,7 +205,7 @@ export default function Landing() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Button
               size="lg"
-              className="bg-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(0,0%,10%)] font-semibold rounded-full px-8 h-12 text-base"
+              className="bg-[hsl(208,52%,58%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(208,52%,50%)] font-semibold rounded-full px-8 h-12 text-base"
               onClick={() => navigate("/auth")}
             >
               Start Free Trial

@@ -6,14 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import {
   Send,
   Search,
   Hash,
-  Users,
   Loader2,
 } from "lucide-react";
 
@@ -26,14 +24,12 @@ export default function Messages() {
   const queryClient = useQueryClient();
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Get current user
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       setCurrentUserId(data.user?.id ?? null);
     });
   }, []);
 
-  // Fetch channels
   const { data: channels = [], isLoading: channelsLoading } = useQuery({
     queryKey: ["channels"],
     queryFn: async () => {
@@ -43,7 +39,6 @@ export default function Messages() {
     },
   });
 
-  // Auto-select channel
   useEffect(() => {
     if (channels.length > 0 && !selectedChannelId) {
       const match = channelName
@@ -53,7 +48,6 @@ export default function Messages() {
     }
   }, [channels, channelName, selectedChannelId]);
 
-  // Fetch messages for selected channel
   const { data: messages = [], isLoading: messagesLoading } = useQuery({
     queryKey: ["messages", selectedChannelId],
     queryFn: async () => {
@@ -65,7 +59,6 @@ export default function Messages() {
         .order("created_at", { ascending: true });
       if (error) throw error;
 
-      // Fetch profile names for all unique user_ids
       const userIds = [...new Set(data.map((m) => m.user_id))];
       const { data: profiles } = await supabase
         .from("profiles")
@@ -82,7 +75,6 @@ export default function Messages() {
     enabled: !!selectedChannelId,
   });
 
-  // Realtime subscription for new messages
   useEffect(() => {
     if (!selectedChannelId) return;
     const channel = supabase
@@ -106,14 +98,12 @@ export default function Messages() {
     };
   }, [selectedChannelId, queryClient]);
 
-  // Scroll to bottom on new messages
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
 
-  // Send message mutation
   const sendMessage = useMutation({
     mutationFn: async (content: string) => {
       if (!selectedChannelId || !currentUserId) throw new Error("Not ready");
@@ -145,19 +135,19 @@ export default function Messages() {
     name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
 
   return (
-    <div className="h-[calc(100vh-2rem)] flex">
+    <div className="h-[calc(100vh-7rem)] flex rounded-2xl overflow-hidden border bg-card">
       {/* Channel List */}
-      <div className="w-72 border-r bg-card flex flex-col">
+      <div className="w-72 border-r flex flex-col">
         <div className="p-4 border-b">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input placeholder="Search channels..." className="pl-10 bg-muted/30" />
+            <Input placeholder="Search channels..." className="pl-10 bg-secondary border-0 rounded-xl" />
           </div>
         </div>
 
         <ScrollArea className="flex-1">
           <div className="p-2">
-            <h3 className="px-3 py-2 text-sm font-semibold text-muted-foreground uppercase">
+            <h3 className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
               Channels
             </h3>
             {channelsLoading ? (
@@ -169,19 +159,21 @@ export default function Messages() {
                 <button
                   key={channel.id}
                   onClick={() => setSelectedChannelId(channel.id)}
-                  className={`w-full text-left p-3 rounded-lg mb-1 transition-colors ${
+                  className={`w-full text-left p-3 rounded-xl mb-1 transition-colors ${
                     selectedChannelId === channel.id
-                      ? "bg-primary/10 text-primary"
-                      : "hover:bg-muted/50"
+                      ? "bg-foreground text-background font-semibold"
+                      : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                   }`}
                 >
                   <div className="flex items-center space-x-3">
                     <Hash className="h-4 w-4 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm truncate">{channel.name}</p>
-                      <p className="text-xs text-muted-foreground truncate">
-                        {channel.description}
-                      </p>
+                      <p className="text-sm truncate">{channel.name}</p>
+                      {selectedChannelId !== channel.id && channel.description && (
+                        <p className="text-xs opacity-60 truncate">
+                          {channel.description}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </button>
@@ -194,15 +186,17 @@ export default function Messages() {
       {/* Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Chat Header */}
-        <div className="p-4 border-b bg-card">
+        <div className="p-4 border-b">
           <div className="flex items-center space-x-3">
-            <Hash className="h-5 w-5 text-muted-foreground" />
+            <div className="w-8 h-8 rounded-xl bg-secondary flex items-center justify-center">
+              <Hash className="h-4 w-4 text-foreground" />
+            </div>
             <div>
               <h2 className="font-semibold">
-                #{selectedChannel?.name || "Select a channel"}
+                {selectedChannel?.name || "Select a channel"}
               </h2>
               {selectedChannel?.description && (
-                <p className="text-sm text-muted-foreground">{selectedChannel.description}</p>
+                <p className="text-xs text-muted-foreground">{selectedChannel.description}</p>
               )}
             </div>
           </div>
@@ -216,15 +210,17 @@ export default function Messages() {
             </div>
           ) : messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
-              <Hash className="h-12 w-12 mb-4 opacity-30" />
-              <p className="text-lg font-medium">No messages yet</p>
+              <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center mb-4">
+                <Hash className="h-8 w-8 opacity-40" />
+              </div>
+              <p className="text-lg font-semibold">No messages yet</p>
               <p className="text-sm">Be the first to send a message!</p>
             </div>
           ) : (
             <div className="space-y-4">
               {messages.map((message) => (
                 <div key={message.id} className="flex space-x-3 group">
-                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium flex-shrink-0">
+                  <div className="w-9 h-9 rounded-full bg-foreground flex items-center justify-center text-background text-xs font-semibold flex-shrink-0">
                     {getInitials(message.user_name)}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -243,7 +239,7 @@ export default function Messages() {
         </div>
 
         {/* Message Input */}
-        <div className="p-4 border-t bg-card">
+        <div className="p-4 border-t">
           <div className="flex items-center space-x-2">
             <Input
               placeholder={`Message #${selectedChannel?.name || "channel"}...`}
@@ -256,12 +252,13 @@ export default function Messages() {
                 }
               }}
               disabled={!selectedChannelId || sendMessage.isPending}
-              className="flex-1"
+              className="flex-1 rounded-xl"
             />
             <Button
-              size="sm"
+              size="icon"
               disabled={!newMessage.trim() || sendMessage.isPending}
               onClick={handleSend}
+              className="rounded-full h-10 w-10"
             >
               {sendMessage.isPending ? (
                 <Loader2 className="h-4 w-4 animate-spin" />

@@ -28,10 +28,9 @@ import {
   Clock,
   AlertCircle,
   Plus,
-  ArrowUp,
+  ArrowRight,
   Send,
 } from "lucide-react";
-import heroImage from "@/assets/hero-dashboard.jpg";
 import { format, isToday, isTomorrow, parseISO } from "date-fns";
 
 export default function Dashboard() {
@@ -56,7 +55,6 @@ export default function Dashboard() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
-    // Fetch profile
     const { data: profile } = await supabase
       .from("profiles")
       .select("full_name")
@@ -66,7 +64,6 @@ export default function Dashboard() {
       setFirstName(profile.full_name.split(" ")[0]);
     }
 
-    // Fetch user's goals
     const { data: goals } = await supabase
       .from("goals")
       .select("*")
@@ -81,12 +78,10 @@ export default function Dashboard() {
 
     setUserGoals(activeGoals.filter(g => g.progress < 100).slice(0, 3));
 
-    // Fetch team members count
     const { count: memberCount } = await supabase
       .from("profiles")
       .select("*", { count: "exact", head: true });
 
-    // Fetch today's messages count
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
     const { count: msgCount } = await supabase
@@ -101,7 +96,6 @@ export default function Dashboard() {
       messagesToday: msgCount || 0,
     });
 
-    // Fetch upcoming events
     const { data: eventsData } = await supabase
       .from("events")
       .select("*")
@@ -110,7 +104,6 @@ export default function Dashboard() {
       .limit(3);
     setEvents(eventsData || []);
 
-    // Fetch channels
     const { data: channelsData } = await supabase
       .from("channels")
       .select("*")
@@ -120,7 +113,6 @@ export default function Dashboard() {
       setSelectedChannel(channelsData[0].id);
     }
 
-    // Build recent activity from messages
     const { data: recentMessages } = await supabase
       .from("messages")
       .select("*, channels(name)")
@@ -219,116 +211,85 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden rounded-xl">
-        <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: `url(${heroImage})` }}>
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
-          <div className="relative h-full flex items-center px-8">
-            <div className="text-white">
-              <h1 className="text-3xl font-bold mb-2">Hi {firstName || "there"}, Welcome Back!</h1>
-              <p className="text-lg opacity-90">Let's crush those goals together 🚀</p>
-              <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button className="mt-4 bg-card text-primary hover:bg-card/90 dark:bg-white dark:text-primary dark:hover:bg-white/90">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Set New Goal
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[500px]">
-                  <DialogHeader>
-                    <DialogTitle>Create New Goal</DialogTitle>
-                    <DialogDescription>
-                      Set a new accountability goal and track your progress with the team.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <form onSubmit={handleCreateGoal} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="title">Goal Title*</Label>
-                      <Input id="title" name="title" placeholder="e.g., Launch MVP" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="description">Description</Label>
-                      <Textarea id="description" name="description" placeholder="Describe what you want to achieve..." rows={3} />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="deadline">Deadline*</Label>
-                      <Input id="deadline" name="deadline" type="date" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="category">Category</Label>
-                      <Select name="category" defaultValue="product">
-                        <SelectTrigger><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="product">Product Development</SelectItem>
-                          <SelectItem value="revenue">Revenue</SelectItem>
-                          <SelectItem value="team">Team Building</SelectItem>
-                          <SelectItem value="marketing">Marketing</SelectItem>
-                          <SelectItem value="personal">Personal Growth</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex justify-end space-x-3 pt-4">
-                      <Button type="button" variant="outline" onClick={() => setGoalDialogOpen(false)}>Cancel</Button>
-                      <Button type="submit"><Plus className="h-4 w-4 mr-2" />Create Goal</Button>
-                    </div>
-                  </form>
-                </DialogContent>
-              </Dialog>
-            </div>
-          </div>
+      <div className="relative overflow-hidden rounded-2xl bg-foreground text-background p-8 md:p-10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_80%_-20%,hsl(210,100%,30%),transparent)] opacity-60" />
+        <div className="relative">
+          <h1 className="text-3xl font-bold mb-2">Hi {firstName || "there"}, Welcome Back!</h1>
+          <p className="text-lg opacity-70 mb-6">Let's crush those goals together 🚀</p>
+          <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-semibold px-6">
+                <Plus className="h-4 w-4 mr-2" />
+                Set New Goal
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[500px]">
+              <DialogHeader>
+                <DialogTitle>Create New Goal</DialogTitle>
+                <DialogDescription>
+                  Set a new accountability goal and track your progress with the team.
+                </DialogDescription>
+              </DialogHeader>
+              <form onSubmit={handleCreateGoal} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="title">Goal Title*</Label>
+                  <Input id="title" name="title" placeholder="e.g., Launch MVP" required className="rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea id="description" name="description" placeholder="Describe what you want to achieve..." rows={3} className="rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="deadline">Deadline*</Label>
+                  <Input id="deadline" name="deadline" type="date" required className="rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="category">Category</Label>
+                  <Select name="category" defaultValue="product">
+                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="product">Product Development</SelectItem>
+                      <SelectItem value="revenue">Revenue</SelectItem>
+                      <SelectItem value="team">Team Building</SelectItem>
+                      <SelectItem value="marketing">Marketing</SelectItem>
+                      <SelectItem value="personal">Personal Growth</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex justify-end space-x-3 pt-4">
+                  <Button type="button" variant="outline" onClick={() => setGoalDialogOpen(false)} className="rounded-full">Cancel</Button>
+                  <Button type="submit" className="rounded-full"><Plus className="h-4 w-4 mr-2" />Create Goal</Button>
+                </div>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Goals</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.activeGoals}</div>
-            <p className="text-xs text-muted-foreground">Goals in progress</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Completion Rate</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.completionRate}%</div>
-            <p className="text-xs text-muted-foreground">Of all goals completed</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Team Members</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.teamMembers}</div>
-            <p className="text-xs text-muted-foreground">On the platform</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Messages Today</CardTitle>
-            <MessageSquare className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.messagesToday}</div>
-            <p className="text-xs text-muted-foreground">Across all channels</p>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[
+          { label: "Active Goals", value: stats.activeGoals, sub: "Goals in progress", icon: Target },
+          { label: "Completion Rate", value: `${stats.completionRate}%`, sub: "Of all goals completed", icon: TrendingUp },
+          { label: "Team Members", value: stats.teamMembers, sub: "On the platform", icon: Users },
+          { label: "Messages Today", value: stats.messagesToday, sub: "Across all channels", icon: MessageSquare },
+        ].map((stat) => (
+          <Card key={stat.label}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">{stat.label}</CardTitle>
+              <stat.icon className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stat.value}</div>
+              <p className="text-xs text-muted-foreground">{stat.sub}</p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* Left Column - Discovery Feed */}
-        <div className="lg:col-span-3 space-y-8">
-          {/* Recent Activity / Discovery Feed */}
+        <div className="lg:col-span-3 space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Discovery Feed</CardTitle>
@@ -336,17 +297,17 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent>
               {/* Compose Box */}
-              <div className="mb-6 p-4 rounded-lg border bg-muted/20 space-y-3">
+              <div className="mb-6 p-4 rounded-2xl border bg-secondary/30 space-y-3">
                 <Textarea
                   placeholder="Share an update with the community..."
                   value={feedPost}
                   onChange={(e) => setFeedPost(e.target.value)}
                   rows={2}
-                  className="resize-none"
+                  className="resize-none rounded-xl border-0 bg-background"
                 />
                 <div className="flex items-center justify-between">
                   <Select value={selectedChannel} onValueChange={setSelectedChannel}>
-                    <SelectTrigger className="w-[180px] h-8 text-xs">
+                    <SelectTrigger className="w-[180px] h-8 text-xs rounded-lg">
                       <SelectValue placeholder="Select channel" />
                     </SelectTrigger>
                     <SelectContent>
@@ -355,30 +316,30 @@ export default function Dashboard() {
                       ))}
                     </SelectContent>
                   </Select>
-                  <Button size="sm" onClick={handlePostToFeed} disabled={!feedPost.trim() || posting}>
+                  <Button size="sm" onClick={handlePostToFeed} disabled={!feedPost.trim() || posting} className="rounded-full">
                     <Send className="h-4 w-4 mr-2" />
                     {posting ? "Posting..." : "Post"}
                   </Button>
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {recentActivity.length === 0 && (
                   <p className="text-sm text-muted-foreground text-center py-8">No activity yet. Post your first update above!</p>
                 )}
                 {recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-muted/30 transition-colors">
-                    <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center text-white text-sm font-medium shrink-0">
+                  <div key={index} className="flex items-start space-x-3 p-3 rounded-xl hover:bg-secondary/50 transition-colors">
+                    <div className="w-10 h-10 rounded-full bg-foreground flex items-center justify-center text-background text-sm font-medium shrink-0">
                       {activity.user.split(" ").map((n: string) => n[0]).join("")}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm">
-                        <span className="font-medium">{activity.user}</span>{" "}
+                        <span className="font-semibold">{activity.user}</span>{" "}
                         <span className="text-muted-foreground">{activity.action}</span>{" "}
-                        <span className="font-medium">{activity.target}</span>
+                        <span className="font-semibold">{activity.target}</span>
                       </p>
                       {activity.content && (
-                        <p className="text-sm mt-1">{activity.content}</p>
+                        <p className="text-sm mt-1 text-muted-foreground">{activity.content}</p>
                       )}
                       <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
                     </div>
@@ -396,19 +357,19 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <Button className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleSendUpdate}>
+                <Button className="h-auto p-4 flex flex-col items-center space-y-2 rounded-xl" onClick={handleSendUpdate}>
                   <MessageSquare className="h-5 w-5" />
                   <span className="text-sm">Send Update</span>
                 </Button>
-                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleTrackGoal}>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2 rounded-xl" onClick={handleTrackGoal}>
                   <Target className="h-5 w-5" />
                   <span className="text-sm">Track Goal</span>
                 </Button>
-                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleInviteMember}>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2 rounded-xl" onClick={handleInviteMember}>
                   <Users className="h-5 w-5" />
                   <span className="text-sm">Invite Member</span>
                 </Button>
-                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleGetHelp}>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2 rounded-xl" onClick={handleGetHelp}>
                   <AlertCircle className="h-5 w-5" />
                   <span className="text-sm">Get Help</span>
                 </Button>
@@ -418,7 +379,7 @@ export default function Dashboard() {
         </div>
 
         {/* Right Column - Goals & Events */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6">
           {/* Your Goals */}
           <Card>
             <CardHeader>
@@ -434,7 +395,7 @@ export default function Dashboard() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div className={`w-3 h-3 rounded-full ${
-                        goal.status === "on-track" ? "bg-green-500" : goal.status === "behind" ? "bg-red-500" : "bg-yellow-500"
+                        goal.status === "on-track" ? "bg-green-500" : goal.status === "behind" ? "bg-destructive" : "bg-accent"
                       }`} />
                       <h4 className="font-medium text-sm">{goal.title}</h4>
                     </div>
@@ -453,7 +414,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               ))}
-              <Button variant="outline" className="w-full" onClick={handleTrackGoal}>
+              <Button variant="outline" className="w-full rounded-full" onClick={handleTrackGoal}>
                 <Target className="h-4 w-4 mr-2" />
                 View All Goals
               </Button>
@@ -467,12 +428,12 @@ export default function Dashboard() {
               <CardDescription>Don't miss these important dates</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {events.length === 0 && (
                   <p className="text-sm text-muted-foreground text-center py-4">No upcoming events.</p>
                 )}
                 {events.map((event) => (
-                  <div key={event.id} className="flex items-center space-x-3 p-3 rounded-lg bg-muted/30">
+                  <div key={event.id} className="flex items-center space-x-3 p-3 rounded-xl bg-secondary/50">
                     <div className="flex-shrink-0">
                       {event.event_type === "meeting" && <Calendar className="h-4 w-4 text-primary" />}
                       {event.event_type === "review" && <CheckCircle className="h-4 w-4 text-accent" />}

@@ -57,16 +57,9 @@ export default function Settings() {
         .eq("id", user.id);
 
       if (error) {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        });
+        toast({ title: "Error", description: error.message, variant: "destructive" });
       } else {
-        toast({
-          title: "Success",
-          description: "Profile updated successfully",
-        });
+        toast({ title: "Success", description: "Profile updated successfully" });
         fetchProfile();
       }
     }
@@ -78,15 +71,15 @@ export default function Settings() {
     navigate("/auth");
   };
 
-  const handleCancelSubscription = () => {
-    // TODO: Implement subscription cancellation when backend is connected
-    console.log("Canceling subscription...");
+  const getInitials = (name: string | null) => {
+    if (!name) return "?";
+    return name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
   };
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div>
-        <h1 className="text-3xl font-bold mb-2">Settings</h1>
+        <h1 className="text-3xl font-bold tracking-tight mb-2">Settings</h1>
         <p className="text-muted-foreground">Manage your account settings and preferences</p>
       </div>
 
@@ -97,16 +90,12 @@ export default function Settings() {
           <CardDescription>Update your personal details and profile picture</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Profile Picture */}
           <div className="flex items-center space-x-6">
-            <Avatar className="h-24 w-24">
-              <AvatarImage src="" alt="Profile picture" />
-              <AvatarFallback className="bg-gradient-primary text-white text-2xl font-bold">
-                JS
-              </AvatarFallback>
-            </Avatar>
+            <div className="w-24 h-24 rounded-2xl bg-foreground flex items-center justify-center text-background text-2xl font-bold">
+              {getInitials(profile?.full_name)}
+            </div>
             <div className="space-y-2">
-              <Button variant="outline" className="relative">
+              <Button variant="outline" className="relative rounded-full">
                 <Camera className="h-4 w-4 mr-2" />
                 Change Photo
                 <input
@@ -114,7 +103,6 @@ export default function Settings() {
                   accept="image/*"
                   className="absolute inset-0 opacity-0 cursor-pointer"
                   onChange={(e) => {
-                    // TODO: Implement file upload when backend is connected
                     console.log("File selected:", e.target.files?.[0]);
                   }}
                 />
@@ -125,7 +113,6 @@ export default function Settings() {
 
           <Separator />
 
-          {/* Name */}
           <div className="space-y-2">
             <Label htmlFor="name">
               <User className="h-4 w-4 inline mr-2" />
@@ -136,10 +123,10 @@ export default function Settings() {
               placeholder="John Smith"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
+              className="rounded-xl"
             />
           </div>
 
-          {/* Bio */}
           <div className="space-y-2">
             <Label htmlFor="bio">Quick Bio</Label>
             <Textarea
@@ -148,11 +135,12 @@ export default function Settings() {
               rows={4}
               value={bio}
               onChange={(e) => setBio(e.target.value)}
+              className="rounded-xl"
             />
             <p className="text-xs text-muted-foreground">Brief description for your profile. Max 200 characters.</p>
           </div>
 
-          <Button onClick={handleUpdateProfile} disabled={loading}>
+          <Button onClick={handleUpdateProfile} disabled={loading} className="rounded-full font-semibold">
             {loading ? "Saving..." : "Save Changes"}
           </Button>
         </CardContent>
@@ -165,7 +153,6 @@ export default function Settings() {
           <CardDescription>Manage your account details and security</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Email */}
           <div className="space-y-2">
             <Label htmlFor="email">
               <Mail className="h-4 w-4 inline mr-2" />
@@ -177,30 +164,31 @@ export default function Settings() {
               placeholder="john@example.com"
               value={email}
               disabled
+              className="rounded-xl"
             />
             <p className="text-xs text-muted-foreground">This is the email associated with your account</p>
           </div>
 
-          <Button variant="outline">Update Email</Button>
+          <Button variant="outline" className="rounded-full">Update Email</Button>
         </CardContent>
       </Card>
 
       {/* Subscription */}
-      <Card className="border-destructive/50">
+      <Card>
         <CardHeader>
           <CardTitle>Subscription</CardTitle>
           <CardDescription>Manage your subscription and billing</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+          <div className="flex items-center justify-between p-4 bg-secondary rounded-xl">
             <div className="flex items-center space-x-3">
-              <CreditCard className="h-5 w-5 text-primary" />
+              <CreditCard className="h-5 w-5 text-foreground" />
               <div>
-                <p className="font-medium">Pro Plan</p>
-                <p className="text-sm text-muted-foreground">$29/month</p>
+                <p className="font-semibold">Premium Plan</p>
+                <p className="text-sm text-muted-foreground">$99/month</p>
               </div>
             </div>
-            <Button variant="outline" onClick={handleCancelSubscription}>
+            <Button variant="outline" className="rounded-full">
               Cancel Subscription
             </Button>
           </div>
@@ -211,7 +199,7 @@ export default function Settings() {
       </Card>
 
       {/* Danger Zone */}
-      <Card className="border-destructive">
+      <Card className="border-destructive/30">
         <CardHeader>
           <CardTitle className="text-destructive">Danger Zone</CardTitle>
           <CardDescription>Actions that affect your account</CardDescription>
@@ -220,7 +208,7 @@ export default function Settings() {
           <Button 
             variant="destructive" 
             onClick={handleLogout}
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto rounded-full font-semibold"
           >
             <LogOut className="h-4 w-4 mr-2" />
             Log Out

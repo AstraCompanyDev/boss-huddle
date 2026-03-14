@@ -391,17 +391,15 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {pricingPlans.map((plan) => (
               <Card
                 key={plan.name}
-                className={`relative overflow-hidden rounded-2xl ${
-                  plan.highlighted
-                    ? "bg-[hsl(0,0%,0%)] border-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)]"
-                    : "bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)]"
+                className={`relative overflow-hidden rounded-2xl ${plan.gradient} ${plan.border} ${
+                  plan.highlighted ? "text-[hsl(0,0%,100%)]" : ""
                 }`}
               >
-                <CardContent className="p-6">
+                <CardContent className="p-8">
                   <p className={`text-sm font-medium mb-1 ${plan.highlighted ? "text-[hsl(0,0%,70%)]" : "text-[hsl(0,0%,42%)]"}`}>
                     {plan.name}
                   </p>
@@ -409,7 +407,7 @@ export default function Landing() {
                     <span className={`text-4xl font-bold ${plan.highlighted ? "text-[hsl(0,0%,100%)]" : "text-[hsl(0,0%,0%)]"}`}>
                       {plan.price}
                     </span>
-                    {plan.period !== "forever" && (
+                    {plan.period && (
                       <span className={`text-sm ${plan.highlighted ? "text-[hsl(0,0%,60%)]" : "text-[hsl(0,0%,42%)]"}`}>
                         {plan.period}
                       </span>

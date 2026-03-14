@@ -217,6 +217,7 @@ function TestimonialCarousel() {
   );
 }
 
+export default function Landing() {
   const navigate = useNavigate();
 
   return (

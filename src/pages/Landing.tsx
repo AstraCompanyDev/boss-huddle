@@ -53,38 +53,24 @@ const features = [
   },
   {
     icon: Users,
-    title: "Accountability Groups",
+    title: "Weekly Live Sessions",
     description:
-      "Get paired with driven founders who keep you on track and push you forward.",
-    image: featureAccountability,
+      "Join live group sessions every week to share progress, get feedback, and stay motivated.",
+    image: featureLiveSessions,
   },
   {
-    icon: MessageSquare,
-    title: "Real-Time Messaging",
+    icon: Star,
+    title: "Expert Advice",
     description:
-      "Channel-based messaging to share wins, ask questions, and stay connected.",
-    image: featureMessaging,
+      "Get guidance from experienced founders and mentors who've built and scaled businesses.",
+    image: featureExpertAdvice,
   },
   {
     icon: BarChart3,
-    title: "Progress Analytics",
+    title: "Investor Sessions",
     description:
-      "Visual dashboards showing your streaks, milestones, and growth over time.",
-    image: featureAnalytics,
-  },
-  {
-    icon: Zap,
-    title: "Weekly Sprints",
-    description:
-      "Structured weekly check-ins to maintain momentum and celebrate progress.",
-    image: featureSprints,
-  },
-  {
-    icon: Shield,
-    title: "Private & Secure",
-    description:
-      "Your data stays yours. Enterprise-grade security for all your business intel.",
-    image: featureSecurity,
+      "Pitch your ideas, get feedback, and connect directly with active investors.",
+    image: featureInvestorSessions,
   },
 ];
 

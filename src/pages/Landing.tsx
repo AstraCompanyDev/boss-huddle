@@ -406,7 +406,7 @@ export default function Landing() {
             {pricingPlans.map((plan) => (
               <Card
                 key={plan.name}
-                className={`relative overflow-hidden ${
+                className={`relative overflow-hidden rounded-2xl ${
                   plan.highlighted
                     ? "bg-[hsl(0,0%,0%)] border-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)]"
                     : "bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)]"

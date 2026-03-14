@@ -519,8 +519,8 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="py-10 px-6 border-t border-[hsl(0,0%,90%)]">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <footer className="py-10 px-5 border-t border-[hsl(0,0%,90%)]">
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center">
             <img
               src={upfounderLogo}

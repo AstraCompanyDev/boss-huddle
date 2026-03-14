@@ -296,7 +296,7 @@ export default function Landing() {
                 </p>
               </div>
             </div>
-            <div className="relative rounded-xl overflow-hidden h-56 group cursor-pointer">
+            <div className="relative rounded-2xl overflow-hidden h-56 group cursor-pointer">
               <img
                 src={bannerResources}
                 alt="All the resources you need"

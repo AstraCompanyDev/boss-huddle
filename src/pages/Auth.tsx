@@ -125,7 +125,7 @@ export default function Auth() {
 
       if (error) throw error;
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (err: any) {
       toast({
         title: "Demo sign-in failed",

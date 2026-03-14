@@ -69,7 +69,7 @@ export default function Onboarding() {
         description: "Your 30-day free trial has started",
       });
 
-      navigate("/");
+      navigate("/dashboard");
     }
     setLoading(false);
   };

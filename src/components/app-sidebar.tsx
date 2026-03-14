@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const mainItems = [
-  { title: "Dashboard", url: "/", icon: Home },
+  { title: "Dashboard", url: "/dashboard", icon: Home },
   { title: "Channels", url: "/messages", icon: Hash },
   { title: "Goals", url: "/goals", icon: Target },
   { title: "Members", url: "/members", icon: Users },

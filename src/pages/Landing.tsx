@@ -187,7 +187,7 @@ function TestimonialCarousel() {
     >
       <CarouselContent className="-ml-5">
         {testimonials.map((t) => (
-          <CarouselItem key={t.name} className="pl-5 md:basis-1/3">
+          <CarouselItem key={t.name} className="pl-5 basis-full">
             <Card className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl h-full">
               <CardContent className="p-6">
                 <div className="flex gap-1 mb-4">

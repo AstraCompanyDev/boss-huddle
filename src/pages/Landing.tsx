@@ -158,7 +158,7 @@ const pricingPlans = [
 ];
 
 function TestimonialCarousel() {
-  const [api, setApi] = React.useState<CarouselApi>();
+  const [api, setApi] = useState<CarouselApi>();
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
 
   const startAutoScroll = useCallback(() => {

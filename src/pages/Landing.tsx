@@ -10,6 +10,13 @@ import featureSprints from "@/assets/feature-sprints.jpg";
 import featureSecurity from "@/assets/feature-security.jpg";
 import bannerAccountability from "@/assets/banner-accountability.jpg";
 import bannerResources from "@/assets/banner-resources.jpg";
+import avatar1 from "@/assets/avatar-1.jpg";
+import avatar2 from "@/assets/avatar-2.jpg";
+import avatar3 from "@/assets/avatar-3.jpg";
+import avatar4 from "@/assets/avatar-4.jpg";
+import avatar5 from "@/assets/avatar-5.jpg";
+
+const founderAvatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
 import {
   Target,
   Users,
@@ -238,6 +245,23 @@ export default function Landing() {
             >
               See How It Works
             </Button>
+          </div>
+
+          {/* Social proof avatars */}
+          <div className="flex items-center justify-center gap-3 mb-16">
+            <div className="flex -space-x-3">
+              {founderAvatars.map((avatar, i) => (
+                <img
+                  key={i}
+                  src={avatar}
+                  alt="Founder"
+                  className="w-9 h-9 rounded-full border-2 border-[hsl(0,0%,100%)] object-cover"
+                />
+              ))}
+            </div>
+            <p className="text-sm text-[hsl(0,0%,42%)] font-medium">
+              Join <span className="text-[hsl(0,0%,0%)] font-semibold">hundreds</span> of other founders
+            </p>
           </div>
 
           {/* Stats ticker */}

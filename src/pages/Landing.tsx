@@ -81,6 +81,7 @@ const testimonials = [
     quote:
       "Upfounder completely changed how I approach my business. The accountability factor alone 10x'd my output.",
     rating: 5,
+    avatar: avatar1,
   },
   {
     name: "Marcus Johnson",
@@ -88,6 +89,7 @@ const testimonials = [
     quote:
       "I went from scattered ideas to a focused roadmap in my first week. The community here is unmatched.",
     rating: 5,
+    avatar: avatar2,
   },
   {
     name: "Elena Rodriguez",
@@ -95,6 +97,7 @@ const testimonials = [
     quote:
       "Finally a platform built by founders, for founders. No fluff—just results and real connections.",
     rating: 5,
+    avatar: avatar3,
   },
 ];
 

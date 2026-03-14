@@ -265,8 +265,15 @@ export default function Landing() {
             {features.map((feature) => (
               <Card
                 key={feature.title}
-                className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group"
+                className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group overflow-hidden"
               >
+                <div className="w-full h-40 overflow-hidden">
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
                 <CardContent className="p-6">
                   <div className="w-10 h-10 rounded-xl bg-[hsl(0,0%,100%)] border border-[hsl(0,0%,90%)] flex items-center justify-center mb-4 group-hover:bg-[hsl(0,0%,0%)] group-hover:border-[hsl(0,0%,0%)] transition-colors">
                     <feature.icon className="h-5 w-5 text-[hsl(0,0%,10%)] group-hover:text-[hsl(0,0%,100%)] transition-colors" />

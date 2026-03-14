@@ -356,8 +356,8 @@ export default function Landing() {
                   <Button
                     className={`w-full rounded-full font-semibold mb-6 ${
                       plan.highlighted
-                        ? "bg-[hsl(0,0%,100%)] text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,90%)]"
-                        : "bg-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(0,0%,10%)]"
+                        ? "bg-[hsl(38,92%,50%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(38,92%,45%)]"
+                        : "bg-[hsl(208,52%,58%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(208,52%,50%)]"
                     }`}
                     onClick={() => navigate("/auth")}
                   >

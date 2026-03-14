@@ -365,7 +365,7 @@ export default function Landing() {
             {testimonials.map((t) => (
               <Card
                 key={t.name}
-                className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)]"
+                className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl"
               >
                 <CardContent className="p-6">
                   <div className="flex gap-1 mb-4">

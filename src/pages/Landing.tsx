@@ -276,7 +276,7 @@ export default function Landing() {
 
           {/* Top row — 2 large banner cards */}
           <div className="grid md:grid-cols-2 gap-5 mb-5">
-            <div className="relative rounded-xl overflow-hidden h-56 group cursor-pointer">
+            <div className="relative rounded-2xl overflow-hidden h-56 group cursor-pointer">
               <img
                 src={bannerAccountability}
                 alt="Ultimate Accountability"
@@ -296,7 +296,7 @@ export default function Landing() {
                 </p>
               </div>
             </div>
-            <div className="relative rounded-xl overflow-hidden h-56 group cursor-pointer">
+            <div className="relative rounded-2xl overflow-hidden h-56 group cursor-pointer">
               <img
                 src={bannerResources}
                 alt="All the resources you need"
@@ -323,7 +323,7 @@ export default function Landing() {
             {features.map((feature) => (
               <Card
                 key={feature.title}
-                className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group overflow-hidden"
+                className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group overflow-hidden rounded-2xl"
               >
                 <div className="w-full h-36 overflow-hidden">
                   <img
@@ -365,7 +365,7 @@ export default function Landing() {
             {testimonials.map((t) => (
               <Card
                 key={t.name}
-                className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)]"
+                className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl"
               >
                 <CardContent className="p-6">
                   <div className="flex gap-1 mb-4">
@@ -406,7 +406,7 @@ export default function Landing() {
             {pricingPlans.map((plan) => (
               <Card
                 key={plan.name}
-                className={`relative overflow-hidden ${
+                className={`relative overflow-hidden rounded-2xl ${
                   plan.highlighted
                     ? "bg-[hsl(0,0%,0%)] border-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)]"
                     : "bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)]"

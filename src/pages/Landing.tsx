@@ -195,7 +195,10 @@ export default function Landing() {
       </nav>
 
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6">
+      <section className="pt-32 pb-20 px-6 relative overflow-hidden">
+        {/* Subtle radial gradient texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(210,100%,95%),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsl(38,90%,95%),transparent)]" />
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-[hsl(0,0%,90%)] bg-[hsl(0,0%,96%)] text-sm font-medium text-[hsl(0,0%,42%)]">
             <Zap className="h-3.5 w-3.5 text-[hsl(0,0%,0%)]" />

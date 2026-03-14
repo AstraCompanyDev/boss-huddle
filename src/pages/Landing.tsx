@@ -2,6 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
 import featureGoalTracking from "@/assets/feature-goal-tracking.jpg";
 import featureLiveSessions from "@/assets/feature-live-sessions.jpg";

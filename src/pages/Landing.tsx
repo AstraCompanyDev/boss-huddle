@@ -432,8 +432,8 @@ export default function Landing() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-24 px-6 border-t border-[hsl(0,0%,92%)]">
-        <div className="max-w-5xl mx-auto">
+      <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)]">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
               Simple, transparent pricing

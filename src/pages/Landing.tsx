@@ -343,9 +343,9 @@ export default function Landing() {
 
       {/* Built by Founders */}
       <section className="py-24 px-6 border-t border-[hsl(0,0%,92%)]">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-[hsl(0,0%,96%)] rounded-2xl border border-[hsl(0,0%,90%)] overflow-hidden grid md:grid-cols-2">
-            <div className="overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-[hsl(0,0%,96%)] rounded-2xl border border-[hsl(0,0%,90%)] overflow-hidden grid md:grid-cols-5">
+            <div className="md:col-span-2 overflow-hidden">
               <video
                 src="/videos/founder-video.mp4"
                 autoPlay
@@ -353,15 +353,30 @@ export default function Landing() {
                 muted
                 playsInline
                 className="w-full h-full object-cover min-h-[320px]"
+                ref={(el) => {
+                  if (!el) return;
+                  const startTime = 2;
+                  const endTime = el.duration ? el.duration - 2 : 0;
+                  el.currentTime = startTime;
+                  const handleTimeUpdate = () => {
+                    if (el.currentTime >= endTime && endTime > startTime) {
+                      el.currentTime = startTime;
+                    }
+                  };
+                  el.addEventListener("timeupdate", handleTimeUpdate);
+                  el.addEventListener("loadedmetadata", () => {
+                    el.currentTime = startTime;
+                  });
+                }}
               />
             </div>
-            <div className="flex flex-col justify-center p-10 md:p-14">
+            <div className="md:col-span-3 flex flex-col justify-center p-10 md:p-16">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
                 Built by founders,
                 <br />
                 for founders
               </h2>
-              <p className="text-[hsl(0,0%,42%)] leading-relaxed">
+              <p className="text-[hsl(0,0%,42%)] leading-relaxed max-w-lg">
                 We believe founders grow fastest when they're surrounded by other
                 ambitious builders. Upfounder was created to give entrepreneurs the
                 structure, community, and accountability they need to turn big ideas

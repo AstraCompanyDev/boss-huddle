@@ -1,6 +1,13 @@
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
 import featureGoalTracking from "@/assets/feature-goal-tracking.jpg";
 import featureLiveSessions from "@/assets/feature-live-sessions.jpg";
@@ -78,26 +85,37 @@ const testimonials = [
   {
     name: "Sarah Chen",
     role: "Founder, NovaTech",
-    quote:
-      "Upfounder completely changed how I approach my business. The accountability factor alone 10x'd my output.",
+    quote: "Upfounder completely changed how I approach my business. The accountability factor alone 10x'd my output.",
     rating: 5,
     avatar: avatar1,
   },
   {
     name: "Marcus Johnson",
     role: "CEO, GrowthLab",
-    quote:
-      "I went from scattered ideas to a focused roadmap in my first week. The community here is unmatched.",
+    quote: "I went from scattered ideas to a focused roadmap in my first week. The community here is unmatched.",
     rating: 5,
     avatar: avatar2,
   },
   {
     name: "Elena Rodriguez",
     role: "Co-Founder, Artisana",
-    quote:
-      "Finally a platform built by founders, for founders. No fluff—just results and real connections.",
+    quote: "Finally a platform built by founders, for founders. No fluff—just results and real connections.",
     rating: 5,
     avatar: avatar3,
+  },
+  {
+    name: "David Park",
+    role: "Founder, Stackwise",
+    quote: "The weekly sprints keep me laser-focused. I've shipped more in 2 months than the entire previous year.",
+    rating: 5,
+    avatar: avatar4,
+  },
+  {
+    name: "Amara Okafor",
+    role: "CEO, BrightPath",
+    quote: "Being surrounded by other founders who get it—that's what makes Upfounder special. The support is incredible.",
+    rating: 5,
+    avatar: avatar5,
   },
 ];
 
@@ -138,6 +156,66 @@ const pricingPlans = [
     highlighted: true,
   },
 ];
+
+function TestimonialCarousel() {
+  const [api, setApi] = useState<CarouselApi>();
+  const intervalRef = useRef<ReturnType<typeof setInterval>>();
+
+  const startAutoScroll = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      api?.scrollNext();
+    }, 4000);
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+    startAutoScroll();
+    // Restart timer on user interaction
+    api.on("pointerUp", startAutoScroll);
+    api.on("select", () => {}); // keep alive
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [api, startAutoScroll]);
+
+  return (
+    <Carousel
+      setApi={setApi}
+      opts={{ align: "start", loop: true }}
+      className="w-full"
+    >
+      <CarouselContent className="-ml-5">
+        {testimonials.map((t) => (
+          <CarouselItem key={t.name} className="pl-5 md:basis-1/3">
+            <Card className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl h-full">
+              <CardContent className="p-6">
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-4 w-4 fill-[hsl(0,0%,0%)] text-[hsl(0,0%,0%)]"
+                    />
+                  ))}
+                </div>
+                <p className="text-[hsl(0,0%,42%)] text-sm leading-relaxed mb-5 italic">
+                  "{t.quote}"
+                </p>
+                <div className="flex items-center gap-3">
+                  <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                  <div>
+                    <p className="text-sm font-semibold text-[hsl(0,0%,0%)]">{t.name}</p>
+                    <p className="text-xs text-[hsl(0,0%,42%)]">{t.role}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+  );
+}
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -399,35 +477,7 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
-            {testimonials.map((t) => (
-              <Card
-                key={t.name}
-                className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl"
-              >
-                <CardContent className="p-6">
-                  <div className="flex gap-1 mb-4">
-                    {Array.from({ length: t.rating }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className="h-4 w-4 fill-[hsl(0,0%,0%)] text-[hsl(0,0%,0%)]"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-[hsl(0,0%,42%)] text-sm leading-relaxed mb-5 italic">
-                    "{t.quote}"
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
-                    <div>
-                      <p className="text-sm font-semibold text-[hsl(0,0%,0%)]">{t.name}</p>
-                      <p className="text-xs text-[hsl(0,0%,42%)]">{t.role}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <TestimonialCarousel />
         </div>
       </section>
 

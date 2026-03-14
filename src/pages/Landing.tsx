@@ -8,6 +8,8 @@ import featureMessaging from "@/assets/feature-messaging.jpg";
 import featureAnalytics from "@/assets/feature-analytics.jpg";
 import featureSprints from "@/assets/feature-sprints.jpg";
 import featureSecurity from "@/assets/feature-security.jpg";
+import bannerAccountability from "@/assets/banner-accountability.jpg";
+import bannerResources from "@/assets/banner-resources.jpg";
 import {
   Target,
   Users,

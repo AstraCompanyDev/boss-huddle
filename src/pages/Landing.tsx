@@ -187,25 +187,25 @@ function TestimonialCarousel() {
     >
       <CarouselContent className="-ml-5">
         {testimonials.map((t) => (
-          <CarouselItem key={t.name} className="pl-5 basis-full">
-            <Card className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl h-full">
-              <CardContent className="p-6">
-                <div className="flex gap-1 mb-4">
+          <CarouselItem key={t.name} className="pl-5 basis-full flex justify-center">
+            <Card className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl max-w-2xl w-full">
+              <CardContent className="p-10 md:p-14 text-center">
+                <div className="flex gap-1 mb-6 justify-center">
                   {Array.from({ length: t.rating }).map((_, i) => (
                     <Star
                       key={i}
-                      className="h-4 w-4 fill-[hsl(0,0%,0%)] text-[hsl(0,0%,0%)]"
+                      className="h-5 w-5 fill-[hsl(0,0%,0%)] text-[hsl(0,0%,0%)]"
                     />
                   ))}
                 </div>
-                <p className="text-[hsl(0,0%,42%)] text-sm leading-relaxed mb-5 italic">
+                <p className="text-[hsl(0,0%,25%)] text-xl md:text-2xl leading-relaxed mb-8 italic font-medium">
                   "{t.quote}"
                 </p>
-                <div className="flex items-center gap-3">
-                  <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
-                  <div>
-                    <p className="text-sm font-semibold text-[hsl(0,0%,0%)]">{t.name}</p>
-                    <p className="text-xs text-[hsl(0,0%,42%)]">{t.role}</p>
+                <div className="flex items-center gap-3 justify-center">
+                  <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
+                  <div className="text-left">
+                    <p className="text-base font-semibold text-[hsl(0,0%,0%)]">{t.name}</p>
+                    <p className="text-sm text-[hsl(0,0%,42%)]">{t.role}</p>
                   </div>
                 </div>
               </CardContent>

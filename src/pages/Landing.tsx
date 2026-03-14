@@ -171,7 +171,7 @@ export default function Landing() {
               Sign In
             </Button>
             <Button
-              className="bg-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(0,0%,10%)] font-semibold rounded-full px-5"
+              className="bg-[hsl(38,92%,50%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(38,92%,45%)] font-semibold rounded-full px-5"
               onClick={() => navigate("/auth")}
             >
               Get Started
@@ -205,7 +205,7 @@ export default function Landing() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Button
               size="lg"
-              className="bg-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(0,0%,10%)] font-semibold rounded-full px-8 h-12 text-base"
+              className="bg-[hsl(208,52%,58%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(208,52%,50%)] font-semibold rounded-full px-8 h-12 text-base"
               onClick={() => navigate("/auth")}
             >
               Start Free Trial
@@ -356,8 +356,8 @@ export default function Landing() {
                   <Button
                     className={`w-full rounded-full font-semibold mb-6 ${
                       plan.highlighted
-                        ? "bg-[hsl(0,0%,100%)] text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,90%)]"
-                        : "bg-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(0,0%,10%)]"
+                        ? "bg-[hsl(38,92%,50%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(38,92%,45%)]"
+                        : "bg-[hsl(208,52%,58%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(208,52%,50%)]"
                     }`}
                     onClick={() => navigate("/auth")}
                   >
@@ -393,7 +393,7 @@ export default function Landing() {
           </p>
           <Button
             size="lg"
-            className="bg-[hsl(0,0%,100%)] text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,90%)] font-semibold rounded-full px-10 h-12 text-base"
+            className="bg-[hsl(38,92%,50%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(38,92%,45%)] font-semibold rounded-full px-10 h-12 text-base"
             onClick={() => navigate("/auth")}
           >
             Get Started Free

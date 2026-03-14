@@ -6,7 +6,6 @@ import {
   Target,
   Users,
   MessageSquare,
-  TrendingUp,
   CheckCircle,
   ArrowRight,
   Zap,
@@ -14,6 +13,15 @@ import {
   BarChart3,
   Star,
 } from "lucide-react";
+
+/*
+  Palette (all as HSL):
+  #000000  → 0 0% 0%
+  #FFFFFF  → 0 0% 100%
+  #1A1A1A  → 0 0% 10%
+  #6B6B6B  → 0 0% 42%
+  #F5F5F5  → 0 0% 96%
+*/
 
 const stats = [
   { value: "500+", label: "Entrepreneurs" },
@@ -138,9 +146,9 @@ export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[hsl(220,20%,4%)] text-[hsl(0,0%,95%)]">
+    <div className="min-h-screen bg-[hsl(0,0%,100%)] text-[hsl(0,0%,10%)] font-['Inter',sans-serif]">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[hsl(220,14%,12%)] bg-[hsl(220,20%,4%)]/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[hsl(0,0%,90%)] bg-[hsl(0,0%,100%)]/80 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img
@@ -148,23 +156,23 @@ export default function Landing() {
               alt="Upfounder"
               className="h-8 w-8 rounded-lg"
             />
-            <span className="text-lg font-bold tracking-tight">Upfounder</span>
+            <span className="text-lg font-bold tracking-tight text-[hsl(0,0%,0%)]">Upfounder</span>
           </div>
-          <div className="hidden md:flex items-center gap-8 text-sm text-[hsl(220,10%,55%)]">
-            <a href="#features" className="hover:text-[hsl(0,0%,95%)] transition-colors">Features</a>
-            <a href="#testimonials" className="hover:text-[hsl(0,0%,95%)] transition-colors">Testimonials</a>
-            <a href="#pricing" className="hover:text-[hsl(0,0%,95%)] transition-colors">Pricing</a>
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[hsl(0,0%,42%)]">
+            <a href="#features" className="hover:text-[hsl(0,0%,0%)] transition-colors">Features</a>
+            <a href="#testimonials" className="hover:text-[hsl(0,0%,0%)] transition-colors">Testimonials</a>
+            <a href="#pricing" className="hover:text-[hsl(0,0%,0%)] transition-colors">Pricing</a>
           </div>
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
-              className="text-[hsl(220,10%,55%)] hover:text-[hsl(0,0%,95%)] hover:bg-[hsl(220,14%,12%)]"
+              className="text-[hsl(0,0%,42%)] hover:text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,96%)] font-medium"
               onClick={() => navigate("/auth")}
             >
               Sign In
             </Button>
             <Button
-              className="bg-[hsl(0,0%,100%)] text-[hsl(220,20%,4%)] hover:bg-[hsl(0,0%,90%)] font-semibold rounded-full px-5"
+              className="bg-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(0,0%,10%)] font-semibold rounded-full px-5"
               onClick={() => navigate("/auth")}
             >
               Get Started
@@ -176,21 +184,21 @@ export default function Landing() {
       {/* Hero */}
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-[hsl(220,14%,18%)] bg-[hsl(220,14%,8%)] text-sm text-[hsl(220,10%,55%)]">
-            <Zap className="h-3.5 w-3.5 text-[hsl(38,92%,50%)]" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-[hsl(0,0%,90%)] bg-[hsl(0,0%,96%)] text-sm font-medium text-[hsl(0,0%,42%)]">
+            <Zap className="h-3.5 w-3.5 text-[hsl(0,0%,0%)]" />
             Built for founders who ship
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.08] mb-6">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.08] mb-6 text-[hsl(0,0%,0%)]">
             Where founders hold
             <br />
             each other{" "}
-            <span className="bg-gradient-to-r from-[hsl(208,52%,58%)] to-[hsl(38,92%,50%)] bg-clip-text text-transparent">
+            <span className="text-[hsl(0,0%,42%)]">
               accountable.
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-[hsl(220,10%,55%)] max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-lg md:text-xl text-[hsl(0,0%,42%)] max-w-2xl mx-auto mb-10 leading-relaxed">
             Join a community of driven entrepreneurs who set ambitious goals,
             track real progress, and push each other to build faster.
           </p>
@@ -198,7 +206,7 @@ export default function Landing() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Button
               size="lg"
-              className="bg-[hsl(0,0%,100%)] text-[hsl(220,20%,4%)] hover:bg-[hsl(0,0%,90%)] font-semibold rounded-full px-8 h-12 text-base"
+              className="bg-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(0,0%,10%)] font-semibold rounded-full px-8 h-12 text-base"
               onClick={() => navigate("/auth")}
             >
               Start Free Trial
@@ -207,7 +215,7 @@ export default function Landing() {
             <Button
               size="lg"
               variant="ghost"
-              className="text-[hsl(220,10%,55%)] hover:text-[hsl(0,0%,95%)] hover:bg-[hsl(220,14%,12%)] rounded-full px-8 h-12 text-base"
+              className="text-[hsl(0,0%,42%)] hover:text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,96%)] rounded-full px-8 h-12 text-base font-medium"
               onClick={() => {
                 document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
               }}
@@ -220,10 +228,10 @@ export default function Landing() {
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 text-sm">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-2xl md:text-3xl font-bold text-[hsl(0,0%,95%)]">
+                <p className="text-2xl md:text-3xl font-bold text-[hsl(0,0%,0%)]">
                   {stat.value}
                 </p>
-                <p className="text-[hsl(220,10%,45%)] mt-1">{stat.label}</p>
+                <p className="text-[hsl(0,0%,42%)] mt-1 font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -231,13 +239,13 @@ export default function Landing() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6 border-t border-[hsl(220,14%,10%)]">
+      <section id="features" className="py-24 px-6 border-t border-[hsl(0,0%,92%)]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
               Everything you need to stay on track
             </h2>
-            <p className="text-[hsl(220,10%,50%)] text-lg max-w-xl mx-auto">
+            <p className="text-[hsl(0,0%,42%)] text-lg max-w-xl mx-auto">
               Built specifically for founders who are serious about growth.
             </p>
           </div>
@@ -246,16 +254,16 @@ export default function Landing() {
             {features.map((feature) => (
               <Card
                 key={feature.title}
-                className="bg-[hsl(220,16%,8%)] border-[hsl(220,14%,14%)] hover:border-[hsl(220,14%,22%)] transition-colors group"
+                className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group"
               >
                 <CardContent className="p-6">
-                  <div className="w-10 h-10 rounded-xl bg-[hsl(220,14%,14%)] flex items-center justify-center mb-4 group-hover:bg-[hsl(208,52%,58%)]/10 transition-colors">
-                    <feature.icon className="h-5 w-5 text-[hsl(208,52%,58%)]" />
+                  <div className="w-10 h-10 rounded-xl bg-[hsl(0,0%,100%)] border border-[hsl(0,0%,90%)] flex items-center justify-center mb-4 group-hover:bg-[hsl(0,0%,0%)] group-hover:border-[hsl(0,0%,0%)] transition-colors">
+                    <feature.icon className="h-5 w-5 text-[hsl(0,0%,10%)] group-hover:text-[hsl(0,0%,100%)] transition-colors" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-[hsl(0,0%,95%)]">
+                  <h3 className="text-lg font-semibold mb-2 text-[hsl(0,0%,0%)]">
                     {feature.title}
                   </h3>
-                  <p className="text-sm text-[hsl(220,10%,50%)] leading-relaxed">
+                  <p className="text-sm text-[hsl(0,0%,42%)] leading-relaxed">
                     {feature.description}
                   </p>
                 </CardContent>
@@ -266,13 +274,13 @@ export default function Landing() {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-24 px-6 border-t border-[hsl(220,14%,10%)]">
+      <section id="testimonials" className="py-24 px-6 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,96%)]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
               Founders who ship, together
             </h2>
-            <p className="text-[hsl(220,10%,50%)] text-lg">
+            <p className="text-[hsl(0,0%,42%)] text-lg">
               Hear from entrepreneurs already building with Upfounder.
             </p>
           </div>
@@ -281,23 +289,23 @@ export default function Landing() {
             {testimonials.map((t) => (
               <Card
                 key={t.name}
-                className="bg-[hsl(220,16%,8%)] border-[hsl(220,14%,14%)]"
+                className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)]"
               >
                 <CardContent className="p-6">
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: t.rating }).map((_, i) => (
                       <Star
                         key={i}
-                        className="h-4 w-4 fill-[hsl(38,92%,50%)] text-[hsl(38,92%,50%)]"
+                        className="h-4 w-4 fill-[hsl(0,0%,0%)] text-[hsl(0,0%,0%)]"
                       />
                     ))}
                   </div>
-                  <p className="text-[hsl(220,10%,70%)] text-sm leading-relaxed mb-5 italic">
+                  <p className="text-[hsl(0,0%,42%)] text-sm leading-relaxed mb-5 italic">
                     "{t.quote}"
                   </p>
                   <div>
-                    <p className="text-sm font-semibold text-[hsl(0,0%,95%)]">{t.name}</p>
-                    <p className="text-xs text-[hsl(220,10%,45%)]">{t.role}</p>
+                    <p className="text-sm font-semibold text-[hsl(0,0%,0%)]">{t.name}</p>
+                    <p className="text-xs text-[hsl(0,0%,42%)]">{t.role}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -307,13 +315,13 @@ export default function Landing() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-24 px-6 border-t border-[hsl(220,14%,10%)]">
+      <section id="pricing" className="py-24 px-6 border-t border-[hsl(0,0%,92%)]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
               Simple, transparent pricing
             </h2>
-            <p className="text-[hsl(220,10%,50%)] text-lg">
+            <p className="text-[hsl(0,0%,42%)] text-lg">
               Start free. Upgrade when you're ready to go all in.
             </p>
           </div>
@@ -324,36 +332,33 @@ export default function Landing() {
                 key={plan.name}
                 className={`relative overflow-hidden ${
                   plan.highlighted
-                    ? "bg-[hsl(220,16%,10%)] border-[hsl(208,52%,58%)] border-2"
-                    : "bg-[hsl(220,16%,8%)] border-[hsl(220,14%,14%)]"
+                    ? "bg-[hsl(0,0%,0%)] border-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)]"
+                    : "bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)]"
                 }`}
               >
-                {plan.highlighted && (
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[hsl(208,52%,58%)] to-[hsl(38,92%,50%)]" />
-                )}
                 <CardContent className="p-6">
-                  <p className="text-sm font-medium text-[hsl(220,10%,55%)] mb-1">
+                  <p className={`text-sm font-medium mb-1 ${plan.highlighted ? "text-[hsl(0,0%,70%)]" : "text-[hsl(0,0%,42%)]"}`}>
                     {plan.name}
                   </p>
                   <div className="flex items-baseline gap-1 mb-2">
-                    <span className="text-4xl font-bold text-[hsl(0,0%,95%)]">
+                    <span className={`text-4xl font-bold ${plan.highlighted ? "text-[hsl(0,0%,100%)]" : "text-[hsl(0,0%,0%)]"}`}>
                       {plan.price}
                     </span>
                     {plan.period !== "forever" && (
-                      <span className="text-[hsl(220,10%,45%)] text-sm">
+                      <span className={`text-sm ${plan.highlighted ? "text-[hsl(0,0%,60%)]" : "text-[hsl(0,0%,42%)]"}`}>
                         {plan.period}
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-[hsl(220,10%,45%)] mb-6">
+                  <p className={`text-sm mb-6 ${plan.highlighted ? "text-[hsl(0,0%,60%)]" : "text-[hsl(0,0%,42%)]"}`}>
                     {plan.description}
                   </p>
 
                   <Button
                     className={`w-full rounded-full font-semibold mb-6 ${
                       plan.highlighted
-                        ? "bg-[hsl(0,0%,100%)] text-[hsl(220,20%,4%)] hover:bg-[hsl(0,0%,90%)]"
-                        : "bg-[hsl(220,14%,16%)] text-[hsl(0,0%,90%)] hover:bg-[hsl(220,14%,22%)]"
+                        ? "bg-[hsl(0,0%,100%)] text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,90%)]"
+                        : "bg-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(0,0%,10%)]"
                     }`}
                     onClick={() => navigate("/auth")}
                   >
@@ -364,9 +369,9 @@ export default function Landing() {
                     {plan.features.map((f) => (
                       <li
                         key={f}
-                        className="flex items-start gap-2 text-sm text-[hsl(220,10%,60%)]"
+                        className={`flex items-start gap-2 text-sm ${plan.highlighted ? "text-[hsl(0,0%,70%)]" : "text-[hsl(0,0%,42%)]"}`}
                       >
-                        <CheckCircle className="h-4 w-4 mt-0.5 text-[hsl(208,52%,58%)] shrink-0" />
+                        <CheckCircle className={`h-4 w-4 mt-0.5 shrink-0 ${plan.highlighted ? "text-[hsl(0,0%,100%)]" : "text-[hsl(0,0%,0%)]"}`} />
                         {f}
                       </li>
                     ))}
@@ -379,17 +384,17 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-[hsl(220,14%,10%)]">
+      <section className="py-24 px-6 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,0%)]">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,100%)]">
             Ready to build with accountability?
           </h2>
-          <p className="text-[hsl(220,10%,50%)] text-lg mb-8">
+          <p className="text-[hsl(0,0%,60%)] text-lg mb-8">
             Join hundreds of founders already shipping faster together.
           </p>
           <Button
             size="lg"
-            className="bg-[hsl(0,0%,100%)] text-[hsl(220,20%,4%)] hover:bg-[hsl(0,0%,90%)] font-semibold rounded-full px-10 h-12 text-base"
+            className="bg-[hsl(0,0%,100%)] text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,90%)] font-semibold rounded-full px-10 h-12 text-base"
             onClick={() => navigate("/auth")}
           >
             Get Started Free
@@ -399,7 +404,7 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="py-10 px-6 border-t border-[hsl(220,14%,10%)]">
+      <footer className="py-10 px-6 border-t border-[hsl(0,0%,90%)]">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <img
@@ -407,9 +412,9 @@ export default function Landing() {
               alt="Upfounder"
               className="h-6 w-6 rounded"
             />
-            <span className="text-sm font-semibold">Upfounder</span>
+            <span className="text-sm font-semibold text-[hsl(0,0%,0%)]">Upfounder</span>
           </div>
-          <p className="text-xs text-[hsl(220,10%,35%)]">
+          <p className="text-xs text-[hsl(0,0%,42%)]">
             © {new Date().getFullYear()} Upfounder. All rights reserved.
           </p>
         </div>

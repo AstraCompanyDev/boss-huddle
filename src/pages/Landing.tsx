@@ -150,13 +150,12 @@ export default function Landing() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[hsl(0,0%,90%)] bg-[hsl(0,0%,100%)]/80 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <img
               src={upfounderLogo}
               alt="Upfounder"
-              className="h-8 w-8 rounded-lg"
+              className="h-8 rounded-lg"
             />
-            <span className="text-lg font-bold tracking-tight text-[hsl(0,0%,0%)]">Upfounder</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[hsl(0,0%,42%)]">
             <a href="#features" className="hover:text-[hsl(0,0%,0%)] transition-colors">Features</a>

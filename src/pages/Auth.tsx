@@ -33,7 +33,7 @@ export default function Auth() {
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) navigate("/");
+      if (session) navigate("/dashboard");
     });
 
     return () => subscription.unsubscribe();

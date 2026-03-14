@@ -3,11 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
 import featureGoalTracking from "@/assets/feature-goal-tracking.jpg";
-import featureAccountability from "@/assets/feature-accountability.jpg";
-import featureMessaging from "@/assets/feature-messaging.jpg";
-import featureAnalytics from "@/assets/feature-analytics.jpg";
-import featureSprints from "@/assets/feature-sprints.jpg";
-import featureSecurity from "@/assets/feature-security.jpg";
+import featureLiveSessions from "@/assets/feature-live-sessions.jpg";
+import featureExpertAdvice from "@/assets/feature-expert-advice.jpg";
+import featureInvestorSessions from "@/assets/feature-investor-sessions.jpg";
 import bannerAccountability from "@/assets/banner-accountability.jpg";
 import bannerResources from "@/assets/banner-resources.jpg";
 import avatar1 from "@/assets/avatar-1.jpg";
@@ -55,38 +53,24 @@ const features = [
   },
   {
     icon: Users,
-    title: "Accountability Groups",
+    title: "Weekly Live Sessions",
     description:
-      "Get paired with driven founders who keep you on track and push you forward.",
-    image: featureAccountability,
+      "Join live group sessions every week to share progress, get feedback, and stay motivated.",
+    image: featureLiveSessions,
   },
   {
-    icon: MessageSquare,
-    title: "Real-Time Messaging",
+    icon: Star,
+    title: "Expert Advice",
     description:
-      "Channel-based messaging to share wins, ask questions, and stay connected.",
-    image: featureMessaging,
+      "Get guidance from experienced founders and mentors who've built and scaled businesses.",
+    image: featureExpertAdvice,
   },
   {
     icon: BarChart3,
-    title: "Progress Analytics",
+    title: "Investor Sessions",
     description:
-      "Visual dashboards showing your streaks, milestones, and growth over time.",
-    image: featureAnalytics,
-  },
-  {
-    icon: Zap,
-    title: "Weekly Sprints",
-    description:
-      "Structured weekly check-ins to maintain momentum and celebrate progress.",
-    image: featureSprints,
-  },
-  {
-    icon: Shield,
-    title: "Private & Secure",
-    description:
-      "Your data stays yours. Enterprise-grade security for all your business intel.",
-    image: featureSecurity,
+      "Pitch your ideas, get feedback, and connect directly with active investors.",
+    image: featureInvestorSessions,
   },
 ];
 
@@ -336,7 +320,7 @@ export default function Landing() {
 
           {/* Bottom row — 4 feature cards */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {features.slice(0, 4).map((feature) => (
+            {features.map((feature) => (
               <Card
                 key={feature.title}
                 className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group overflow-hidden"

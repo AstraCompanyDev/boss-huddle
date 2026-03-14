@@ -29,11 +29,11 @@ export default function Auth() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) navigate("/");
+      if (session) navigate("/dashboard");
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) navigate("/");
+      if (session) navigate("/dashboard");
     });
 
     return () => subscription.unsubscribe();
@@ -97,7 +97,7 @@ export default function Auth() {
         variant: "destructive",
       });
     } else {
-      navigate("/");
+      navigate("/dashboard");
     }
 
     setLoading(false);
@@ -125,7 +125,7 @@ export default function Auth() {
 
       if (error) throw error;
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (err: any) {
       toast({
         title: "Demo sign-in failed",

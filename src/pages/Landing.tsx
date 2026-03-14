@@ -352,7 +352,7 @@ export default function Landing() {
                 loop
                 muted
                 playsInline
-                className="w-full object-cover scale-[1.3] translate-y-[0%]"
+                className="w-full h-full object-cover scale-[1.15]"
                 ref={(el) => {
                   if (!el) return;
                   const startTime = 2;

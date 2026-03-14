@@ -405,13 +405,12 @@ export default function Landing() {
       {/* Footer */}
       <footer className="py-10 px-6 border-t border-[hsl(0,0%,90%)]">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <img
               src={upfounderLogo}
               alt="Upfounder"
-              className="h-6 w-6 rounded"
+              className="h-6 rounded"
             />
-            <span className="text-sm font-semibold text-[hsl(0,0%,0%)]">Upfounder</span>
           </div>
           <p className="text-xs text-[hsl(0,0%,42%)]">
             © {new Date().getFullYear()} Upfounder. All rights reserved.

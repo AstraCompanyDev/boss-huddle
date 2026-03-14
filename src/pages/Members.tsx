@@ -10,9 +10,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   Search,
   MessageSquare,
-  Calendar,
-  Target,
-  Flame,
   MapPin,
   Building2,
 } from "lucide-react";
@@ -31,7 +28,6 @@ export default function Members() {
         .order("full_name");
       if (error) throw error;
 
-      // Fetch team_members data
       const userIds = profiles.map((p) => p.id);
       const { data: teamData } = await supabase
         .from("team_members")
@@ -64,7 +60,7 @@ export default function Members() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Team Members</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Team Members</h1>
           <p className="text-muted-foreground">Connect and collaborate with fellow entrepreneurs</p>
         </div>
       </div>
@@ -76,7 +72,7 @@ export default function Members() {
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search members by name, company, or role..."
-              className="pl-10"
+              className="pl-10 rounded-xl border-0 bg-secondary"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -86,7 +82,7 @@ export default function Members() {
 
       {/* Members Grid */}
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
             <Card key={i}>
               <CardContent className="p-6 space-y-4">
@@ -97,7 +93,7 @@ export default function Members() {
                     <Skeleton className="h-3 w-24" />
                   </div>
                 </div>
-                <Skeleton className="h-16 w-full" />
+                <Skeleton className="h-16 w-full rounded-xl" />
               </CardContent>
             </Card>
           ))}
@@ -109,11 +105,11 @@ export default function Members() {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((member) => (
             <Card
               key={member.id}
-              className="hover:shadow-md transition-all duration-200 cursor-pointer"
+              className="hover:shadow-elevated transition-all duration-200 cursor-pointer"
               onClick={() => navigate(`/profile/${member.id}`)}
             >
               <CardHeader>
@@ -122,17 +118,17 @@ export default function Members() {
                     <div className="relative">
                       <Avatar className="h-12 w-12">
                         <AvatarImage src={member.avatar_url || undefined} />
-                        <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                        <AvatarFallback className="bg-foreground text-background font-semibold">
                           {getInitials(member.full_name)}
                         </AvatarFallback>
                       </Avatar>
                       <div
-                        className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-background ${
+                        className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-card ${
                           member.team?.status === "online"
                             ? "bg-green-500"
                             : member.team?.status === "busy"
-                            ? "bg-yellow-500"
-                            : "bg-muted-foreground/30"
+                            ? "bg-accent"
+                            : "bg-border"
                         }`}
                       />
                     </div>
@@ -142,7 +138,7 @@ export default function Members() {
                       {member.company && <p className="text-sm text-primary font-medium truncate">{member.company}</p>}
                     </div>
                   </div>
-                  <Badge variant={member.team?.status === "online" ? "default" : "secondary"}>
+                  <Badge variant={member.team?.status === "online" ? "default" : "secondary"} className="text-xs">
                     {member.team?.status || "offline"}
                   </Badge>
                 </div>
@@ -166,25 +162,23 @@ export default function Members() {
                   )}
                 </div>
 
-                {/* Stats */}
                 {member.team && (
-                  <div className="grid grid-cols-3 gap-3 text-center">
-                    <div className="bg-muted/30 rounded-lg p-2">
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div className="bg-secondary rounded-xl p-2">
                       <div className="text-lg font-bold text-primary">{member.team.goals_count || 0}</div>
                       <div className="text-xs text-muted-foreground">Goals</div>
                     </div>
-                    <div className="bg-muted/30 rounded-lg p-2">
+                    <div className="bg-secondary rounded-xl p-2">
                       <div className="text-lg font-bold text-accent">{member.team.completed_count || 0}</div>
                       <div className="text-xs text-muted-foreground">Done</div>
                     </div>
-                    <div className="bg-muted/30 rounded-lg p-2">
+                    <div className="bg-secondary rounded-xl p-2">
                       <div className="text-lg font-bold text-green-600">{member.team.streak || 0}</div>
                       <div className="text-xs text-muted-foreground">Streak</div>
                     </div>
                   </div>
                 )}
 
-                {/* Expertise */}
                 {member.team?.expertise && member.team.expertise.length > 0 && (
                   <div className="flex flex-wrap gap-1">
                     {member.team.expertise.slice(0, 3).map((skill: string, i: number) => (
@@ -203,7 +197,7 @@ export default function Members() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full"
+                  className="w-full rounded-full"
                   onClick={(e) => {
                     e.stopPropagation();
                     navigate("/messages");

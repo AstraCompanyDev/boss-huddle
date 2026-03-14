@@ -96,17 +96,17 @@ const categories = ["All Files", "Business Documents", "Research", "Marketing", 
 const getFileIcon = (type: string) => {
   switch (type) {
     case 'pdf':
-      return <FileText className="h-8 w-8 text-red-500" />;
+      return <FileText className="h-8 w-8 text-destructive" />;
     case 'spreadsheet':
-      return <File className="h-8 w-8 text-green-500" />;
+      return <File className="h-8 w-8 text-green-600" />;
     case 'video':
-      return <Video className="h-8 w-8 text-purple-500" />;
+      return <Video className="h-8 w-8 text-primary" />;
     case 'image':
-      return <Image className="h-8 w-8 text-blue-500" />;
+      return <Image className="h-8 w-8 text-primary" />;
     case 'archive':
-      return <Archive className="h-8 w-8 text-orange-500" />;
+      return <Archive className="h-8 w-8 text-accent" />;
     default:
-      return <File className="h-8 w-8 text-gray-500" />;
+      return <File className="h-8 w-8 text-muted-foreground" />;
   }
 };
 
@@ -115,10 +115,10 @@ export default function Files() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Files & Resources</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Files & Resources</h1>
           <p className="text-muted-foreground">Share and access team documents and resources</p>
         </div>
-        <Button className="bg-gradient-accent">
+        <Button className="rounded-full font-semibold">
           <Upload className="h-4 w-4 mr-2" />
           Upload Files
         </Button>
@@ -128,14 +128,14 @@ export default function Files() {
       <Card className="border-dashed border-2 hover:border-primary/50 transition-colors">
         <CardContent className="p-8">
           <div className="text-center space-y-4">
-            <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-              <Upload className="h-8 w-8 text-primary" />
+            <div className="mx-auto w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center">
+              <Upload className="h-8 w-8 text-foreground" />
             </div>
             <div>
               <h3 className="text-lg font-semibold">Drop files here to upload</h3>
               <p className="text-muted-foreground">Or click to browse from your computer</p>
             </div>
-            <Button variant="outline">
+            <Button variant="outline" className="rounded-full">
               Choose Files
             </Button>
           </div>
@@ -143,46 +143,23 @@ export default function Files() {
       </Card>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Total Files</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{files.length}</div>
-            <p className="text-xs text-muted-foreground">+{files.filter(f => f.uploadedAt.includes('hours') || f.uploadedAt.includes('day')).length} this week</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Storage Used</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">67.8 MB</div>
-            <p className="text-xs text-muted-foreground">of 1 GB available</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Shared Files</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{files.filter(f => f.shared).length}</div>
-            <p className="text-xs text-muted-foreground">Public to team</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Total Downloads</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{files.reduce((acc, f) => acc + f.downloads, 0)}</div>
-            <p className="text-xs text-muted-foreground">This month</p>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[
+          { label: "Total Files", value: files.length, sub: `+${files.filter(f => f.uploadedAt.includes('hours') || f.uploadedAt.includes('day')).length} this week` },
+          { label: "Storage Used", value: "67.8 MB", sub: "of 1 GB available" },
+          { label: "Shared Files", value: files.filter(f => f.shared).length, sub: "Public to team" },
+          { label: "Total Downloads", value: files.reduce((acc, f) => acc + f.downloads, 0), sub: "This month" },
+        ].map((stat) => (
+          <Card key={stat.label}>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">{stat.label}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stat.value}</div>
+              <p className="text-xs text-muted-foreground">{stat.sub}</p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       {/* Filters and Search */}
@@ -194,24 +171,24 @@ export default function Files() {
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   placeholder="Search files..."
-                  className="pl-10 w-80"
+                  className="pl-10 w-80 rounded-xl border-0 bg-secondary"
                 />
               </div>
-              <select className="border border-border rounded-md px-3 py-2 text-sm bg-background">
+              <select className="border border-border rounded-xl px-3 py-2 text-sm bg-background">
                 {categories.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
               </select>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="rounded-full">
                 <Filter className="h-4 w-4 mr-2" />
                 Filter
               </Button>
             </div>
             <div className="flex items-center space-x-2">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="rounded-xl">
                 <List className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="rounded-xl">
                 <Grid className="h-4 w-4" />
               </Button>
             </div>
@@ -226,9 +203,9 @@ export default function Files() {
           <CardDescription>Files shared with your accountability group</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {files.map((file) => (
-              <div key={file.id} className="flex items-center justify-between p-4 rounded-lg border hover:bg-muted/30 transition-colors">
+              <div key={file.id} className="flex items-center justify-between p-4 rounded-xl border hover:bg-secondary/50 transition-colors">
                 <div className="flex items-center space-x-4">
                   <div className="flex-shrink-0">
                     {getFileIcon(file.type)}
@@ -262,17 +239,17 @@ export default function Files() {
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="sm">
+                <div className="flex items-center space-x-1 ml-4">
+                  <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
                     <Eye className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
                     <Download className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
                     <Share className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
                     <MoreVertical className="h-4 w-4" />
                   </Button>
                 </div>
@@ -282,7 +259,7 @@ export default function Files() {
         </CardContent>
       </Card>
 
-      {/* Recent Uploads */}
+      {/* Folder Structure */}
       <Card>
         <CardHeader>
           <CardTitle>Folder Structure</CardTitle>
@@ -291,7 +268,7 @@ export default function Files() {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {categories.slice(1).map((category) => (
-              <div key={category} className="flex flex-col items-center p-4 rounded-lg border hover:bg-muted/30 transition-colors cursor-pointer">
+              <div key={category} className="flex flex-col items-center p-4 rounded-2xl border hover:bg-secondary/50 transition-colors cursor-pointer">
                 <FolderOpen className="h-8 w-8 text-primary mb-2" />
                 <span className="text-sm font-medium text-center">{category}</span>
                 <span className="text-xs text-muted-foreground">

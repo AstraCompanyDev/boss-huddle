@@ -39,7 +39,6 @@ export default function Goals() {
     supabase.auth.getUser().then(({ data }) => setUserId(data.user?.id ?? null));
   }, []);
 
-  // Fetch goals with milestones
   const { data: goals = [], isLoading } = useQuery({
     queryKey: ["goals", userId],
     queryFn: async () => {
@@ -51,7 +50,6 @@ export default function Goals() {
         .order("created_at", { ascending: false });
       if (error) throw error;
 
-      // Fetch milestones for all goals
       const goalIds = data.map((g) => g.id);
       const { data: milestones } = await supabase
         .from("goal_milestones")
@@ -67,7 +65,6 @@ export default function Goals() {
     enabled: !!userId,
   });
 
-  // Create goal
   const createGoal = useMutation({
     mutationFn: async (form: FormData) => {
       if (!userId) throw new Error("Not logged in");
@@ -93,7 +90,6 @@ export default function Goals() {
         .single();
       if (error) throw error;
 
-      // Create milestones if provided
       const milestonesStr = form.get("milestones") as string;
       if (milestonesStr?.trim()) {
         const milestoneNames = milestonesStr.split(",").map((m) => m.trim()).filter(Boolean);
@@ -114,7 +110,6 @@ export default function Goals() {
     },
   });
 
-  // Toggle milestone
   const toggleMilestone = useMutation({
     mutationFn: async ({ id, completed }: { id: string; completed: boolean }) => {
       const { error } = await supabase.from("goal_milestones").update({ completed }).eq("id", id);
@@ -123,7 +118,6 @@ export default function Goals() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["goals"] }),
   });
 
-  // Update goal progress based on milestones
   const updateProgress = useMutation({
     mutationFn: async ({ goalId, progress }: { goalId: string; progress: number }) => {
       const { error } = await supabase.from("goals").update({ progress }).eq("id", goalId);
@@ -132,10 +126,8 @@ export default function Goals() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["goals"] }),
   });
 
-  // Delete goal
   const deleteGoal = useMutation({
     mutationFn: async (goalId: string) => {
-      // Delete milestones first
       await supabase.from("goal_milestones").delete().eq("goal_id", goalId);
       const { error } = await supabase.from("goals").delete().eq("id", goalId);
       if (error) throw error;
@@ -146,7 +138,6 @@ export default function Goals() {
     },
   });
 
-  // Mark complete
   const markComplete = useMutation({
     mutationFn: async (goalId: string) => {
       const { error } = await supabase
@@ -154,7 +145,6 @@ export default function Goals() {
         .update({ status: "completed", progress: 100 })
         .eq("id", goalId);
       if (error) throw error;
-      // Mark all milestones complete
       await supabase.from("goal_milestones").update({ completed: true }).eq("goal_id", goalId);
     },
     onSuccess: () => {
@@ -167,7 +157,6 @@ export default function Goals() {
     const newCompleted = !currentCompleted;
     toggleMilestone.mutate({ id: milestoneId, completed: newCompleted });
 
-    // Recalculate progress
     const milestones = goal.milestones;
     const completedCount =
       milestones.filter((m: any) => (m.id === milestoneId ? newCompleted : m.completed)).length;
@@ -185,12 +174,12 @@ export default function Goals() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Goals & Milestones</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Goals & Milestones</h1>
           <p className="text-muted-foreground">Track progress toward your objectives</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="rounded-full font-semibold">
               <Plus className="h-4 w-4 mr-2" />
               Create Goal
             </Button>
@@ -209,23 +198,21 @@ export default function Goals() {
             >
               <div className="space-y-2">
                 <Label htmlFor="title">Goal Title*</Label>
-                <Input id="title" name="title" placeholder="e.g., Launch MVP" required />
+                <Input id="title" name="title" placeholder="e.g., Launch MVP" required className="rounded-xl" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="description">Description</Label>
-                <Textarea id="description" name="description" placeholder="Describe your goal..." rows={3} />
+                <Textarea id="description" name="description" placeholder="Describe your goal..." rows={3} className="rounded-xl" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="deadline">Deadline</Label>
-                  <Input id="deadline" name="deadline" type="date" />
+                  <Input id="deadline" name="deadline" type="date" className="rounded-xl" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="priority">Priority</Label>
                   <Select name="priority" defaultValue="medium">
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
+                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="high">High</SelectItem>
                       <SelectItem value="medium">Medium</SelectItem>
@@ -237,9 +224,7 @@ export default function Goals() {
               <div className="space-y-2">
                 <Label htmlFor="category">Category</Label>
                 <Select name="category" defaultValue="product">
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
+                  <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="product">Product</SelectItem>
                     <SelectItem value="revenue">Revenue</SelectItem>
@@ -251,13 +236,13 @@ export default function Goals() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="milestones">Milestones (comma-separated)</Label>
-                <Input id="milestones" name="milestones" placeholder="e.g., Design, Build, Test, Launch" />
+                <Input id="milestones" name="milestones" placeholder="e.g., Design, Build, Test, Launch" className="rounded-xl" />
               </div>
               <div className="flex justify-end space-x-3 pt-4">
-                <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
+                <Button type="button" variant="outline" onClick={() => setDialogOpen(false)} className="rounded-full">
                   Cancel
                 </Button>
-                <Button type="submit" disabled={createGoal.isPending}>
+                <Button type="submit" disabled={createGoal.isPending} className="rounded-full">
                   {createGoal.isPending ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
                   Create Goal
                 </Button>
@@ -268,47 +253,24 @@ export default function Goals() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center">
-              <Target className="h-4 w-4 mr-2 text-primary" /> Active Goals
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{activeGoals.length}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center">
-              <TrendingUp className="h-4 w-4 mr-2 text-green-600" /> Avg. Progress
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{avgProgress}%</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center">
-              <CheckCircle className="h-4 w-4 mr-2 text-green-600" /> Completed
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{completedGoals.length}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center">
-              <Clock className="h-4 w-4 mr-2 text-amber-500" /> Total Goals
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{goals.length}</div>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[
+          { icon: Target, label: "Active Goals", value: activeGoals.length, color: "text-primary" },
+          { icon: TrendingUp, label: "Avg. Progress", value: `${avgProgress}%`, color: "text-green-600" },
+          { icon: CheckCircle, label: "Completed", value: completedGoals.length, color: "text-green-600" },
+          { icon: Clock, label: "Total Goals", value: goals.length, color: "text-accent" },
+        ].map((stat) => (
+          <Card key={stat.label}>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium flex items-center text-muted-foreground">
+                <stat.icon className={`h-4 w-4 mr-2 ${stat.color}`} /> {stat.label}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stat.value}</div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       {/* Goals List */}
@@ -319,10 +281,12 @@ export default function Goals() {
       ) : goals.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center">
-            <Target className="h-12 w-12 mx-auto mb-4 text-muted-foreground/30" />
-            <p className="text-lg font-medium text-muted-foreground">No goals yet</p>
+            <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center mx-auto mb-4">
+              <Target className="h-8 w-8 text-muted-foreground" />
+            </div>
+            <p className="text-lg font-semibold">No goals yet</p>
             <p className="text-sm text-muted-foreground mb-4">Create your first goal to start tracking progress!</p>
-            <Button onClick={() => setDialogOpen(true)}>
+            <Button onClick={() => setDialogOpen(true)} className="rounded-full">
               <Plus className="h-4 w-4 mr-2" /> Create Goal
             </Button>
           </CardContent>
@@ -330,7 +294,7 @@ export default function Goals() {
       ) : (
         <div className="space-y-4">
           {goals.map((goal) => (
-            <Card key={goal.id} className="hover:shadow-md transition-all duration-200">
+            <Card key={goal.id} className="hover:shadow-elevated transition-all duration-200">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="space-y-2 flex-1">
@@ -363,7 +327,6 @@ export default function Goals() {
               <CardContent className="space-y-4">
                 <Progress value={goal.progress ?? 0} className="h-2" />
 
-                {/* Milestones */}
                 {goal.milestones.length > 0 && (
                   <div className="space-y-2">
                     <h4 className="font-medium text-sm">Milestones</h4>
@@ -372,16 +335,16 @@ export default function Goals() {
                         <button
                           key={milestone.id}
                           onClick={() => handleMilestoneToggle(goal, milestone.id, milestone.completed)}
-                          className={`flex items-center space-x-2 p-2 rounded-lg text-left transition-colors ${
+                          className={`flex items-center space-x-2 p-2 rounded-xl text-left transition-colors ${
                             milestone.completed
                               ? "bg-green-500/10 text-green-700 dark:text-green-400"
-                              : "bg-muted/30 hover:bg-muted/50"
+                              : "bg-secondary hover:bg-secondary/80"
                           }`}
                         >
                           {milestone.completed ? (
                             <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
                           ) : (
-                            <div className="h-4 w-4 rounded-full border-2 border-muted-foreground/30 flex-shrink-0" />
+                            <div className="h-4 w-4 rounded-full border-2 border-border flex-shrink-0" />
                           )}
                           <span className={`text-xs ${milestone.completed ? "line-through" : ""}`}>
                             {milestone.title}
@@ -398,12 +361,13 @@ export default function Goals() {
                     size="sm"
                     onClick={() => deleteGoal.mutate(goal.id)}
                     disabled={deleteGoal.isPending}
+                    className="rounded-full"
                   >
                     <Trash2 className="h-4 w-4 mr-1" />
                     Delete
                   </Button>
                   {goal.status !== "completed" && (
-                    <Button size="sm" onClick={() => markComplete.mutate(goal.id)} disabled={markComplete.isPending}>
+                    <Button size="sm" onClick={() => markComplete.mutate(goal.id)} disabled={markComplete.isPending} className="rounded-full">
                       <CheckCircle className="h-4 w-4 mr-1" />
                       Mark Complete
                     </Button>

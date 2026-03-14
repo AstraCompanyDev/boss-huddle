@@ -146,7 +146,7 @@ export default function Landing() {
     <div className="min-h-screen bg-[hsl(0,0%,100%)] text-[hsl(0,0%,10%)] font-['Inter',sans-serif]">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[hsl(0,0%,90%)] bg-[hsl(0,0%,100%)]/80 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-5 h-16 flex items-center justify-between">
           <div className="flex items-center">
             <img
               src={upfounderLogo}

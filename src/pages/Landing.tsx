@@ -247,6 +247,23 @@ export default function Landing() {
             </Button>
           </div>
 
+          {/* Social proof avatars */}
+          <div className="flex items-center justify-center gap-3 mb-16">
+            <div className="flex -space-x-3">
+              {founderAvatars.map((avatar, i) => (
+                <img
+                  key={i}
+                  src={avatar}
+                  alt="Founder"
+                  className="w-9 h-9 rounded-full border-2 border-[hsl(0,0%,100%)] object-cover"
+                />
+              ))}
+            </div>
+            <p className="text-sm text-[hsl(0,0%,42%)] font-medium">
+              Join <span className="text-[hsl(0,0%,0%)] font-semibold">hundreds</span> of other founders
+            </p>
+          </div>
+
           {/* Stats ticker */}
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 text-sm">
             {stats.map((stat) => (

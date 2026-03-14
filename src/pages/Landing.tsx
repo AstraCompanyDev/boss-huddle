@@ -323,7 +323,7 @@ export default function Landing() {
             {features.map((feature) => (
               <Card
                 key={feature.title}
-                className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group overflow-hidden"
+                className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group overflow-hidden rounded-2xl"
               >
                 <div className="w-full h-36 overflow-hidden">
                   <img

@@ -42,36 +42,42 @@ const features = [
     title: "Goal Tracking",
     description:
       "Set, track, and crush your business goals with milestone-based progress tracking.",
+    image: featureGoalTracking,
   },
   {
     icon: Users,
     title: "Accountability Groups",
     description:
       "Get paired with driven founders who keep you on track and push you forward.",
+    image: featureAccountability,
   },
   {
     icon: MessageSquare,
     title: "Real-Time Messaging",
     description:
       "Channel-based messaging to share wins, ask questions, and stay connected.",
+    image: featureMessaging,
   },
   {
     icon: BarChart3,
     title: "Progress Analytics",
     description:
       "Visual dashboards showing your streaks, milestones, and growth over time.",
+    image: featureAnalytics,
   },
   {
     icon: Zap,
     title: "Weekly Sprints",
     description:
       "Structured weekly check-ins to maintain momentum and celebrate progress.",
+    image: featureSprints,
   },
   {
     icon: Shield,
     title: "Private & Secure",
     description:
       "Your data stays yours. Enterprise-grade security for all your business intel.",
+    image: featureSecurity,
   },
 ];
 

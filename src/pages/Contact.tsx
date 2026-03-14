@@ -6,20 +6,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Mail, MessageSquare, Send } from "lucide-react";
+import { Mail, MessageSquare, Send, ArrowRight } from "lucide-react";
 
 export default function Contact() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Pre-fill user's email and name if logged in
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (user) {
         const emailInput = document.getElementById('email') as HTMLInputElement;
         if (emailInput) emailInput.value = user.email || "";
         
-        // Fetch user's name from profile
         supabase
           .from("profiles")
           .select("full_name")
@@ -76,22 +74,22 @@ export default function Contact() {
   return (
     <div className="max-w-3xl mx-auto space-y-8">
       <div className="text-center space-y-3">
-        <h1 className="text-4xl font-bold">Get in Touch</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Get in Touch</h1>
         <p className="text-lg text-muted-foreground">
           Have a question or need help? We're here for you!
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card>
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <div className="p-2 rounded-lg bg-primary/10">
-                <Mail className="h-5 w-5 text-primary" />
+              <div className="p-2.5 rounded-xl bg-secondary">
+                <Mail className="h-5 w-5 text-foreground" />
               </div>
               <div>
-                <CardTitle>Email Us</CardTitle>
-                <CardDescription>support@accountablehq.com</CardDescription>
+                <CardTitle className="text-base">Email Us</CardTitle>
+                <CardDescription>support@upfounder.com</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -100,11 +98,11 @@ export default function Contact() {
         <Card>
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <div className="p-2 rounded-lg bg-primary/10">
-                <MessageSquare className="h-5 w-5 text-primary" />
+              <div className="p-2.5 rounded-xl bg-secondary">
+                <MessageSquare className="h-5 w-5 text-foreground" />
               </div>
               <div>
-                <CardTitle>Live Chat</CardTitle>
+                <CardTitle className="text-base">Live Chat</CardTitle>
                 <CardDescription>Available Mon-Fri, 9AM-5PM EST</CardDescription>
               </div>
             </div>
@@ -124,47 +122,25 @@ export default function Contact() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Name*</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  placeholder="Your name"
-                  required
-                />
+                <Input id="name" name="name" placeholder="Your name" required className="rounded-xl" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email*</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  required
-                />
+                <Input id="email" name="email" type="email" placeholder="your@email.com" required className="rounded-xl" />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="subject">Subject*</Label>
-              <Input
-                id="subject"
-                name="subject"
-                placeholder="How can we help?"
-                required
-              />
+              <Input id="subject" name="subject" placeholder="How can we help?" required className="rounded-xl" />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="message">Message*</Label>
-              <Textarea
-                id="message"
-                name="message"
-                placeholder="Tell us more about your question or issue..."
-                rows={6}
-                required
-              />
+              <Textarea id="message" name="message" placeholder="Tell us more about your question or issue..." rows={6} required className="rounded-xl" />
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full rounded-full font-semibold" disabled={loading}>
               <Send className="h-4 w-4 mr-2" />
               {loading ? "Sending..." : "Send Message"}
             </Button>

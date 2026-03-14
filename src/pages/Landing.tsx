@@ -320,7 +320,7 @@ export default function Landing() {
 
           {/* Bottom row — 4 feature cards */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {features.slice(0, 4).map((feature) => (
+            {features.map((feature) => (
               <Card
                 key={feature.title}
                 className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group overflow-hidden"

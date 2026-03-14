@@ -388,8 +388,8 @@ export default function Landing() {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-24 px-6 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,96%)]">
-        <div className="max-w-6xl mx-auto">
+      <section id="testimonials" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,96%)]">
+        <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
               Founders who ship, together

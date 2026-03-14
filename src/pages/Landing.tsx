@@ -2,6 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
+import featureGoalTracking from "@/assets/feature-goal-tracking.jpg";
+import featureAccountability from "@/assets/feature-accountability.jpg";
+import featureMessaging from "@/assets/feature-messaging.jpg";
+import featureAnalytics from "@/assets/feature-analytics.jpg";
+import featureSprints from "@/assets/feature-sprints.jpg";
+import featureSecurity from "@/assets/feature-security.jpg";
 import {
   Target,
   Users,

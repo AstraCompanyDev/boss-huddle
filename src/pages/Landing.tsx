@@ -417,35 +417,7 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
-            {testimonials.map((t) => (
-              <Card
-                key={t.name}
-                className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl"
-              >
-                <CardContent className="p-6">
-                  <div className="flex gap-1 mb-4">
-                    {Array.from({ length: t.rating }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className="h-4 w-4 fill-[hsl(0,0%,0%)] text-[hsl(0,0%,0%)]"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-[hsl(0,0%,42%)] text-sm leading-relaxed mb-5 italic">
-                    "{t.quote}"
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
-                    <div>
-                      <p className="text-sm font-semibold text-[hsl(0,0%,0%)]">{t.name}</p>
-                      <p className="text-xs text-[hsl(0,0%,42%)]">{t.role}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <TestimonialCarousel />
         </div>
       </section>
 

@@ -499,8 +499,8 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,0%)]">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="py-24 px-5 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,0%)]">
+        <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,100%)]">
             Ready to build with accountability?
           </h2>

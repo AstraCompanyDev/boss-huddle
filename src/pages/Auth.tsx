@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowRight } from "lucide-react";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
 
 export default function Auth() {
@@ -25,7 +25,6 @@ export default function Auth() {
   );
 
   useEffect(() => {
-    // Listen first (prevents missing events), then check existing session.
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -80,7 +79,6 @@ export default function Auth() {
       password,
     });
 
-    // If they try the demo creds and it doesn't exist yet, create it and retry once.
     if (error?.message === "Invalid login credentials" && email.trim().toLowerCase() === demoCreds.email) {
       setLoading(false);
       await handleUseDemo();
@@ -114,7 +112,6 @@ export default function Auth() {
         throw new Error(invokeError.message || "Unable to create demo account");
       }
 
-      // Fill the form for transparency.
       setEmail(demoCreds.email);
       setPassword(demoCreds.password);
 
@@ -138,21 +135,27 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/20 via-background to-accent/20 p-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-background relative overflow-hidden p-4">
+      {/* Subtle radial gradients matching landing page */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(210,100%,95%),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsl(38,90%,95%),transparent)]" />
+      
+      <Card className="w-full max-w-md relative z-10 border-border">
         <CardHeader className="text-center space-y-4">
           <img
             src={upfounderLogo}
             alt="Upfounder"
             className="h-10 mx-auto object-contain"
           />
-          <CardDescription>Join your accountability group</CardDescription>
+          <CardDescription className="text-muted-foreground">
+            Join your accountability group
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 rounded-xl bg-secondary">
+              <TabsTrigger value="signin" className="rounded-lg">Sign In</TabsTrigger>
+              <TabsTrigger value="signup" className="rounded-lg">Sign Up</TabsTrigger>
             </TabsList>
 
             <TabsContent value="signin">
@@ -166,6 +169,7 @@ export default function Auth() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="rounded-xl"
                   />
                 </div>
                 <div className="space-y-2">
@@ -177,24 +181,28 @@ export default function Auth() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    className="rounded-xl"
                   />
                 </div>
 
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full rounded-full font-semibold" disabled={loading}>
                   {loading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Signing in...
                     </>
                   ) : (
-                    "Sign In"
+                    <>
+                      Sign In
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
                   )}
                 </Button>
 
                 <Button
                   type="button"
-                  variant="secondary"
-                  className="w-full"
+                  variant="outline"
+                  className="w-full rounded-full font-medium"
                   onClick={handleUseDemo}
                   disabled={loading}
                 >
@@ -209,7 +217,7 @@ export default function Auth() {
                 </Button>
 
                 <p className="text-xs text-muted-foreground text-center">
-                  Tip: if you’ve never created an account here, use <span className="font-medium">Sign Up</span> first.
+                  Tip: if you've never created an account here, use <span className="font-medium text-foreground">Sign Up</span> first.
                 </p>
               </form>
             </TabsContent>
@@ -225,6 +233,7 @@ export default function Auth() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
+                    className="rounded-xl"
                   />
                 </div>
                 <div className="space-y-2">
@@ -236,6 +245,7 @@ export default function Auth() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="rounded-xl"
                   />
                 </div>
                 <div className="space-y-2">
@@ -248,17 +258,21 @@ export default function Auth() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={6}
+                    className="rounded-xl"
                   />
                   <p className="text-xs text-muted-foreground">Password must be at least 6 characters</p>
                 </div>
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full rounded-full font-semibold" disabled={loading}>
                   {loading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Creating account...
                     </>
                   ) : (
-                    "Sign Up"
+                    <>
+                      Sign Up
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
                   )}
                 </Button>
               </form>

@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Check, Loader2, Rocket, Target, Zap } from "lucide-react";
+import { Check, Loader2, Rocket, Target, Zap, ArrowRight } from "lucide-react";
 
 export default function Onboarding() {
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ export default function Onboarding() {
       }
 
       toast({
-        title: "Welcome to Boss Huddle! 🎉",
+        title: "Welcome to Upfounder! 🎉",
         description: "Your 30-day free trial has started",
       });
 
@@ -75,16 +75,19 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/20 via-background to-accent/20 p-4">
-      <Card className="w-full max-w-2xl">
+    <div className="min-h-screen flex items-center justify-center bg-background relative overflow-hidden p-4">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(210,100%,95%),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsl(38,90%,95%),transparent)]" />
+      
+      <Card className="w-full max-w-2xl relative z-10">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             {step === 1 ? (
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center">
                 <Rocket className="h-8 w-8 text-primary" />
               </div>
             ) : (
-              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
+              <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center">
                 <Zap className="h-8 w-8 text-accent" />
               </div>
             )}
@@ -100,9 +103,9 @@ export default function Onboarding() {
           
           {/* Progress indicator */}
           <div className="flex items-center justify-center space-x-2 mt-6">
-            <div className={`w-3 h-3 rounded-full ${step >= 1 ? 'bg-primary' : 'bg-muted'}`} />
-            <div className="w-8 h-0.5 bg-muted" />
-            <div className={`w-3 h-3 rounded-full ${step >= 2 ? 'bg-primary' : 'bg-muted'}`} />
+            <div className={`w-3 h-3 rounded-full ${step >= 1 ? 'bg-foreground' : 'bg-border'}`} />
+            <div className="w-8 h-0.5 bg-border" />
+            <div className={`w-3 h-3 rounded-full ${step >= 2 ? 'bg-foreground' : 'bg-border'}`} />
           </div>
         </CardHeader>
 
@@ -117,6 +120,7 @@ export default function Onboarding() {
                   value={formData.fullName}
                   onChange={(e) => handleInputChange("fullName", e.target.value)}
                   required
+                  className="rounded-xl"
                 />
               </div>
 
@@ -127,6 +131,7 @@ export default function Onboarding() {
                   placeholder="Acme Inc."
                   value={formData.company}
                   onChange={(e) => handleInputChange("company", e.target.value)}
+                  className="rounded-xl"
                 />
               </div>
 
@@ -137,6 +142,7 @@ export default function Onboarding() {
                   placeholder="Founder & CEO"
                   value={formData.role}
                   onChange={(e) => handleInputChange("role", e.target.value)}
+                  className="rounded-xl"
                 />
               </div>
 
@@ -149,20 +155,22 @@ export default function Onboarding() {
                   value={formData.bio}
                   onChange={(e) => handleInputChange("bio", e.target.value)}
                   required
+                  className="rounded-xl"
                 />
                 <p className="text-xs text-muted-foreground">
                   This helps us match you with the right accountability partners
                 </p>
               </div>
 
-              <Button type="submit" className="w-full" size="lg">
-                Continue to Trial
+              <Button type="submit" className="w-full rounded-full font-semibold" size="lg">
+                Continue
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </form>
           ) : (
             <div className="space-y-8">
               {/* Pricing Display */}
-              <div className="text-center p-8 bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl border-2 border-primary/20">
+              <div className="text-center p-8 bg-secondary rounded-2xl">
                 <div className="inline-flex items-baseline space-x-2 mb-4">
                   <span className="text-5xl font-bold">$99</span>
                   <span className="text-muted-foreground">/month</span>
@@ -189,8 +197,8 @@ export default function Onboarding() {
                     "Direct mentorship from successful founders",
                   ].map((feature, index) => (
                     <div key={index} className="flex items-start space-x-3">
-                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
-                        <Check className="h-3 w-3 text-primary" />
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-foreground flex items-center justify-center mt-0.5">
+                        <Check className="h-3 w-3 text-background" />
                       </div>
                       <span className="text-sm">{feature}</span>
                     </div>
@@ -202,7 +210,7 @@ export default function Onboarding() {
               <div className="space-y-3">
                 <Button 
                   onClick={handleCompleteOnboarding} 
-                  className="w-full" 
+                  className="w-full rounded-full font-semibold" 
                   size="lg"
                   disabled={loading}
                 >
@@ -221,7 +229,7 @@ export default function Onboarding() {
                 <Button 
                   onClick={() => setStep(1)} 
                   variant="outline" 
-                  className="w-full"
+                  className="w-full rounded-full"
                   disabled={loading}
                 >
                   Back

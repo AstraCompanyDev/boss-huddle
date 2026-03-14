@@ -8,6 +8,8 @@ import featureMessaging from "@/assets/feature-messaging.jpg";
 import featureAnalytics from "@/assets/feature-analytics.jpg";
 import featureSprints from "@/assets/feature-sprints.jpg";
 import featureSecurity from "@/assets/feature-security.jpg";
+import bannerAccountability from "@/assets/banner-accountability.jpg";
+import bannerResources from "@/assets/banner-resources.jpg";
 import {
   Target,
   Users,
@@ -261,24 +263,69 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((feature) => (
+          {/* Top row — 2 large banner cards */}
+          <div className="grid md:grid-cols-2 gap-5 mb-5">
+            <div className="relative rounded-xl overflow-hidden h-56 group cursor-pointer">
+              <img
+                src={bannerAccountability}
+                alt="Ultimate Accountability"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-[hsl(0,0%,0%)]/40" />
+              <div className="absolute bottom-0 left-0 p-6">
+                <div className="flex items-center gap-2 mb-1">
+                  <img src={upfounderLogo} alt="" className="h-6 w-6 rounded" />
+                  <h3 className="text-lg font-bold text-[hsl(0,0%,100%)]">
+                    Ultimate Accountability
+                  </h3>
+                  <ArrowRight className="h-4 w-4 text-[hsl(0,0%,100%)]" />
+                </div>
+                <p className="text-sm text-[hsl(0,0%,85%)]">
+                  Stay on track with founders who hold you to your word
+                </p>
+              </div>
+            </div>
+            <div className="relative rounded-xl overflow-hidden h-56 group cursor-pointer">
+              <img
+                src={bannerResources}
+                alt="All the resources you need"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-[hsl(0,0%,0%)]/40" />
+              <div className="absolute bottom-0 left-0 p-6">
+                <div className="flex items-center gap-2 mb-1">
+                  <img src={upfounderLogo} alt="" className="h-6 w-6 rounded" />
+                  <h3 className="text-lg font-bold text-[hsl(0,0%,100%)]">
+                    All The Resources You Need
+                  </h3>
+                  <ArrowRight className="h-4 w-4 text-[hsl(0,0%,100%)]" />
+                </div>
+                <p className="text-sm text-[hsl(0,0%,85%)]">
+                  Tools, templates, and community to build your business
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom row — 4 feature cards */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {features.slice(0, 4).map((feature) => (
               <Card
                 key={feature.title}
                 className="bg-[hsl(0,0%,96%)] border-[hsl(0,0%,90%)] hover:border-[hsl(0,0%,80%)] transition-colors group overflow-hidden"
               >
-                <div className="w-full h-40 overflow-hidden">
+                <div className="w-full h-36 overflow-hidden">
                   <img
                     src={feature.image}
                     alt={feature.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <CardContent className="p-6">
-                  <div className="w-10 h-10 rounded-xl bg-[hsl(0,0%,100%)] border border-[hsl(0,0%,90%)] flex items-center justify-center mb-4 group-hover:bg-[hsl(0,0%,0%)] group-hover:border-[hsl(0,0%,0%)] transition-colors">
-                    <feature.icon className="h-5 w-5 text-[hsl(0,0%,10%)] group-hover:text-[hsl(0,0%,100%)] transition-colors" />
+                <CardContent className="p-5">
+                  <div className="w-9 h-9 rounded-lg bg-[hsl(0,0%,100%)] border border-[hsl(0,0%,90%)] flex items-center justify-center mb-3 group-hover:bg-[hsl(0,0%,0%)] group-hover:border-[hsl(0,0%,0%)] transition-colors">
+                    <feature.icon className="h-4 w-4 text-[hsl(0,0%,10%)] group-hover:text-[hsl(0,0%,100%)] transition-colors" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-[hsl(0,0%,0%)]">
+                  <h3 className="text-base font-semibold mb-1 text-[hsl(0,0%,0%)]">
                     {feature.title}
                   </h3>
                   <p className="text-sm text-[hsl(0,0%,42%)] leading-relaxed">

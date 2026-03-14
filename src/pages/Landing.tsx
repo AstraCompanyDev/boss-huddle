@@ -85,26 +85,37 @@ const testimonials = [
   {
     name: "Sarah Chen",
     role: "Founder, NovaTech",
-    quote:
-      "Upfounder completely changed how I approach my business. The accountability factor alone 10x'd my output.",
+    quote: "Upfounder completely changed how I approach my business. The accountability factor alone 10x'd my output.",
     rating: 5,
     avatar: avatar1,
   },
   {
     name: "Marcus Johnson",
     role: "CEO, GrowthLab",
-    quote:
-      "I went from scattered ideas to a focused roadmap in my first week. The community here is unmatched.",
+    quote: "I went from scattered ideas to a focused roadmap in my first week. The community here is unmatched.",
     rating: 5,
     avatar: avatar2,
   },
   {
     name: "Elena Rodriguez",
     role: "Co-Founder, Artisana",
-    quote:
-      "Finally a platform built by founders, for founders. No fluff—just results and real connections.",
+    quote: "Finally a platform built by founders, for founders. No fluff—just results and real connections.",
     rating: 5,
     avatar: avatar3,
+  },
+  {
+    name: "David Park",
+    role: "Founder, Stackwise",
+    quote: "The weekly sprints keep me laser-focused. I've shipped more in 2 months than the entire previous year.",
+    rating: 5,
+    avatar: avatar4,
+  },
+  {
+    name: "Amara Okafor",
+    role: "CEO, BrightPath",
+    quote: "Being surrounded by other founders who get it—that's what makes Upfounder special. The support is incredible.",
+    rating: 5,
+    avatar: avatar5,
   },
 ];
 

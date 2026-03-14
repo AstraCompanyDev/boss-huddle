@@ -157,7 +157,66 @@ const pricingPlans = [
   },
 ];
 
-export default function Landing() {
+function TestimonialCarousel() {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const intervalRef = useRef<ReturnType<typeof setInterval>>();
+
+  const startAutoScroll = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      api?.scrollNext();
+    }, 4000);
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+    startAutoScroll();
+    // Restart timer on user interaction
+    api.on("pointerUp", startAutoScroll);
+    api.on("select", () => {}); // keep alive
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [api, startAutoScroll]);
+
+  return (
+    <Carousel
+      setApi={setApi}
+      opts={{ align: "start", loop: true }}
+      className="w-full"
+    >
+      <CarouselContent className="-ml-5">
+        {testimonials.map((t) => (
+          <CarouselItem key={t.name} className="pl-5 md:basis-1/3">
+            <Card className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl h-full">
+              <CardContent className="p-6">
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-4 w-4 fill-[hsl(0,0%,0%)] text-[hsl(0,0%,0%)]"
+                    />
+                  ))}
+                </div>
+                <p className="text-[hsl(0,0%,42%)] text-sm leading-relaxed mb-5 italic">
+                  "{t.quote}"
+                </p>
+                <div className="flex items-center gap-3">
+                  <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                  <div>
+                    <p className="text-sm font-semibold text-[hsl(0,0%,0%)]">{t.name}</p>
+                    <p className="text-xs text-[hsl(0,0%,42%)]">{t.role}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+  );
+}
+
   const navigate = useNavigate();
 
   return (

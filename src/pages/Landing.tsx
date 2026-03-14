@@ -100,50 +100,39 @@ const testimonials = [
 
 const pricingPlans = [
   {
-    name: "Starter",
+    name: "Freemium",
     price: "Free",
-    period: "forever",
-    description: "Perfect for exploring accountability",
+    period: "",
+    description: "30 days FREE access to Premium features",
     features: [
-      "Join 1 accountability group",
-      "Basic goal tracking",
+      "Full platform access for 30 days",
+      "Goal tracking & milestones",
+      "Weekly live sessions",
       "Community messaging",
-      "Weekly check-ins",
+      "Expert advice sessions",
     ],
-    cta: "Get Started Free",
+    cta: "Start Free Trial",
+    gradient: "bg-gradient-to-br from-[hsl(210,100%,97%)] via-[hsl(210,60%,95%)] to-[hsl(230,80%,96%)]",
+    border: "border-[hsl(210,60%,88%)]",
     highlighted: false,
   },
   {
-    name: "Pro",
+    name: "Premium",
     price: "$99",
     period: "/month",
     description: "For serious founders ready to scale",
     features: [
+      "Everything in Freemium",
       "Unlimited accountability groups",
       "Advanced goal analytics",
-      "Priority matching",
+      "Investor session access",
+      "Priority matching & support",
       "File sharing & storage",
-      "Direct messaging",
-      "Custom milestones",
     ],
-    cta: "Start 30-Day Free Trial",
+    cta: "Get Premium",
+    gradient: "bg-gradient-to-br from-[hsl(0,0%,8%)] via-[hsl(230,20%,15%)] to-[hsl(260,30%,12%)]",
+    border: "border-[hsl(0,0%,20%)]",
     highlighted: true,
-  },
-  {
-    name: "Team",
-    price: "$249",
-    period: "/month",
-    description: "For founding teams building together",
-    features: [
-      "Everything in Pro",
-      "Up to 10 team members",
-      "Team dashboards",
-      "Admin controls",
-      "Priority support",
-      "Custom integrations",
-    ],
-    cta: "Contact Sales",
-    highlighted: false,
   },
 ];
 
@@ -402,17 +391,15 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {pricingPlans.map((plan) => (
               <Card
                 key={plan.name}
-                className={`relative overflow-hidden rounded-2xl ${
-                  plan.highlighted
-                    ? "bg-[hsl(0,0%,0%)] border-[hsl(0,0%,0%)] text-[hsl(0,0%,100%)]"
-                    : "bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)]"
+                className={`relative overflow-hidden rounded-2xl ${plan.gradient} ${plan.border} ${
+                  plan.highlighted ? "text-[hsl(0,0%,100%)]" : ""
                 }`}
               >
-                <CardContent className="p-6">
+                <CardContent className="p-8">
                   <p className={`text-sm font-medium mb-1 ${plan.highlighted ? "text-[hsl(0,0%,70%)]" : "text-[hsl(0,0%,42%)]"}`}>
                     {plan.name}
                   </p>
@@ -420,7 +407,7 @@ export default function Landing() {
                     <span className={`text-4xl font-bold ${plan.highlighted ? "text-[hsl(0,0%,100%)]" : "text-[hsl(0,0%,0%)]"}`}>
                       {plan.price}
                     </span>
-                    {plan.period !== "forever" && (
+                    {plan.period && (
                       <span className={`text-sm ${plan.highlighted ? "text-[hsl(0,0%,60%)]" : "text-[hsl(0,0%,42%)]"}`}>
                         {plan.period}
                       </span>

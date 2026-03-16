@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import bannerRocket from "@/assets/banner-rocket.png";
+import ShortsCarousel from "@/components/ShortsCarousel";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

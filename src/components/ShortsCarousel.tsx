@@ -74,6 +74,13 @@ export default function ShortsCarousel() {
           ))}
         </div>
 
+        {/* Scroll arrows */}
+        <button
+          onClick={scrollLeft}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <ChevronLeft className="h-5 w-5 text-foreground" />
+        </button>
         <button
           onClick={scrollRight}
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"

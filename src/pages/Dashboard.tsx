@@ -219,9 +219,9 @@ export default function Dashboard() {
         <div className="absolute -bottom-16 right-1/3 w-56 h-56 rounded-full opacity-20 dark:opacity-15 bg-[radial-gradient(circle,hsl(var(--accent)/0.3),transparent)]" />
         <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-15 dark:opacity-10 bg-[radial-gradient(circle,hsl(var(--primary)/0.2),transparent)]" />
 
-        <div className="relative flex flex-col md:flex-row items-center gap-8 p-8 md:p-10">
+        <div className="relative flex flex-col md:flex-row items-center gap-8 p-6 md:p-8">
           {/* Video */}
-          <div className="w-full md:w-[45%] aspect-video rounded-2xl overflow-hidden shadow-xl flex-shrink-0 ring-1 ring-primary/20">
+          <div className="w-full md:w-[38%] aspect-video rounded-2xl overflow-hidden shadow-xl flex-shrink-0 ring-1 ring-primary/20">
             <video
               src="/videos/founder-video.mp4"
               controls

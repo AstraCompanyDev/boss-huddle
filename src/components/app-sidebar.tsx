@@ -109,28 +109,42 @@ export function AppSidebar() {
         {/* Navigation */}
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1 px-2">
+            <nav className="space-y-1 px-2">
               {mainItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink to={item.url} end className={getNavCls}>
-                      <item.icon className="h-5 w-5" />
-                      {!collapsed && <span>{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                <NavLink
+                  key={item.title}
+                  to={item.url}
+                  end
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-colors",
+                      isActive
+                        ? "bg-foreground text-background font-semibold"
+                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    )
+                  }
+                >
+                  <item.icon className="h-5 w-5 shrink-0" />
+                  {!collapsed && <span>{item.title}</span>}
+                </NavLink>
               ))}
               {isAdmin && (
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <NavLink to="/admin" className={getNavCls}>
-                      <Shield className="h-5 w-5" />
-                      {!collapsed && <span>Admin</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                <NavLink
+                  to="/admin"
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-colors",
+                      isActive
+                        ? "bg-foreground text-background font-semibold"
+                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    )
+                  }
+                >
+                  <Shield className="h-5 w-5 shrink-0" />
+                  {!collapsed && <span>Admin</span>}
+                </NavLink>
               )}
-            </SidebarMenu>
+            </nav>
           </SidebarGroupContent>
         </SidebarGroup>
 

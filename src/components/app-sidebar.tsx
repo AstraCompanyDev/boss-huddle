@@ -13,6 +13,7 @@ import upfounderLogo from "@/assets/upfounder-logo.jpg";
 import { useAdminCheck } from "@/hooks/useAdminCheck";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { cn } from "@/lib/utils";
 
 import {
   Sidebar,

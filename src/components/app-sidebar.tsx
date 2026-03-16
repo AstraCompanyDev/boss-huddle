@@ -13,15 +13,13 @@ import upfounderLogo from "@/assets/upfounder-logo.jpg";
 import { useAdminCheck } from "@/hooks/useAdminCheck";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { cn } from "@/lib/utils";
 
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
@@ -68,8 +66,8 @@ export function AppSidebar() {
 
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     isActive
-      ? "bg-foreground text-background font-semibold rounded-xl"
-      : "text-muted-foreground hover:bg-secondary hover:text-foreground rounded-xl transition-colors";
+      ? "!bg-foreground !text-background font-semibold rounded-xl"
+      : "text-muted-foreground hover:!bg-secondary hover:text-foreground rounded-xl transition-colors";
 
   return (
     <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
@@ -109,28 +107,42 @@ export function AppSidebar() {
         {/* Navigation */}
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1 px-2">
+            <nav className="space-y-1 px-2">
               {mainItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink to={item.url} end className={getNavCls}>
-                      <item.icon className="h-5 w-5" />
-                      {!collapsed && <span>{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                <NavLink
+                  key={item.title}
+                  to={item.url}
+                  end
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-colors",
+                      isActive
+                        ? "bg-foreground text-background font-semibold"
+                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    )
+                  }
+                >
+                  <item.icon className="h-5 w-5 shrink-0" />
+                  {!collapsed && <span>{item.title}</span>}
+                </NavLink>
               ))}
               {isAdmin && (
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <NavLink to="/admin" className={getNavCls}>
-                      <Shield className="h-5 w-5" />
-                      {!collapsed && <span>Admin</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                <NavLink
+                  to="/admin"
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-colors",
+                      isActive
+                        ? "bg-foreground text-background font-semibold"
+                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    )
+                  }
+                >
+                  <Shield className="h-5 w-5 shrink-0" />
+                  {!collapsed && <span>Admin</span>}
+                </NavLink>
               )}
-            </SidebarMenu>
+            </nav>
           </SidebarGroupContent>
         </SidebarGroup>
 

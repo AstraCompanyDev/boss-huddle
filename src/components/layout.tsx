@@ -54,29 +54,6 @@ export default function Layout({ children }: LayoutProps) {
 
             <div className="flex items-center space-x-3">
               <ThemeToggle />
-
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => navigate('/settings')}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <Settings className="h-5 w-5" />
-              </Button>
-
-              {/* User Profile */}
-              <div className="flex items-center space-x-3 pl-3 border-l">
-                <div className="text-right hidden sm:block">
-                  <p className="text-sm font-semibold">{profile?.full_name || "User"}</p>
-                  <p className="text-xs text-muted-foreground">{profile?.role || "Member"}</p>
-                </div>
-                <div 
-                  className="w-9 h-9 rounded-full bg-foreground flex items-center justify-center text-background text-sm font-semibold cursor-pointer hover:opacity-80 transition-opacity"
-                  onClick={() => navigate('/settings')}
-                >
-                  {getInitials(profile?.full_name)}
-                </div>
-              </div>
             </div>
           </header>
 

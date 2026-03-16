@@ -1,4 +1,4 @@
-import { Play, ChevronRight, X } from "lucide-react";
+import { Play, ChevronRight, ChevronLeft, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";

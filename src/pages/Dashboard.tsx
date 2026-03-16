@@ -213,59 +213,71 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden rounded-2xl bg-foreground text-background p-8 md:p-10">
-        <img src={bannerFounders} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none select-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
-        <div className="relative">
-          <h1 className="text-3xl font-bold mb-2">Hi {firstName || "there"}, Welcome Back!</h1>
-          <p className="text-lg opacity-70 mb-6">Let's crush those goals together 🚀</p>
-          <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-semibold px-6">
-                <Plus className="h-4 w-4 mr-2" />
-                Set New Goal
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px]">
-              <DialogHeader>
-                <DialogTitle>Create New Goal</DialogTitle>
-                <DialogDescription>
-                  Set a new accountability goal and track your progress with the team.
-                </DialogDescription>
-              </DialogHeader>
-              <form onSubmit={handleCreateGoal} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="title">Goal Title*</Label>
-                  <Input id="title" name="title" placeholder="e.g., Launch MVP" required className="rounded-xl" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea id="description" name="description" placeholder="Describe what you want to achieve..." rows={3} className="rounded-xl" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="deadline">Deadline*</Label>
-                  <Input id="deadline" name="deadline" type="date" required className="rounded-xl" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="category">Category</Label>
-                  <Select name="category" defaultValue="product">
-                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="product">Product Development</SelectItem>
-                      <SelectItem value="revenue">Revenue</SelectItem>
-                      <SelectItem value="team">Team Building</SelectItem>
-                      <SelectItem value="marketing">Marketing</SelectItem>
-                      <SelectItem value="personal">Personal Growth</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="flex justify-end space-x-3 pt-4">
-                  <Button type="button" variant="outline" onClick={() => setGoalDialogOpen(false)} className="rounded-full">Cancel</Button>
-                  <Button type="submit" className="rounded-full"><Plus className="h-4 w-4 mr-2" />Create Goal</Button>
-                </div>
-              </form>
-            </DialogContent>
-          </Dialog>
+      <div className="relative overflow-hidden rounded-2xl bg-foreground text-background">
+        <img src={bannerFounders} alt="" className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none select-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+        <div className="relative flex flex-col md:flex-row items-center gap-6 p-8 md:p-10">
+          {/* Video */}
+          <div className="w-full md:w-1/2 aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-black flex-shrink-0">
+            <video
+              src="/videos/founder-video.mp4"
+              controls
+              className="w-full h-full object-cover"
+              poster={bannerFounders}
+            />
+          </div>
+          {/* Text */}
+          <div className="flex-1 space-y-4 text-center md:text-left">
+            <h1 className="text-3xl font-bold">Hi {firstName || "there"}, Welcome Back!</h1>
+            <p className="text-lg opacity-70">Let's crush those goals together 🚀</p>
+            <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-semibold px-6">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Set New Goal
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[500px]">
+                <DialogHeader>
+                  <DialogTitle>Create New Goal</DialogTitle>
+                  <DialogDescription>
+                    Set a new accountability goal and track your progress with the team.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleCreateGoal} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="title">Goal Title*</Label>
+                    <Input id="title" name="title" placeholder="e.g., Launch MVP" required className="rounded-xl" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="description">Description</Label>
+                    <Textarea id="description" name="description" placeholder="Describe what you want to achieve..." rows={3} className="rounded-xl" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="deadline">Deadline*</Label>
+                    <Input id="deadline" name="deadline" type="date" required className="rounded-xl" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="category">Category</Label>
+                    <Select name="category" defaultValue="product">
+                      <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="product">Product Development</SelectItem>
+                        <SelectItem value="revenue">Revenue</SelectItem>
+                        <SelectItem value="team">Team Building</SelectItem>
+                        <SelectItem value="marketing">Marketing</SelectItem>
+                        <SelectItem value="personal">Personal Growth</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex justify-end space-x-3 pt-4">
+                    <Button type="button" variant="outline" onClick={() => setGoalDialogOpen(false)} className="rounded-full">Cancel</Button>
+                    <Button type="submit" className="rounded-full"><Plus className="h-4 w-4 mr-2" />Create Goal</Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
       </div>
 

@@ -454,6 +454,34 @@ export default function Dashboard() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Quick Actions */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
+              <CardDescription>Common tasks and shortcuts</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                <Button className="h-auto p-4 flex flex-col items-center space-y-2 rounded-xl" onClick={handleSendUpdate}>
+                  <MessageSquare className="h-5 w-5" />
+                  <span className="text-sm">Send Update</span>
+                </Button>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2 rounded-xl" onClick={handleTrackGoal}>
+                  <Target className="h-5 w-5" />
+                  <span className="text-sm">Track Goal</span>
+                </Button>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2 rounded-xl" onClick={handleInviteMember}>
+                  <Users className="h-5 w-5" />
+                  <span className="text-sm">Invite Member</span>
+                </Button>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2 rounded-xl" onClick={handleGetHelp}>
+                  <AlertCircle className="h-5 w-5" />
+                  <span className="text-sm">Get Help</span>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

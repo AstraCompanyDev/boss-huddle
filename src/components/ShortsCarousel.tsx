@@ -51,7 +51,7 @@ export default function ShortsCarousel() {
             <div
               key={short.id}
               onClick={() => setActiveShort(short)}
-              className="relative flex-shrink-0 w-[150px] md:w-[170px] rounded-2xl overflow-hidden cursor-pointer group/card hover:scale-[1.03] transition-transform"
+              className="relative flex-shrink-0 flex-1 min-w-[140px] rounded-2xl overflow-hidden cursor-pointer group/card hover:scale-[1.03] transition-transform"
             >
               <div className="aspect-[9/16] relative">
                 <img src={short.thumbnail} alt={short.title} className="w-full h-full object-cover" />

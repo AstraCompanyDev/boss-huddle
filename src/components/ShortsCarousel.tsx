@@ -27,6 +27,10 @@ export default function ShortsCarousel() {
     scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
   };
 
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
+  };
+
   return (
     <div className="relative">
       <div className="flex items-center justify-between mb-3">

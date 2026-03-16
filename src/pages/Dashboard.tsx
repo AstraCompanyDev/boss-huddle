@@ -213,12 +213,15 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden rounded-2xl bg-foreground text-background">
-        <img src={bannerFounders} alt="" className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none select-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
-        <div className="relative flex flex-col md:flex-row items-center gap-6 p-8 md:p-10">
+      <div className="relative overflow-hidden rounded-2xl border border-blue-200/30" style={{ background: 'linear-gradient(135deg, hsl(220 80% 92%) 0%, hsl(230 70% 95%) 30%, hsl(240 60% 97%) 60%, hsl(220 50% 94%) 100%)' }}>
+        {/* Decorative blurred circles */}
+        <div className="absolute -top-20 -left-20 w-72 h-72 rounded-full opacity-30" style={{ background: 'radial-gradient(circle, hsl(220 80% 80%), transparent)' }} />
+        <div className="absolute -bottom-16 right-1/3 w-56 h-56 rounded-full opacity-20" style={{ background: 'radial-gradient(circle, hsl(260 70% 85%), transparent)' }} />
+        <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-15" style={{ background: 'radial-gradient(circle, hsl(200 80% 85%), transparent)' }} />
+
+        <div className="relative flex flex-col md:flex-row items-center gap-8 p-8 md:p-10">
           {/* Video */}
-          <div className="w-full md:w-1/2 aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-black flex-shrink-0">
+          <div className="w-full md:w-[45%] aspect-video rounded-2xl overflow-hidden shadow-xl flex-shrink-0 ring-1 ring-blue-200/40">
             <video
               src="/videos/founder-video.mp4"
               controls
@@ -228,13 +231,14 @@ export default function Dashboard() {
           </div>
           {/* Text */}
           <div className="flex-1 space-y-4 text-center md:text-left">
-            <h1 className="text-3xl font-bold">Hi {firstName || "there"}, Welcome Back!</h1>
-            <p className="text-lg opacity-70">Let's crush those goals together 🚀</p>
+            <h1 className="text-3xl font-bold text-foreground">Hi {firstName || "there"}, Welcome Back!</h1>
+            <p className="text-base text-muted-foreground leading-relaxed">Watch our quick intro to get started and learn how to make the most of the platform. Let's crush those goals together 🚀</p>
             <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-semibold px-6">
+                <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-semibold px-6">
                   <Plus className="h-4 w-4 mr-2" />
                   Set New Goal
+                  <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[500px]">

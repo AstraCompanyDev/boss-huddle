@@ -11,7 +11,7 @@ import Messages from "./pages/Messages";
 import Goals from "./pages/Goals";
 import Members from "./pages/Members";
 import Profile from "./pages/Profile";
-import Files from "./pages/Files";
+import Resources from "./pages/Resources";
 import Settings from "./pages/Settings";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
@@ -40,7 +40,7 @@ const App = () => (
           <Route path="/goals" element={<ProtectedRoute><Layout><Goals /></Layout></ProtectedRoute>} />
           <Route path="/members" element={<ProtectedRoute><Layout><Members /></Layout></ProtectedRoute>} />
           <Route path="/profile/:userId" element={<ProtectedRoute><Layout><Profile /></Layout></ProtectedRoute>} />
-          <Route path="/files" element={<ProtectedRoute><Layout><Files /></Layout></ProtectedRoute>} />
+          <Route path="/resources" element={<ProtectedRoute><Layout><Resources /></Layout></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />
           <Route path="/contact" element={<ProtectedRoute><Layout><Contact /></Layout></ProtectedRoute>} />
           <Route path="/admin" element={<ProtectedRoute><AdminRoute><Layout><Admin /></Layout></AdminRoute></ProtectedRoute>} />

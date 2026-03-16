@@ -31,7 +31,7 @@ const mainItems = [
   { title: "Channels", url: "/messages", icon: Hash },
   { title: "Goals", url: "/goals", icon: Target },
   { title: "Members", url: "/members", icon: Users },
-  { title: "Files", url: "/files", icon: FileText },
+  { title: "Resources", url: "/resources", icon: FileText },
 ];
 
 export function AppSidebar() {

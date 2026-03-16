@@ -11,7 +11,7 @@ import Messages from "./pages/Messages";
 import Goals from "./pages/Goals";
 import Members from "./pages/Members";
 import Profile from "./pages/Profile";
-import Files from "./pages/Files";
+import Resources from "./pages/Resources";
 import Settings from "./pages/Settings";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";

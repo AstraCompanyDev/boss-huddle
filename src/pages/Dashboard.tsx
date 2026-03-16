@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import bannerRocket from "@/assets/banner-rocket.png";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -213,6 +214,7 @@ export default function Dashboard() {
       {/* Hero Section */}
       <div className="relative overflow-hidden rounded-2xl bg-foreground text-background p-8 md:p-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_80%_-20%,hsl(210,100%,30%),transparent)] opacity-60" />
+        <img src={bannerRocket} alt="" className="absolute right-4 bottom-0 h-full max-h-[180px] md:max-h-[220px] object-contain opacity-80 pointer-events-none select-none" />
         <div className="relative">
           <h1 className="text-3xl font-bold mb-2">Hi {firstName || "there"}, Welcome Back!</h1>
           <p className="text-lg opacity-70 mb-6">Let's crush those goals together 🚀</p>

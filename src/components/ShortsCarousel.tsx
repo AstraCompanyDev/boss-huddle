@@ -1,4 +1,4 @@
-import { Play, ChevronRight, X } from "lucide-react";
+import { Play, ChevronRight, ChevronLeft, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -25,6 +25,10 @@ export default function ShortsCarousel() {
 
   const scrollRight = () => {
     scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
+  };
+
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
   };
 
   return (
@@ -70,6 +74,13 @@ export default function ShortsCarousel() {
           ))}
         </div>
 
+        {/* Scroll arrows */}
+        <button
+          onClick={scrollLeft}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <ChevronLeft className="h-5 w-5 text-foreground" />
+        </button>
         <button
           onClick={scrollRight}
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"

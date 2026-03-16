@@ -269,6 +269,9 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Shorts Section */}
+      <ShortsCarousel />
+
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[

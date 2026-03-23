@@ -508,12 +508,12 @@ export default function Landing() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10">
             {[
-              { img: benefitGoalTracking, label: "Goal Tracking" },
-              { img: benefitLiveSessions, label: "Live Sessions" },
-              { img: benefitExpertAdvice, label: "Expert Advice" },
-              { img: benefitCommunity, label: "Community Access" },
-              { img: benefitResources, label: "Resource Library" },
-              { img: benefitAnalytics, label: "Progress Analytics" },
+              { img: benefitGoalTracking, label: "Stay On Track" },
+              { img: benefitLiveSessions, label: "Never Build Alone" },
+              { img: benefitExpertAdvice, label: "Learn From The Best" },
+              { img: benefitCommunity, label: "Find Your Tribe" },
+              { img: benefitResources, label: "Everything You Need" },
+              { img: benefitAnalytics, label: "See Your Growth" },
             ].map((b) => (
               <div key={b.label} className="rounded-2xl overflow-hidden border border-[hsl(0,0%,90%)] bg-[hsl(0,0%,100%)] shadow-sm hover:shadow-md transition-shadow">
                 <img src={b.img} alt={b.label} className="w-full aspect-[5/4] object-cover" />

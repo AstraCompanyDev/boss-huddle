@@ -481,7 +481,7 @@ export default function Landing() {
             </h2>
           </div>
 
-          <Card className="bg-[hsl(0,0%,24%)] border-[hsl(0,0%,30%)] rounded-2xl">
+          <Card className="bg-[hsl(0,0%,34%)] border-[hsl(0,0%,40%)] rounded-2xl">
             <CardContent className="p-10 md:p-14">
               <p className="text-[hsl(0,0%,75%)] text-base md:text-lg leading-relaxed mb-4">
                 As CEO of UpFounder, I'm excited to build a community of the next generation of exceptional founders.

@@ -484,16 +484,16 @@ export default function Landing() {
       {/* Free Trial */}
       <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)]">
         <div className="max-w-2xl mx-auto">
-          <Card className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(0,0%,0%)] to-[hsl(0,0%,10%)] border-[hsl(0,0%,20%)] text-[hsl(0,0%,100%)]">
+          <Card className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(38,92%,50%)] to-[hsl(25,90%,42%)] border-[hsl(38,92%,45%)] text-[hsl(0,0%,100%)]">
             <CardContent className="p-10 text-center">
-              <div className="inline-flex items-center gap-2 bg-[hsl(38,92%,50%)/0.15] text-[hsl(38,92%,50%)] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+              <div className="inline-flex items-center gap-2 bg-[hsl(0,0%,100%)/0.2] text-[hsl(0,0%,100%)] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
                 <Zap className="h-4 w-4" />
                 Limited Time Offer
               </div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
                 Get your 30 day FREE trial
               </h2>
-              <p className="text-[hsl(0,0%,60%)] text-lg mb-8 max-w-md mx-auto">
+              <p className="text-[hsl(0,0%,100%)/0.8] text-lg mb-8 max-w-md mx-auto">
                 Full access to every feature. No credit card required. Cancel anytime.
               </p>
 
@@ -506,8 +506,8 @@ export default function Landing() {
                   "Resource library",
                   "Progress analytics",
                 ].map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-[hsl(0,0%,70%)]">
-                    <CheckCircle className="h-4 w-4 shrink-0 text-[hsl(38,92%,50%)]" />
+                  <li key={f} className="flex items-center gap-2 text-sm text-[hsl(0,0%,100%)/0.85]">
+                    <CheckCircle className="h-4 w-4 shrink-0 text-[hsl(0,0%,100%)]" />
                     {f}
                   </li>
                 ))}
@@ -515,13 +515,13 @@ export default function Landing() {
 
               <Button
                 size="lg"
-                className="w-full max-w-sm rounded-full font-semibold bg-[hsl(38,92%,50%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(38,92%,45%)] h-12 text-base"
+                className="w-full max-w-sm rounded-full font-semibold bg-[hsl(0,0%,100%)] text-[hsl(38,92%,40%)] hover:bg-[hsl(0,0%,95%)] h-12 text-base"
                 onClick={() => navigate("/auth")}
               >
                 Start Your Free Trial
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <p className="text-xs text-[hsl(0,0%,50%)] mt-4">No credit card required · Cancel anytime</p>
+              <p className="text-xs text-[hsl(0,0%,100%)/0.6] mt-4">No credit card required · Cancel anytime</p>
             </CardContent>
           </Card>
         </div>

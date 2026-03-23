@@ -424,7 +424,7 @@ export default function Landing() {
               </Card>
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Built by Founders */}

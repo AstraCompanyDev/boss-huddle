@@ -240,11 +240,6 @@ export default function Landing() {
               className="h-8 rounded-lg"
             />
           </div>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[hsl(0,0%,42%)]">
-            <a href="#features" className="hover:text-[hsl(0,0%,0%)] transition-colors">Features</a>
-            <a href="#testimonials" className="hover:text-[hsl(0,0%,0%)] transition-colors">Testimonials</a>
-            <a href="#pricing" className="hover:text-[hsl(0,0%,0%)] transition-colors">Pricing</a>
-          </div>
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"

@@ -20,6 +20,12 @@ import avatar2 from "@/assets/avatar-2.jpg";
 import avatar3 from "@/assets/avatar-3.jpg";
 import avatar4 from "@/assets/avatar-4.jpg";
 import avatar5 from "@/assets/avatar-5.jpg";
+import benefitGoalTracking from "@/assets/benefit-goal-tracking.jpg";
+import benefitLiveSessions from "@/assets/benefit-live-sessions.jpg";
+import benefitExpertAdvice from "@/assets/benefit-expert-advice.jpg";
+import benefitCommunity from "@/assets/benefit-community.jpg";
+import benefitResources from "@/assets/benefit-resources.jpg";
+import benefitAnalytics from "@/assets/benefit-analytics.jpg";
 
 const founderAvatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
 import {

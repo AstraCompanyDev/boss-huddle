@@ -521,7 +521,7 @@ export default function Landing() {
                 Start Your Free Trial
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <p className="text-xs text-[hsl(0,0%,100%)/0.6] mt-4">No credit card required · Cancel anytime</p>
+              <p className="text-xs text-[hsl(0,0%,100%)/0.6] mt-4">Cancel anytime</p>
             </CardContent>
           </Card>
         </div>

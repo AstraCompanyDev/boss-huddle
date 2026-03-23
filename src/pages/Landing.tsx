@@ -516,7 +516,7 @@ export default function Landing() {
               { img: benefitAnalytics, label: "See Your Growth" },
             ].map((b) => (
               <div key={b.label} className="rounded-2xl overflow-hidden border border-[hsl(0,0%,90%)] bg-[hsl(0,0%,100%)] shadow-sm hover:shadow-md transition-shadow">
-                <img src={b.img} alt={b.label} className="w-full aspect-[5/4] object-cover" />
+                <img src={b.img} alt={b.label} className="w-full aspect-[3/2] object-cover" />
                 <p className="text-sm font-semibold text-[hsl(0,0%,10%)] py-3 px-2">{b.label}</p>
               </div>
             ))}

@@ -491,6 +491,7 @@ export default function Landing() {
               <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
                 We're focused on bringing together high-quality founders who are actively in the game — people who are executing, learning fast, and willing to contribute to something bigger than themselves.
               </p>
+              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-8 italic font-medium">
                 If you're building, you belong here.
               </p>
               <div className="border-t border-[hsl(0,0%,90%)] pt-6">

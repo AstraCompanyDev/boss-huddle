@@ -473,33 +473,33 @@ export default function Landing() {
       </section>
 
       {/* A Note from Our CEO */}
-      <section id="testimonials" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,96%)]">
+      <section id="testimonials" className="py-24 px-5 border-t border-[hsl(0,0%,18%)] bg-[hsl(0,0%,12%)]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,100%)]">
               Founders Who Ship Together
             </h2>
           </div>
 
-          <Card className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl">
+          <Card className="bg-[hsl(0,0%,16%)] border-[hsl(0,0%,22%)] rounded-2xl">
             <CardContent className="p-10 md:p-14">
-              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
+              <p className="text-[hsl(0,0%,75%)] text-base md:text-lg leading-relaxed mb-4">
                 As CEO of UpFounder, I'm excited to build a community of the next generation of exceptional founders.
               </p>
-              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
+              <p className="text-[hsl(0,0%,75%)] text-base md:text-lg leading-relaxed mb-4">
                 UpFounder is for those serious about creating, scaling, and pushing boundaries - a place where ambitious builders share real insights, solve real problems, and grow together.
               </p>
-              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
+              <p className="text-[hsl(0,0%,75%)] text-base md:text-lg leading-relaxed mb-4">
                 We're bringing together founders who are actively executing, learning fast, and building something bigger than themselves.
               </p>
-              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-8 italic font-medium">
+              <p className="text-[hsl(0,0%,75%)] text-base md:text-lg leading-relaxed mb-8 italic font-medium">
                 If you're building, you belong here.
               </p>
-              <div className="border-t border-[hsl(0,0%,90%)] pt-6 flex items-center gap-4">
+              <div className="border-t border-[hsl(0,0%,22%)] pt-6 flex items-center gap-4">
                 <img src={ceoSean} alt="Sean Walsh" className="w-14 h-14 rounded-full object-cover" />
                 <div>
-                  <p className="text-base font-semibold text-[hsl(0,0%,0%)]">— Sean Walsh</p>
-                  <p className="text-sm text-[hsl(0,0%,42%)]">CEO, UpFounder</p>
+                  <p className="text-base font-semibold text-[hsl(0,0%,100%)]">— Sean Walsh</p>
+                  <p className="text-sm text-[hsl(0,0%,58%)]">CEO, UpFounder</p>
                 </div>
               </div>
             </CardContent>

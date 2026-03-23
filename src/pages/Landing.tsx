@@ -473,7 +473,7 @@ export default function Landing() {
       </section>
 
       {/* A Note from Our CEO */}
-      <section id="testimonials" className="py-24 px-5 border-t border-[hsl(0,0%,18%)] bg-[hsl(0,0%,12%)]">
+      <section id="testimonials" className="py-24 px-5 border-t border-[hsl(0,0%,28%)] bg-[hsl(0,0%,20%)]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,100%)]">

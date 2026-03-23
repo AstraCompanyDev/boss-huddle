@@ -495,7 +495,7 @@ export default function Landing() {
               <p className="text-[hsl(0,0%,75%)] text-base md:text-lg leading-relaxed mb-8 italic font-medium">
                 If you're building, you belong here.
               </p>
-              <div className="border-t border-[hsl(0,0%,30%)] pt-6 flex items-center gap-4">
+              <div className="border-t border-[hsl(0,0%,40%)] pt-6 flex items-center gap-4">
                 <img src={ceoSean} alt="Sean Walsh" className="w-14 h-14 rounded-full object-cover" />
                 <div>
                   <p className="text-base font-semibold text-[hsl(0,0%,100%)]">— Sean Walsh</p>

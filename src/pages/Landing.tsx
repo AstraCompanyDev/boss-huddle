@@ -484,7 +484,7 @@ export default function Landing() {
       {/* Free Trial */}
       <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)]">
         <div className="max-w-2xl mx-auto">
-          <Card className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(0,0%,0%)] to-[hsl(0,0%,10%)] border-[hsl(0,0%,20%)] text-[hsl(0,0%,100%)]">
+          <Card className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(38,92%,50%)] to-[hsl(25,90%,42%)] border-[hsl(38,92%,45%)] text-[hsl(0,0%,100%)]">
             <CardContent className="p-10 text-center">
               <div className="inline-flex items-center gap-2 bg-[hsl(38,92%,50%)/0.15] text-[hsl(38,92%,50%)] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
                 <Zap className="h-4 w-4" />

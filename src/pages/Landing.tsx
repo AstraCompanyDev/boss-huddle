@@ -481,70 +481,49 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Pricing */}
+      {/* Free Trial */}
       <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
-              Simple, transparent pricing
-            </h2>
-            <p className="text-[hsl(0,0%,42%)] text-lg">
-              Start free. Upgrade when you're ready to go all in.
-            </p>
-          </div>
+        <div className="max-w-2xl mx-auto">
+          <Card className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(0,0%,0%)] to-[hsl(0,0%,10%)] border-[hsl(0,0%,20%)] text-[hsl(0,0%,100%)]">
+            <CardContent className="p-10 text-center">
+              <div className="inline-flex items-center gap-2 bg-[hsl(38,92%,50%)/0.15] text-[hsl(38,92%,50%)] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+                <Zap className="h-4 w-4" />
+                Limited Time Offer
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+                Get your 30 day FREE trial
+              </h2>
+              <p className="text-[hsl(0,0%,60%)] text-lg mb-8 max-w-md mx-auto">
+                Full access to every feature. No credit card required. Cancel anytime.
+              </p>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {pricingPlans.map((plan) => (
-              <Card
-                key={plan.name}
-                className={`relative overflow-hidden rounded-2xl ${plan.gradient} ${plan.border} ${
-                  plan.highlighted ? "text-[hsl(0,0%,100%)]" : ""
-                }`}
+              <ul className="grid sm:grid-cols-2 gap-3 text-left max-w-md mx-auto mb-8">
+                {[
+                  "Unlimited goal tracking",
+                  "Live accountability sessions",
+                  "Expert founder advice",
+                  "Community access",
+                  "Resource library",
+                  "Progress analytics",
+                ].map((f) => (
+                  <li key={f} className="flex items-center gap-2 text-sm text-[hsl(0,0%,70%)]">
+                    <CheckCircle className="h-4 w-4 shrink-0 text-[hsl(38,92%,50%)]" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
+              <Button
+                size="lg"
+                className="w-full max-w-sm rounded-full font-semibold bg-[hsl(38,92%,50%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(38,92%,45%)] h-12 text-base"
+                onClick={() => navigate("/auth")}
               >
-                <CardContent className="p-8">
-                  <p className={`text-sm font-medium mb-1 ${plan.highlighted ? "text-[hsl(0,0%,70%)]" : "text-[hsl(0,0%,42%)]"}`}>
-                    {plan.name}
-                  </p>
-                  <div className="flex items-baseline gap-1 mb-2">
-                    <span className={`text-4xl font-bold ${plan.highlighted ? "text-[hsl(0,0%,100%)]" : "text-[hsl(0,0%,0%)]"}`}>
-                      {plan.price}
-                    </span>
-                    {plan.period && (
-                      <span className={`text-sm ${plan.highlighted ? "text-[hsl(0,0%,60%)]" : "text-[hsl(0,0%,42%)]"}`}>
-                        {plan.period}
-                      </span>
-                    )}
-                  </div>
-                  <p className={`text-sm mb-6 ${plan.highlighted ? "text-[hsl(0,0%,60%)]" : "text-[hsl(0,0%,42%)]"}`}>
-                    {plan.description}
-                  </p>
-
-                  <Button
-                    className={`w-full rounded-full font-semibold mb-6 ${
-                      plan.highlighted
-                        ? "bg-[hsl(38,92%,50%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(38,92%,45%)]"
-                        : "bg-[hsl(210,100%,50%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(210,100%,42%)]"
-                    }`}
-                    onClick={() => navigate("/auth")}
-                  >
-                    {plan.cta}
-                  </Button>
-
-                  <ul className="space-y-3">
-                    {plan.features.map((f) => (
-                      <li
-                        key={f}
-                        className={`flex items-start gap-2 text-sm ${plan.highlighted ? "text-[hsl(0,0%,70%)]" : "text-[hsl(0,0%,42%)]"}`}
-                      >
-                        <CheckCircle className={`h-4 w-4 mt-0.5 shrink-0 ${plan.highlighted ? "text-[hsl(0,0%,100%)]" : "text-[hsl(0,0%,0%)]"}`} />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                Start Your Free Trial
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <p className="text-xs text-[hsl(0,0%,50%)] mt-4">No credit card required · Cancel anytime</p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 

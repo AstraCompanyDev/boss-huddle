@@ -506,21 +506,21 @@ export default function Landing() {
             A platform dedicated to building your startups future. Giving you 30 days FREE to accelerate your startup!
           </p>
 
-          <ul className="grid sm:grid-cols-2 gap-3 text-left max-w-md mx-auto mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10">
             {[
-              "Unlimited goal tracking",
-              "Live accountability sessions",
-              "Expert founder advice",
-              "Community access",
-              "Resource library",
-              "Progress analytics",
-            ].map((f) => (
-              <li key={f} className="flex items-center gap-2 text-sm text-[hsl(0,0%,42%)]">
-                <CheckCircle className="h-4 w-4 shrink-0 text-[hsl(38,92%,50%)]" />
-                {f}
-              </li>
+              { img: benefitGoalTracking, label: "Goal Tracking" },
+              { img: benefitLiveSessions, label: "Live Sessions" },
+              { img: benefitExpertAdvice, label: "Expert Advice" },
+              { img: benefitCommunity, label: "Community Access" },
+              { img: benefitResources, label: "Resource Library" },
+              { img: benefitAnalytics, label: "Progress Analytics" },
+            ].map((b) => (
+              <div key={b.label} className="rounded-2xl overflow-hidden border border-[hsl(0,0%,90%)] bg-[hsl(0,0%,100%)] shadow-sm hover:shadow-md transition-shadow">
+                <img src={b.img} alt={b.label} className="w-full aspect-[5/4] object-cover" />
+                <p className="text-sm font-semibold text-[hsl(0,0%,10%)] py-3 px-2">{b.label}</p>
+              </div>
             ))}
-          </ul>
+          </div>
 
           <Button
             size="lg"

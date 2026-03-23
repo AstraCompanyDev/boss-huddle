@@ -482,8 +482,10 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,0%)]">
-        <div className="max-w-2xl mx-auto text-center">
+      <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] relative overflow-hidden bg-[hsl(0,0%,100%)]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(210,100%,95%),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsl(38,90%,95%),transparent)]" />
+        <div className="max-w-2xl mx-auto text-center relative">
           <div className="inline-flex items-center gap-2 bg-[hsl(38,92%,50%)/0.15] text-[hsl(38,92%,50%)] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
             <Zap className="h-4 w-4" />
             Limited Time Offer

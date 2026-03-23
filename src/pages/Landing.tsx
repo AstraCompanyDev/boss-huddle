@@ -9,6 +9,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
+import ceoSean from "@/assets/ceo-sean.jpg";
 import featureGoalTracking from "@/assets/feature-goal-tracking.jpg";
 import featureLiveSessions from "@/assets/feature-live-sessions.jpg";
 import featureExpertAdvice from "@/assets/feature-expert-advice.jpg";
@@ -494,9 +495,12 @@ export default function Landing() {
               <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-8 italic font-medium">
                 If you're building, you belong here.
               </p>
-              <div className="border-t border-[hsl(0,0%,90%)] pt-6">
-                <p className="text-base font-semibold text-[hsl(0,0%,0%)]">— Sean Walsh</p>
-                <p className="text-sm text-[hsl(0,0%,42%)]">CEO, UpFounder</p>
+              <div className="border-t border-[hsl(0,0%,90%)] pt-6 flex items-center gap-4">
+                <img src={ceoSean} alt="Sean Walsh" className="w-14 h-14 rounded-full object-cover" />
+                <div>
+                  <p className="text-base font-semibold text-[hsl(0,0%,0%)]">— Sean Walsh</p>
+                  <p className="text-sm text-[hsl(0,0%,42%)]">CEO, UpFounder</p>
+                </div>
               </div>
             </CardContent>
           </Card>

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useCallback, useState } from "react";
+import { FadeIn } from "@/hooks/useScrollFadeIn";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {

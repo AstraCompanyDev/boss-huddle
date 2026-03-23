@@ -484,13 +484,13 @@ export default function Landing() {
           <Card className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl">
             <CardContent className="p-10 md:p-14">
               <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
-                As CEO of UpFounder, I'm incredibly excited to begin building a community of the next generation of exceptional founders.
+                As CEO of UpFounder, I'm excited to build a community of the next generation of exceptional founders.
               </p>
               <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
-                UpFounder is designed for those who are serious about creating, scaling, and pushing boundaries. This isn't just a place to connect — it's a space where ambitious individuals come together to share real insights, solve real problems, and build meaningful companies.
+                UpFounder is for those serious about creating, scaling, and pushing boundaries - a place where ambitious builders share real insights, solve real problems, and grow together.
               </p>
               <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
-                We're focused on bringing together high-quality founders who are actively in the game — people who are executing, learning fast, and willing to contribute to something bigger than themselves.
+                We're bringing together founders who are actively executing, learning fast, and building something bigger than themselves.
               </p>
               <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-8 italic font-medium">
                 If you're building, you belong here.

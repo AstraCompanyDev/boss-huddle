@@ -552,7 +552,7 @@ export default function Landing() {
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <p className="text-xs text-[hsl(0,0%,60%)] mt-4">Cancel anytime</p>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Footer */}

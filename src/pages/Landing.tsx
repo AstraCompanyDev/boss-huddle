@@ -505,7 +505,7 @@ export default function Landing() {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </FadeIn>
       </section>
 
       {/* CTA */}

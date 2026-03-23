@@ -20,6 +20,12 @@ import avatar2 from "@/assets/avatar-2.jpg";
 import avatar3 from "@/assets/avatar-3.jpg";
 import avatar4 from "@/assets/avatar-4.jpg";
 import avatar5 from "@/assets/avatar-5.jpg";
+import benefitGoalTracking from "@/assets/benefit-goal-tracking.jpg";
+import benefitLiveSessions from "@/assets/benefit-live-sessions.jpg";
+import benefitExpertAdvice from "@/assets/benefit-expert-advice.jpg";
+import benefitCommunity from "@/assets/benefit-community.jpg";
+import benefitResources from "@/assets/benefit-resources.jpg";
+import benefitAnalytics from "@/assets/benefit-analytics.jpg";
 
 const founderAvatars = [avatar1, avatar2, avatar3, avatar4, avatar5];
 import {
@@ -485,7 +491,7 @@ export default function Landing() {
       <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] relative overflow-hidden bg-[hsl(0,0%,100%)]">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(210,100%,95%),transparent)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsl(38,90%,95%),transparent)]" />
-        <div className="max-w-2xl mx-auto text-center relative">
+        <div className="max-w-4xl mx-auto text-center relative">
           <div className="inline-flex items-center gap-2 bg-[hsl(0,0%,96%)] border border-[hsl(0,0%,90%)] text-[hsl(0,0%,42%)] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
             <Zap className="h-3.5 w-3.5 text-[hsl(0,0%,0%)]" />
             Limited Time Offer
@@ -500,21 +506,21 @@ export default function Landing() {
             A platform dedicated to building your startups future. Giving you 30 days FREE to accelerate your startup!
           </p>
 
-          <ul className="grid sm:grid-cols-2 gap-3 text-left max-w-md mx-auto mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10">
             {[
-              "Unlimited goal tracking",
-              "Live accountability sessions",
-              "Expert founder advice",
-              "Community access",
-              "Resource library",
-              "Progress analytics",
-            ].map((f) => (
-              <li key={f} className="flex items-center gap-2 text-sm text-[hsl(0,0%,42%)]">
-                <CheckCircle className="h-4 w-4 shrink-0 text-[hsl(38,92%,50%)]" />
-                {f}
-              </li>
+              { img: benefitGoalTracking, label: "Goal Tracking" },
+              { img: benefitLiveSessions, label: "Live Sessions" },
+              { img: benefitExpertAdvice, label: "Expert Advice" },
+              { img: benefitCommunity, label: "Community Access" },
+              { img: benefitResources, label: "Resource Library" },
+              { img: benefitAnalytics, label: "Progress Analytics" },
+            ].map((b) => (
+              <div key={b.label} className="rounded-2xl overflow-hidden border border-[hsl(0,0%,90%)] bg-[hsl(0,0%,100%)] shadow-sm hover:shadow-md transition-shadow">
+                <img src={b.img} alt={b.label} className="w-full aspect-[5/4] object-cover" />
+                <p className="text-sm font-semibold text-[hsl(0,0%,10%)] py-3 px-2">{b.label}</p>
+              </div>
             ))}
-          </ul>
+          </div>
 
           <Button
             size="lg"

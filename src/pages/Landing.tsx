@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useCallback, useState } from "react";
+import { FadeIn } from "@/hooks/useScrollFadeIn";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -267,7 +268,7 @@ export default function Landing() {
         {/* Subtle radial gradient texture */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(210,100%,95%),transparent)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsl(38,90%,95%),transparent)]" />
-        <div className="max-w-5xl mx-auto text-center relative">
+        <FadeIn className="max-w-5xl mx-auto text-center relative">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-[hsl(0,0%,90%)] bg-[hsl(0,0%,96%)] text-sm font-medium text-[hsl(0,0%,42%)]">
             <Zap className="h-3.5 w-3.5 text-[hsl(0,0%,0%)]" />
             Built for founders who ship
@@ -336,12 +337,12 @@ export default function Landing() {
               </div>
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Features */}
       <section id="features" className="py-24 px-5 border-t border-[hsl(0,0%,92%)]">
-        <div className="max-w-[1400px] mx-auto">
+        <FadeIn className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
               Everything you need to stay on track
@@ -423,12 +424,12 @@ export default function Landing() {
               </Card>
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Built by Founders */}
       <section className="py-24 px-5 border-t border-[hsl(0,0%,92%)]">
-        <div className="max-w-[1400px] mx-auto">
+        <FadeIn className="max-w-[1400px] mx-auto">
           <div className="bg-[hsl(0,0%,96%)] rounded-2xl border border-[hsl(0,0%,90%)] overflow-hidden grid md:grid-cols-5">
             <div className="md:col-span-2 overflow-hidden h-[400px]">
               <video
@@ -469,12 +470,12 @@ export default function Landing() {
               </p>
             </div>
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* A Note from Our CEO */}
       <section id="testimonials" className="py-24 px-5 border-t border-[hsl(0,0%,38%)] bg-[hsl(0,0%,30%)]">
-        <div className="max-w-4xl mx-auto">
+        <FadeIn className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,100%)]">
               Founders Who Ship Together
@@ -504,14 +505,14 @@ export default function Landing() {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </FadeIn>
       </section>
 
       {/* CTA */}
       <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] relative overflow-hidden bg-[hsl(0,0%,100%)]">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(210,100%,95%),transparent)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsl(38,90%,95%),transparent)]" />
-        <div className="max-w-4xl mx-auto text-center relative">
+        <FadeIn className="max-w-4xl mx-auto text-center relative">
           <div className="inline-flex items-center gap-2 bg-[hsl(0,0%,96%)] border border-[hsl(0,0%,90%)] text-[hsl(0,0%,42%)] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
             <Zap className="h-3.5 w-3.5 text-[hsl(0,0%,0%)]" />
             Limited Time Offer
@@ -551,7 +552,7 @@ export default function Landing() {
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <p className="text-xs text-[hsl(0,0%,60%)] mt-4">Cancel anytime</p>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Footer */}

@@ -494,7 +494,7 @@ export default function Landing() {
                 Get your 30 day FREE trial
               </h2>
               <p className="text-[hsl(0,0%,100%)/0.8] text-lg mb-8 max-w-md mx-auto">
-                Full access to every feature. No credit card required. Cancel anytime.
+                A platform dedicated to building your startups future. Giving you 30 days FREE to accelerate your startup!
               </p>
 
               <ul className="grid sm:grid-cols-2 gap-3 text-left max-w-md mx-auto mb-8">

@@ -470,7 +470,7 @@ export default function Landing() {
               </p>
             </div>
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* A Note from Our CEO */}

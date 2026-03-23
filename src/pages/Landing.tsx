@@ -9,6 +9,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
+import ceoSean from "@/assets/ceo-sean.jpg";
 import featureGoalTracking from "@/assets/feature-goal-tracking.jpg";
 import featureLiveSessions from "@/assets/feature-live-sessions.jpg";
 import featureExpertAdvice from "@/assets/feature-expert-advice.jpg";

@@ -482,19 +482,21 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,0%)]">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-[hsl(38,92%,50%)/0.15] text-[hsl(38,92%,50%)] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
-            <Zap className="h-4 w-4" />
+      <section id="pricing" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] relative overflow-hidden bg-[hsl(0,0%,100%)]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(210,100%,95%),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsl(38,90%,95%),transparent)]" />
+        <div className="max-w-2xl mx-auto text-center relative">
+          <div className="inline-flex items-center gap-2 bg-[hsl(0,0%,96%)] border border-[hsl(0,0%,90%)] text-[hsl(0,0%,42%)] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+            <Zap className="h-3.5 w-3.5 text-[hsl(0,0%,0%)]" />
             Limited Time Offer
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-[hsl(0,0%,100%)]">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-[hsl(0,0%,0%)]">
             Ready to build with accountability?
           </h2>
-          <p className="text-[hsl(0,0%,60%)] text-lg mb-4">
+          <p className="text-[hsl(0,0%,42%)] text-lg mb-4">
             Join hundreds of founders already shipping faster together.
           </p>
-          <p className="text-[hsl(0,0%,60%)] text-lg mb-8 max-w-md mx-auto">
+          <p className="text-[hsl(0,0%,42%)] text-lg mb-8 max-w-md mx-auto">
             A platform dedicated to building your startups future. Giving you 30 days FREE to accelerate your startup!
           </p>
 
@@ -507,7 +509,7 @@ export default function Landing() {
               "Resource library",
               "Progress analytics",
             ].map((f) => (
-              <li key={f} className="flex items-center gap-2 text-sm text-[hsl(0,0%,70%)]">
+              <li key={f} className="flex items-center gap-2 text-sm text-[hsl(0,0%,42%)]">
                 <CheckCircle className="h-4 w-4 shrink-0 text-[hsl(38,92%,50%)]" />
                 {f}
               </li>
@@ -522,7 +524,7 @@ export default function Landing() {
             Start Your Free Trial
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <p className="text-xs text-[hsl(0,0%,50%)] mt-4">Cancel anytime</p>
+          <p className="text-xs text-[hsl(0,0%,60%)] mt-4">Cancel anytime</p>
         </div>
       </section>
 

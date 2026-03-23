@@ -471,19 +471,38 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* A Note from Our CEO */}
       <section id="testimonials" className="py-24 px-5 border-t border-[hsl(0,0%,92%)] bg-[hsl(0,0%,96%)]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-16">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[hsl(0,0%,0%)]">
-              Founders who ship, together
+              A note from our CEO
             </h2>
-            <p className="text-[hsl(0,0%,42%)] text-lg">
-              Hear from entrepreneurs already building with Upfounder.
-            </p>
           </div>
 
-          <TestimonialCarousel />
+          <Card className="bg-[hsl(0,0%,100%)] border-[hsl(0,0%,90%)] rounded-2xl">
+            <CardContent className="p-10 md:p-14">
+              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
+                As CEO of UpFounder, I'm incredibly excited to begin building a community of the next generation of exceptional founders.
+              </p>
+              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
+                UpFounder is designed for those who are serious about creating, scaling, and pushing boundaries. This isn't just a place to connect — it's a space where ambitious individuals come together to share real insights, solve real problems, and build meaningful companies.
+              </p>
+              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
+                We're focused on bringing together high-quality founders who are actively in the game — people who are executing, learning fast, and willing to contribute to something bigger than themselves.
+              </p>
+              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
+                This is just the beginning. The vision is to create an environment where founders don't just grow their businesses — they grow faster, smarter, and with the support of others on the same path.
+              </p>
+              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-8 italic font-medium">
+                If you're building, you belong here.
+              </p>
+              <div className="border-t border-[hsl(0,0%,90%)] pt-6">
+                <p className="text-base font-semibold text-[hsl(0,0%,0%)]">— Sean Walsh</p>
+                <p className="text-sm text-[hsl(0,0%,42%)]">CEO, UpFounder</p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 

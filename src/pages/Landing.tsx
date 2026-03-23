@@ -491,9 +491,6 @@ export default function Landing() {
               <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
                 We're focused on bringing together high-quality founders who are actively in the game — people who are executing, learning fast, and willing to contribute to something bigger than themselves.
               </p>
-              <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-4">
-                This is just the beginning. The vision is to create an environment where founders don't just grow their businesses — they grow faster, smarter, and with the support of others on the same path.
-              </p>
               <p className="text-[hsl(0,0%,25%)] text-base md:text-lg leading-relaxed mb-8 italic font-medium">
                 If you're building, you belong here.
               </p>

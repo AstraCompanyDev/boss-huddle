@@ -8,6 +8,7 @@ import {
   FileText,
   Search,
   Shield,
+  Newspaper,
 } from "lucide-react";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
 import { useAdminCheck } from "@/hooks/useAdminCheck";

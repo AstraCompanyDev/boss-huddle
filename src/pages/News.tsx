@@ -430,7 +430,7 @@ export default function News() {
 
             {/* Newsletter */}
             <FadeIn>
-              <section className="rounded-3xl bg-gradient-accent p-8 md:p-12 text-center text-accent-foreground">
+              <section id="newsletter" className="rounded-3xl bg-gradient-accent p-8 md:p-12 text-center text-accent-foreground">
                 <Mail className="h-8 w-8 mx-auto mb-4 opacity-90" />
                 <h2 className="text-2xl md:text-3xl font-bold">The Morning Huddle</h2>
                 <p className="mt-2 opacity-90 max-w-xl mx-auto">
@@ -557,9 +557,12 @@ export default function News() {
                   </button>
                 </li>
                 <li>
-                  <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <button
+                    onClick={() => document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" })}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     The Morning Huddle newsletter
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>

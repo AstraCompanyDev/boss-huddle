@@ -18,6 +18,7 @@ import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import Admin from "./pages/Admin";
+import MediaStudio from "./pages/MediaStudio";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/settings" element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />
           <Route path="/contact" element={<ProtectedRoute><Layout><Contact /></Layout></ProtectedRoute>} />
           <Route path="/admin" element={<ProtectedRoute><AdminRoute><Layout><Admin /></Layout></AdminRoute></ProtectedRoute>} />
+          <Route path="/media-studio" element={<ProtectedRoute><AdminRoute><Layout><MediaStudio /></Layout></AdminRoute></ProtectedRoute>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

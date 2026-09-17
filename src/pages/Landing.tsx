@@ -246,7 +246,7 @@ export default function Landing() {
               className="text-[hsl(0,0%,42%)] hover:text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,96%)] font-medium"
               onClick={() => navigate("/news")}
             >
-              Newsroom
+              Media
             </Button>
             <Button
               variant="ghost"

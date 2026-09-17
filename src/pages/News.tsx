@@ -173,7 +173,7 @@ export default function News() {
           <Link to="/" className="flex items-center gap-3 shrink-0">
             <img src={upfounderLogo} alt="Upfounder" className="h-8 rounded-lg" />
             <span className="hidden sm:inline text-sm font-semibold tracking-widest uppercase text-muted-foreground border-l pl-3">
-              Newsroom
+              Media
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -464,7 +464,7 @@ export default function News() {
                   <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Join the UpFounder community</h2>
                   <p className="mt-2 text-muted-foreground">
                     Follow along on social for daily founder stories, market updates and behind-the-scenes
-                    from the newsroom.
+                    from the media team.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -500,7 +500,7 @@ export default function News() {
               <div className="flex items-center gap-3">
                 <img src={upfounderLogo} alt="Upfounder" className="h-8 rounded-lg" />
                 <span className="text-sm font-semibold tracking-widest uppercase text-muted-foreground border-l pl-3">
-                  Newsroom
+                  Media
                 </span>
               </div>
               <p className="mt-4 text-sm text-muted-foreground max-w-sm leading-relaxed">
@@ -569,7 +569,7 @@ export default function News() {
           </div>
           <div className="mt-10 pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-3">
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} Upfounder Newsroom. All rights reserved.
+              © {new Date().getFullYear()} Upfounder Media. All rights reserved.
             </p>
             <p className="text-xs text-muted-foreground">
               Market data is indicative and delayed.

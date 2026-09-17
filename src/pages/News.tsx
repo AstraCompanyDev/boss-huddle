@@ -206,7 +206,7 @@ export default function News() {
         (active === "All" || a.category === active) &&
         (query === "" || a.title.toLowerCase().includes(query.toLowerCase()))
     );
-  }, [active, query]);
+  }, [active, query, leadItem, secondaryItems, feedItems]);
 
   const filtering = active !== "All" || query !== "";
 
@@ -285,8 +285,8 @@ export default function News() {
                 <article className="lg:col-span-2 group cursor-pointer">
                   <div className="rounded-2xl overflow-hidden aspect-[16/9]">
                     <img
-                      src={lead.image}
-                      alt={lead.title}
+                      src={leadItem.image}
+                      alt={leadItem.title}
                       width={1280}
                       height={800}
                       className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
@@ -294,20 +294,20 @@ export default function News() {
                   </div>
                   <div className="mt-5">
                     <Badge className="rounded-full bg-accent text-accent-foreground hover:bg-accent mb-3">
-                      {lead.category}
+                      {leadItem.category}
                     </Badge>
                     <h1 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight group-hover:text-primary transition-colors">
-                      {lead.title}
+                      {leadItem.title}
                     </h1>
                     <p className="text-muted-foreground mt-3 text-lg leading-relaxed max-w-3xl">
-                      {lead.excerpt}
+                      {leadItem.excerpt}
                     </p>
-                    <Meta author={lead.author} read={lead.read} time={lead.time} />
+                    <Meta author={leadItem.author} read={leadItem.read} time={leadItem.time} />
                   </div>
                 </article>
 
                 <div className="space-y-6">
-                  {secondary.map((a, i) => (
+                  {secondaryItems.map((a, i) => (
                     <article key={i} className="group cursor-pointer flex gap-4">
                       <div className="rounded-xl overflow-hidden w-32 h-24 shrink-0">
                         <img
@@ -339,7 +339,7 @@ export default function News() {
                         <h3 className="font-semibold text-sm uppercase tracking-wider">Most read</h3>
                       </div>
                       <ol className="space-y-3">
-                        {mostRead.map((t, i) => (
+                        {mostReadItems.map((t, i) => (
                           <li key={i} className="flex gap-3 group cursor-pointer">
                             <span className="text-xl font-bold text-muted-foreground/50 leading-none w-6">
                               {i + 1}
@@ -361,11 +361,11 @@ export default function News() {
               <SectionHeading title="Latest" />
               <div className="latest-carousel overflow-hidden" aria-label="Latest stories">
                 <div className="latest-carousel-track flex w-max gap-6">
-                  {[...feed, ...feed].map((a, i) => (
+                  {[...feedItems, ...feedItems].map((a, i) => (
                     <div
                       key={`${a.title}-${i}`}
                       className="w-[82vw] max-w-sm shrink-0 sm:w-[360px] lg:w-[390px]"
-                      aria-hidden={i >= feed.length ? true : undefined}
+                      aria-hidden={i >= feedItems.length ? true : undefined}
                     >
                       <ArticleCard article={a} />
                     </div>
@@ -381,8 +381,8 @@ export default function News() {
                 <article className="group cursor-pointer">
                   <div className="relative rounded-2xl overflow-hidden aspect-[16/9]">
                     <img
-                      src={interviews[0].image}
-                      alt={interviews[0].title}
+                      src={interviewItems[0].image}
+                      alt={interviewItems[0].title}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     />
@@ -391,19 +391,19 @@ export default function News() {
                     </Badge>
                   </div>
                   <span className="inline-block mt-5 text-xs font-semibold uppercase tracking-wider text-primary">
-                    {interviews[0].category}
+                    {interviewItems[0].category}
                   </span>
                   <h2 className="mt-2 text-2xl md:text-3xl font-bold leading-tight tracking-tight group-hover:text-primary transition-colors">
-                    {interviews[0].title}
+                    {interviewItems[0].title}
                   </h2>
                   <p className="mt-3 max-w-3xl text-base md:text-lg leading-relaxed text-muted-foreground">
-                    {interviews[0].excerpt}
+                    {interviewItems[0].excerpt}
                   </p>
-                  <Meta author={interviews[0].author} read={interviews[0].read} time={interviews[0].time} />
+                  <Meta author={interviewItems[0].author} read={interviewItems[0].read} time={interviewItems[0].time} />
                 </article>
 
                 <div className="flex flex-col gap-5">
-                  {interviews.slice(1).map((story) => (
+                  {interviewItems.slice(1).map((story) => (
                     <article key={story.title} className="group relative flex items-start gap-4 lg:gap-5 p-5 rounded-2xl bg-card border border-border/60 shadow-[var(--shadow-soft)] hover:shadow-[0_20px_40px_hsl(var(--primary)/0.10)] hover:border-primary/20 transition-all duration-300 ease-out overflow-hidden cursor-pointer">
                       <div className="absolute top-0 left-0 w-1.5 h-0 bg-primary group-hover:h-full transition-all duration-300" aria-hidden="true" />
 
@@ -458,7 +458,7 @@ export default function News() {
                   </Button>
                 </div>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-                  {videos.map((v, i) => (
+                  {videoItems.map((v, i) => (
                     <div key={i} className="group cursor-pointer">
                       <div className="relative rounded-2xl overflow-hidden aspect-video">
                         <img

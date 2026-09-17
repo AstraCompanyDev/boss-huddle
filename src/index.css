@@ -131,3 +131,27 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+@keyframes latest-carousel {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 0.75rem)); }
+}
+
+.latest-carousel-track {
+  animation: latest-carousel 52s linear infinite;
+}
+
+.latest-carousel:hover .latest-carousel-track,
+.latest-carousel:focus-within .latest-carousel-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .latest-carousel {
+    overflow-x: auto;
+  }
+
+  .latest-carousel-track {
+    animation: none;
+  }
+}

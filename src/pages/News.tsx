@@ -93,6 +93,40 @@ const feed = [
   },
 ];
 
+const interviews = [
+  {
+    category: "Founder Interview",
+    title: "The founder who rebuilt her company around one customer conversation",
+    excerpt:
+      "Amara Cole shares how listening more closely turned a stalled product into a fast-growing platform — and changed how her team builds.",
+    image: newsFounder,
+    author: "Nia Harper",
+    read: "9 min read",
+    time: "Today",
+  },
+  {
+    category: "The Founder Files",
+    title: "Why Luca Chen chose profitability over another funding round",
+    image: newsTeam,
+    author: "Daniel Okafor",
+    time: "3h ago",
+  },
+  {
+    category: "First Principles",
+    title: "Mina Patel on finding product-market fit in an overlooked industry",
+    image: newsLead,
+    author: "Maya Ellis",
+    time: "Yesterday",
+  },
+  {
+    category: "Founder Interview",
+    title: "The honest story behind a two-year overnight success",
+    image: newsVc,
+    author: "Priya Raman",
+    time: "2d ago",
+  },
+];
+
 const videos = [
   { title: "How to run a 90-day growth sprint", duration: "8:12", image: shortThumb1 },
   { title: "Inside a real investor pitch", duration: "12:40", image: shortThumb2 },
@@ -273,11 +307,75 @@ export default function News() {
             {/* Latest feed */}
             <FadeIn>
               <SectionHeading title="Latest" />
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {feed.map((a, i) => (
-                  <ArticleCard key={i} article={a} />
-                ))}
+              <div className="latest-carousel overflow-hidden" aria-label="Latest stories">
+                <div className="latest-carousel-track flex w-max gap-6">
+                  {[...feed, ...feed].map((a, i) => (
+                    <div
+                      key={`${a.title}-${i}`}
+                      className="w-[82vw] max-w-sm shrink-0 sm:w-[360px] lg:w-[390px]"
+                      aria-hidden={i >= feed.length ? true : undefined}
+                    >
+                      <ArticleCard article={a} />
+                    </div>
+                  ))}
+                </div>
               </div>
+            </FadeIn>
+
+            {/* Founder interviews */}
+            <FadeIn>
+              <SectionHeading title="Founder Interviews" />
+              <section className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.45fr)_minmax(340px,0.75fr)] gap-8 lg:gap-10">
+                <article className="group cursor-pointer">
+                  <div className="relative rounded-2xl overflow-hidden aspect-[16/9]">
+                    <img
+                      src={interviews[0].image}
+                      alt={interviews[0].title}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    />
+                    <Badge className="absolute left-5 top-5 rounded-full bg-accent text-accent-foreground hover:bg-accent">
+                      Featured interview
+                    </Badge>
+                  </div>
+                  <span className="inline-block mt-5 text-xs font-semibold uppercase tracking-wider text-primary">
+                    {interviews[0].category}
+                  </span>
+                  <h2 className="mt-2 text-2xl md:text-3xl font-bold leading-tight tracking-tight group-hover:text-primary transition-colors">
+                    {interviews[0].title}
+                  </h2>
+                  <p className="mt-3 max-w-3xl text-base md:text-lg leading-relaxed text-muted-foreground">
+                    {interviews[0].excerpt}
+                  </p>
+                  <Meta author={interviews[0].author} read={interviews[0].read} time={interviews[0].time} />
+                </article>
+
+                <div className="divide-y divide-border border-y border-border">
+                  {interviews.slice(1).map((story) => (
+                    <article key={story.title} className="group cursor-pointer grid grid-cols-[minmax(0,1fr)_120px] sm:grid-cols-[minmax(0,1fr)_160px] lg:grid-cols-[minmax(0,1fr)_140px] gap-4 py-5 first:pt-0 lg:first:pt-0 last:pb-0">
+                      <div className="min-w-0 self-center">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                          {story.category}
+                        </span>
+                        <h3 className="mt-2 text-base md:text-lg font-semibold leading-snug group-hover:text-primary transition-colors">
+                          {story.title}
+                        </h3>
+                        <p className="mt-3 text-xs text-muted-foreground">
+                          {story.author} · {story.time}
+                        </p>
+                      </div>
+                      <div className="rounded-xl overflow-hidden aspect-[4/3] self-center">
+                        <img
+                          src={story.image}
+                          alt={story.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </section>
             </FadeIn>
 
             {/* Video hub */}

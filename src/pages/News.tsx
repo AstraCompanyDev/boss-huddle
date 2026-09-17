@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Clock, Play, Mail, Flame, Linkedin, Twitter, Instagram, Youtube } from "lucide-react";
 import MarketTicker from "@/components/MarketTicker";
 import { FadeIn } from "@/hooks/useScrollFadeIn";
+import { usePublishedMedia, timeAgo, type MediaPost } from "@/hooks/useMediaPosts";
 
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
 import newsLead from "@/assets/news-lead.jpg";
@@ -149,13 +150,57 @@ const socials = [
   { name: "YouTube", description: "Interviews, teardowns & documentaries", icon: Youtube, href: "https://www.youtube.com/@upfounder" },
 ];
 
+const toArticle = (p: MediaPost, fallbackImage: string) => ({
+  category: p.category,
+  title: p.title,
+  excerpt: p.excerpt ?? "",
+  image: p.image_url || fallbackImage,
+  author: p.author ?? "Upfounder",
+  read: p.read_time ?? "",
+  time: timeAgo(p.published_at ?? p.created_at),
+});
+
 export default function News() {
   const navigate = useNavigate();
   const [active, setActive] = useState<string>("All");
   const [query, setQuery] = useState("");
+  const { byPlacement } = usePublishedMedia();
+
+  const pick = <T,>(posts: MediaPost[], fallbackImage: string, fallback: T[]) =>
+    posts.length ? (posts.map((p) => toArticle(p, fallbackImage)) as unknown as T[]) : fallback;
+
+  const leadItem = useMemo(() => {
+    const p = byPlacement("lead")[0];
+    return p ? toArticle(p, newsLead) : lead;
+  }, [byPlacement]);
+
+  const secondaryItems = useMemo(
+    () => pick(byPlacement("secondary"), newsMarkets, secondary),
+    [byPlacement]
+  );
+  const feedItems = useMemo(() => pick(byPlacement("feed"), newsTeam, feed), [byPlacement]);
+  const interviewItems = useMemo(
+    () => pick(byPlacement("interview"), newsFounder, interviews),
+    [byPlacement]
+  );
+  const videoItems = useMemo(() => {
+    const posts = byPlacement("video");
+    return posts.length
+      ? posts.map((p) => ({
+          title: p.title,
+          duration: p.duration ?? "",
+          image: p.image_url || shortThumb1,
+          video: p.video_url,
+        }))
+      : videos.map((v) => ({ ...v, video: null as string | null }));
+  }, [byPlacement]);
+  const mostReadItems = useMemo(() => {
+    const posts = byPlacement("most_read");
+    return posts.length ? posts.map((p) => p.title) : mostRead;
+  }, [byPlacement]);
 
   const articles = useMemo(() => {
-    const all = [lead, ...secondary, ...feed];
+    const all = [leadItem, ...secondaryItems, ...feedItems];
     return all.filter(
       (a) =>
         (active === "All" || a.category === active) &&

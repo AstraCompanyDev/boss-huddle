@@ -8,6 +8,7 @@ import {
   FileText,
   Search,
   Shield,
+  Newspaper,
 } from "lucide-react";
 import upfounderLogo from "@/assets/upfounder-logo.jpg";
 import { useAdminCheck } from "@/hooks/useAdminCheck";
@@ -126,6 +127,22 @@ export function AppSidebar() {
                   {!collapsed && <span>{item.title}</span>}
                 </NavLink>
               ))}
+              {isAdmin && (
+                <NavLink
+                  to="/media-studio"
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-colors",
+                      isActive
+                        ? "bg-foreground text-background font-semibold"
+                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    )
+                  }
+                >
+                  <Newspaper className="h-5 w-5 shrink-0" />
+                  {!collapsed && <span>Media Studio</span>}
+                </NavLink>
+              )}
               {isAdmin && (
                 <NavLink
                   to="/admin"

@@ -199,6 +199,72 @@ export type Database = {
         }
         Relationships: []
       }
+      media_posts: {
+        Row: {
+          author: string | null
+          body: string | null
+          category: string
+          created_at: string
+          created_by: string | null
+          duration: string | null
+          excerpt: string | null
+          external_url: string | null
+          id: string
+          image_url: string | null
+          placement: string
+          published_at: string | null
+          read_time: string | null
+          sort_order: number
+          status: string
+          title: string
+          type: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          author?: string | null
+          body?: string | null
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          duration?: string | null
+          excerpt?: string | null
+          external_url?: string | null
+          id?: string
+          image_url?: string | null
+          placement?: string
+          published_at?: string | null
+          read_time?: string | null
+          sort_order?: number
+          status?: string
+          title: string
+          type?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          author?: string | null
+          body?: string | null
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          duration?: string | null
+          excerpt?: string | null
+          external_url?: string | null
+          id?: string
+          image_url?: string | null
+          placement?: string
+          published_at?: string | null
+          read_time?: string | null
+          sort_order?: number
+          status?: string
+          title?: string
+          type?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
       message_reactions: {
         Row: {
           created_at: string | null

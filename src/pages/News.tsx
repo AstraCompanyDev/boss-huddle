@@ -428,6 +428,35 @@ export default function News() {
               </section>
             </FadeIn>
 
+            {/* Newsletter */}
+            <FadeIn>
+              <section className="rounded-3xl bg-gradient-accent p-8 md:p-12 text-center text-accent-foreground">
+                <Mail className="h-8 w-8 mx-auto mb-4 opacity-90" />
+                <h2 className="text-2xl md:text-3xl font-bold">The Morning Huddle</h2>
+                <p className="mt-2 opacity-90 max-w-xl mx-auto">
+                  One short email each weekday: the startup stories, funding rounds and market moves
+                  that actually matter.
+                </p>
+                <form
+                  className="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <Input
+                    type="email"
+                    required
+                    placeholder="you@startup.com"
+                    className="rounded-full h-11 bg-background text-foreground border-0"
+                  />
+                  <Button
+                    type="submit"
+                    className="rounded-full h-11 px-6 font-semibold bg-foreground text-background hover:bg-foreground/90"
+                  >
+                    Subscribe
+                  </Button>
+                </form>
+              </section>
+            </FadeIn>
+
             {/* Social media */}
             <FadeIn>
               <section className="rounded-3xl border bg-secondary/50 p-8 md:p-10">

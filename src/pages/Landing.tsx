@@ -244,6 +244,13 @@ export default function Landing() {
             <Button
               variant="ghost"
               className="text-[hsl(0,0%,42%)] hover:text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,96%)] font-medium"
+              onClick={() => navigate("/news")}
+            >
+              Newsroom
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-[hsl(0,0%,42%)] hover:text-[hsl(0,0%,0%)] hover:bg-[hsl(0,0%,96%)] font-medium"
               onClick={() => navigate("/auth")}
             >
               Sign In

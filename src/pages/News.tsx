@@ -557,17 +557,9 @@ export default function News() {
                   </button>
                 </li>
                 <li>
-                  <Link to="/resources" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                    Resources
+                  <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    The Morning Huddle newsletter
                   </Link>
-                </li>
-                <li>
-                  <button
-                    onClick={() => navigate("/contact")}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Contact
-                  </button>
                 </li>
               </ul>
             </div>

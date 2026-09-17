@@ -357,27 +357,37 @@ export default function News() {
                   <Meta author={interviews[0].author} read={interviews[0].read} time={interviews[0].time} />
                 </article>
 
-                <div className="divide-y divide-border border-y border-border">
+                <div className="flex flex-col gap-5">
                   {interviews.slice(1).map((story) => (
-                    <article key={story.title} className="group cursor-pointer grid grid-cols-[minmax(0,1fr)_120px] sm:grid-cols-[minmax(0,1fr)_160px] lg:grid-cols-[minmax(0,1fr)_140px] gap-4 py-5 first:pt-0 lg:first:pt-0 last:pb-0">
-                      <div className="min-w-0 self-center">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                    <article key={story.title} className="group relative flex items-start gap-4 lg:gap-5 p-5 rounded-2xl bg-card border border-border/60 shadow-[var(--shadow-soft)] hover:shadow-[0_20px_40px_hsl(var(--primary)/0.10)] hover:border-primary/20 transition-all duration-300 ease-out overflow-hidden cursor-pointer">
+                      <div className="absolute top-0 left-0 w-1.5 h-0 bg-primary group-hover:h-full transition-all duration-300" aria-hidden="true" />
+
+                      <div className="flex-1 min-w-0">
+                        <span className="text-[10px] font-extrabold tracking-[0.15em] text-primary uppercase">
                           {story.category}
                         </span>
-                        <h3 className="mt-2 text-base md:text-lg font-semibold leading-snug group-hover:text-primary transition-colors">
+                        <h3 className="mt-2 text-base lg:text-[17px] font-bold leading-snug line-clamp-2">
                           {story.title}
                         </h3>
-                        <p className="mt-3 text-xs text-muted-foreground">
-                          {story.author} · {story.time}
-                        </p>
+                        <div className="mt-3 flex items-center gap-3">
+                          <span className="text-xs font-semibold text-foreground/80">{story.author}</span>
+                          <span className="w-1 h-1 rounded-full bg-border" aria-hidden="true" />
+                          <span className="text-xs text-muted-foreground">{story.time}</span>
+                        </div>
                       </div>
-                      <div className="rounded-xl overflow-hidden aspect-[4/3] self-center">
-                        <img
-                          src={story.image}
-                          alt={story.title}
-                          loading="lazy"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
+
+                      <div className="relative flex-shrink-0 self-center">
+                        <div className="w-[88px] h-[88px] sm:w-[104px] sm:h-[104px] rounded-xl overflow-hidden bg-muted shadow-inner">
+                          <img
+                            src={story.image}
+                            alt={story.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-card border border-border flex items-center justify-center shadow-sm opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">
+                          <svg className="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" /></svg>
+                        </div>
                       </div>
                     </article>
                   ))}

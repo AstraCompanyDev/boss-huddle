@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Clock, Play, Mail, Flame } from "lucide-react";
+import { ArrowRight, Clock, Play, Mail, Flame, Linkedin, Twitter, Instagram, Youtube } from "lucide-react";
 import MarketTicker from "@/components/MarketTicker";
 import { FadeIn } from "@/hooks/useScrollFadeIn";
 
@@ -140,6 +140,13 @@ const mostRead = [
   "A founder's guide to reading a term sheet",
   "Hiring your first five people without a recruiter",
   "The unglamorous work behind overnight success",
+];
+
+const socials = [
+  { name: "LinkedIn", description: "Founder news & hiring insights", icon: Linkedin, href: "https://www.linkedin.com/company/upfounder" },
+  { name: "X (Twitter)", description: "Daily market moves & hot takes", icon: Twitter, href: "https://x.com/upfounder" },
+  { name: "Instagram", description: "Behind the scenes with founders", icon: Instagram, href: "https://www.instagram.com/upfounder" },
+  { name: "YouTube", description: "Interviews, teardowns & documentaries", icon: Youtube, href: "https://www.youtube.com/@upfounder" },
 ];
 
 export default function News() {
@@ -421,44 +428,129 @@ export default function News() {
               </section>
             </FadeIn>
 
-            {/* Newsletter */}
+            {/* Social media */}
             <FadeIn>
-              <section className="rounded-3xl bg-gradient-accent p-8 md:p-12 text-center text-accent-foreground">
-                <Mail className="h-8 w-8 mx-auto mb-4 opacity-90" />
-                <h2 className="text-2xl md:text-3xl font-bold">The Morning Huddle</h2>
-                <p className="mt-2 opacity-90 max-w-xl mx-auto">
-                  One short email each weekday: the startup stories, funding rounds and market moves
-                  that actually matter.
-                </p>
-                <form
-                  className="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-                  onSubmit={(e) => e.preventDefault()}
-                >
-                  <Input
-                    type="email"
-                    required
-                    placeholder="you@startup.com"
-                    className="rounded-full h-11 bg-background text-foreground border-0"
-                  />
-                  <Button
-                    type="submit"
-                    className="rounded-full h-11 px-6 font-semibold bg-foreground text-background hover:bg-foreground/90"
-                  >
-                    Subscribe
-                  </Button>
-                </form>
+              <section className="rounded-3xl border bg-secondary/50 p-8 md:p-10">
+                <div className="text-center max-w-xl mx-auto mb-8">
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Join the UpFounder community</h2>
+                  <p className="mt-2 text-muted-foreground">
+                    Follow along on social for daily founder stories, market updates and behind-the-scenes
+                    from the newsroom.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {socials.map((s) => (
+                    <a
+                      key={s.name}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-4 rounded-2xl bg-background border p-4 hover:border-primary/50 hover:shadow-sm transition-all"
+                    >
+                      <div className="w-11 h-11 rounded-full bg-foreground text-background flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                        <s.icon className="h-5 w-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="font-semibold text-sm leading-tight">{s.name}</h3>
+                        <p className="text-xs text-muted-foreground mt-1 leading-snug">{s.description}</p>
+                      </div>
+                      <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </a>
+                  ))}
+                </div>
               </section>
             </FadeIn>
           </>
         )}
       </main>
 
-      <footer className="border-t py-10 px-5 mt-8">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <img src={upfounderLogo} alt="Upfounder" className="h-6 rounded" />
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Upfounder Newsroom. Market data is indicative and delayed.
-          </p>
+      <footer className="border-t mt-8">
+        <div className="max-w-[1400px] mx-auto px-5 pt-12 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-3">
+                <img src={upfounderLogo} alt="Upfounder" className="h-8 rounded-lg" />
+                <span className="text-sm font-semibold tracking-widest uppercase text-muted-foreground border-l pl-3">
+                  Newsroom
+                </span>
+              </div>
+              <p className="mt-4 text-sm text-muted-foreground max-w-sm leading-relaxed">
+                News, interviews and market intelligence for the next generation of founders.
+                Built by founders, for founders.
+              </p>
+              <div className="flex items-center gap-2 mt-5">
+                {socials.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.name}
+                    className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-foreground hover:text-background transition-colors"
+                  >
+                    <s.icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">Sections</h3>
+              <ul className="space-y-2.5">
+                {CATEGORIES.filter((c) => c !== "All").map((c) => (
+                  <li key={c}>
+                    <button
+                      onClick={() => {
+                        setActive(c);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {c}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">Upfounder</h3>
+              <ul className="space-y-2.5">
+                <li>
+                  <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    Main site
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate("/auth")}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Join the platform
+                  </button>
+                </li>
+                <li>
+                  <Link to="/resources" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    Resources
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate("/contact")}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Contact
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-10 pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-muted-foreground">
+              © {new Date().getFullYear()} Upfounder Newsroom. All rights reserved.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Market data is indicative and delayed.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

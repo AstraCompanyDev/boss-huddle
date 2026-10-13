@@ -7,6 +7,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import Layout from "./components/layout";
 import Landing from "./pages/Landing";
 import News from "./pages/News";
+import Founding500 from "./pages/Founding500";
 import Dashboard from "./pages/Dashboard";
 import Messages from "./pages/Messages";
 import Goals from "./pages/Goals";

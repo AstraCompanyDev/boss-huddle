@@ -125,6 +125,30 @@ export type Database = {
         }
         Relationships: []
       }
+      founding_500_signups: {
+        Row: {
+          business_bio: string
+          created_at: string
+          email: string
+          id: string
+          name: string
+        }
+        Insert: {
+          business_bio: string
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+        }
+        Update: {
+          business_bio?: string
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       goal_milestones: {
         Row: {
           completed: boolean | null

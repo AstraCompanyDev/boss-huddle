@@ -257,7 +257,7 @@ export default function Landing() {
             </Button>
             <Button
               className="bg-[hsl(38,92%,50%)] text-[hsl(0,0%,100%)] hover:bg-[hsl(38,92%,45%)] font-semibold rounded-full px-5"
-              onClick={() => navigate("/auth")}
+              onClick={() => navigate("/founding-500")}
             >
               Get Started
             </Button>
